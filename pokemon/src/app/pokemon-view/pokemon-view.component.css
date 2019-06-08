@@ -1,0 +1,64 @@
+html {
+    box-sizing: border-box;
+    font-size: 1em;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: inherit;
+  }
+  
+  body {
+    border: 0;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    align-content: center;
+    display: grid;
+    height: 30%;
+    z-index: -1;
+    justify-content: center;
+  }
+  
+  .pokeball {
+    box-shadow: 20px 0 0 black, 40px 0 0 black, 60px 0 0 black, 80px 0 0 black,
+      -20px 20px 0 black, 0 20px 0 black, 20px 20px 0 red, 40px 20px 0 darkred,
+      60px 20px 0 darkred, 80px 20px 0 darkred, 100px 20px 0 black,
+      120px 20px 0 black, -40px 40px 0 black, -20px 40px 0 red, 0 40px 0 red,
+      20px 40px 0 lightcoral, 40px 40px 0 red, 60px 40px 0 darkred,
+      80px 40px 0 darkred, 100px 40px 0 darkred, 120px 40px 0 darkred,
+      140px 40px 0 black, -40px 60px 0 black, -20px 60px 0 red,
+      0 60px 0 lightcoral, 40px 60px 0 lightcoral, 60px 60px 0 red,
+      80px 60px 0 red, 100px 60px 0 darkred, 120px 60px 0 darkred,
+      140px 60px 0 black, -60px 80px 0 black, -40px 80px 0 red, -20px 80px 0 red,
+      0 80px 0 red, 20px 80px 0 lightcoral, 40px 80px 0 darkred, 60px 80px 0 red,
+      80px 80px 0 red, 100px 80px 0 darkred, 120px 80px 0 darkred,
+      140px 80px 0 darkred, 160px 80px 0 black, -60px 100px 0 black,
+      -40px 100px 0 red, -20px 100px 0 red, 0 100px 0 red, 20px 100px 0 red,
+      40px 100px 0 black, 60px 100px 0 black, 80px 100px 0 darkred,
+      100px 100px 0 darkred, 120px 100px 0 darkred, 140px 100px 0 darkred,
+      160px 100px 0 black, -60px 120px 0 black, -40px 120px 0 black,
+      -20px 120px 0 red, 0 120px 0 red, 20px 120px 0 black, 60px 120px 0 lightgray,
+      80px 120px 0 black, 100px 120px 0 darkred, 120px 120px 0 darkred,
+      140px 120px 0 black, 160px 120px 0 black, -60px 140px 0 black,
+      -20px 140px 0 black, 0 140px 0 black, 20px 140px 0 black,
+      40px 140px 0 lightgrey, 60px 140px 0 lightgrey, 80px 140px 0 black,
+      100px 140px 0 black, 120px 140px 0 black, 140px 140px 0 lightgray,
+      160px 140px 0 black, -40px 160px 0 black, 40px 160px 0 black,
+      60px 160px 0 black, 80px 160px 0 lightgray, 100px 160px 0 lightgray,
+      120px 160px 0 lightgray, 140px 160px 0 black, -40px 180px 0 black,
+      80px 180px 0 lightgray, 100px 180px 0 lightgray, 120px 180px 0 lightgray,
+      140px 180px 0 black, -20px 200px 0 black, 0px 200px 0 black,
+      20px 200px 0 lightgray, 40px 200px 0 lightgray, 60px 200px 0 lightgray,
+      80px 200px 0 lightgray, 100px 200px 0 black, 120px 200px 0 black,
+      20px 220px 0 black, 40px 220px 0 black, 60px 220px 0 black,
+      80px 220px 0 black;
+    height: 20px;
+    transform: translate(calc(-80px / 2), calc(-80px / 2));
+    width: 20px;
+  }
+  
