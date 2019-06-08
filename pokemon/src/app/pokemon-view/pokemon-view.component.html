@@ -1,6 +1,11 @@
-<div *ngFor="let poke of pokemons.results">
- 
-      <a href={{poke.url}}>
-        {{poke.name}}
+
+<ul class="pokemon">
+  <li *ngFor="let poke of pokemons.results">
+      <a routerLink={{poke.url}} class="listing">
+          <span class="badge">    {{poke.name | titlecase}}</span> 
       </a>
-</div>
+  </li>
+</ul>
+
+
+{{images}}

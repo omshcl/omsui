@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PokemonViewComponent } from './pokemon-view.component';
 
 describe('PokemonViewComponent', () => {
