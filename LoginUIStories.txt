@@ -1,0 +1,31 @@
+Login UI:
+
+First page (5 points) (Aishwarya) : OMS header - The header should be centered.
+             Username - The username will be alphanumeric. 
+             Password - It can include character, numbers and special char as well. 
+         
+     Front-end Validations (3 points) (Vandana)
+          username: Making sure that username is ONLY aplhanumeric.
+          Password: Making sure that it meets the pwd requirements i.e ( atleast 8 characters, 1 uppercase char, 1 special char, 1 number)
+   
+ Back-end validations: (5 points) (Aishwarya)
+  Case 1 : If the username is already present in the database and the password entered is not associated with the account ( Login denied) 
+  Case 2 : If the username is not present in the database (Login denied) 
+  Case 3: If the username is present and the password matches with the account associated with it (Login Approved) 
+  
+ Pop-up windows: (5 points) (Vandana)
+  For the Case 1 and 2 : The pop-up window stating the Login has been denied.
+  For the Case 3 : The page will be re-directed to the Login Service page.
+
+
+Second Page (Login Services): (3 points) (Vandana) General page with : OMS header- The header should be centered. 
+                              The Order menu should exist.
+                                  Case 1 : If the admin is logged in : (5 points) (Aishwarya)
+                                           Order menu will have a drop down menu with the options of create, view , update , search.
+                                           * if the create order is selected the page will be redirected to the create order page.
+               
+                                  Case 2 : If the agent is logged in : (3 points) (Vandana)
+                                           Order menu will have a drop down menu with the option of view and search.
+
+
+       
