@@ -1,3 +1,177 @@
-<p>
-  order-create works!
-</p>
+<div class="container-fluid mb-5">
+  <h1>Create Order</h1>
+  <form #userForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+
+    {{ orderModel | json}}
+    <button data-ng-click="cloneItem()" class="btn inline btn-success">
+        Add form input group
+     </button> 
+
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label for="inputItem">Item</label>
+        <select class="custom-select" name="itemName" [(ngModel)]="orderModel.item">
+          <option selected> Select Item </option>
+          <option *ngFor="let item of items">{{ item }}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-4" >
+        <label for="inputDescription">Description</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputDescription"
+          placeholder="Description"
+          name = "itemDescription"
+          #desc = "ngModel"
+          [class.is-invalid] = "desc.invalid"
+          [(ngModel)]="orderModel.itemDescription"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputQuantity">Quantity</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputQuantity"
+          placeholder="Quantity"
+          name="quantity"
+          [(ngModel)]="orderModel.quantity"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputUnitCost">Unit Cost</label>
+        <select class="custom-select" name="unitcost" [(ngModel)]="orderModel.unitcost">
+          <option selected> Select Item </option>
+          <option *ngFor="let cost of costs">{{ cost }}</option>
+        </select>
+      </div>
+      
+      <div class="col-md-2">
+          <button data-ng-click="removeItem($index)" class="btn delete-field-{{$index}}">Delete</button>    
+     </div>
+      <!-- <div class="form-group col-md-2">
+        <label for="inputTotalCost">Total Cost</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputTotalCost"
+          placeholder="Total Cost"
+          name="totalcost"
+          [(ngModel)]="orderModel.totalcost"
+        />
+      </div> -->
+    </div>
+    <div ngModelGroup="address">
+      <div class="form-group">
+        <label for="inputAddress">Address</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputAddress"
+          placeholder="1234 Main St"
+          name="address1"
+          [(ngModel)]="order_address.address1"
+        />
+      </div>
+      <div class="form-group">
+        <label for="inputAddress2">Address 2</label>
+        <input
+          type="text"
+          class="form-control"
+          id="inputAddress2"
+          placeholder="Apartment, studio, or floor"
+          name="address2"
+          [(ngModel)]="order_address.address2"
+        />
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputCity">City</label>
+          <input type="text" class="form-control" id="inputCity" name="city" [(ngModel)]="order_address.city"/>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputState">State</label>
+          <select id="inputState" class="form-control" name="state" [(ngModel)]="order_address.state"> 
+            <option selected>Choose...</option>
+            <option>...</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputZip">Zip</label>
+          <input type="text" class="form-control" id="inputZip" name="zip" [(ngModel)]="order_address.zip"/>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+        <label>Mode of Payment</label>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="credit" id="gridRadios1" value="credit" checked ngModel >
+          <label class="form-check-label">
+            Credit
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="onlineBanking" id="gridRadios2" value="onlineBanking" ngModel>
+          <label class="form-check-label">
+            Online Banking
+          </label>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create Order</button>
+  </form>
+</div>
+
+
+<div class="container-main container-fluid" ng-app='app'>
+
+    <div class="content"  ng-controller="DemoController">
+ 
+       <div class="container">
+          
+          <div class="row">
+             <div class="col-md-8">
+             <form name="userForm" ng-submit="submitForm()" novalidate class="form-inline">
+                <div ng-repeat="info in informations">
+ 
+                <div class="row">
+ 
+                   <div class="col-md-8">
+                     <div class="form-group">
+                          <label class="sr-only" for="input-name-{{$index+1}}">Name</label>
+                          <input type="name" 
+                                 class="form-control" 
+                                 id="input-name-{{$index+1}}" 
+                                 placeholder="{{$index+1}} - Your name"
+                                 ng-model="info.inputName" 
+                                 >
+                     </div>
+                     <div class="form-group">
+                          <label class="sr-only" for="">Select elements</label>
+                          <select class="form-control" 
+                                  ng-model="info.inputSelect"
+                                  ng-options="selectData.name as selectData.lang for selectData in selectData">
+                               <option value="">Select</option>
+                           </select>
+                     </div>
+ 
+                   </div>
+ 
+                   <div class="col-md-4">
+                        <button data-ng-click="removeItem($index)" class="btn delete-field-{{$index}}">Delete</button>    
+                   </div>
+ 
+                </div>
+ 
+             </div>
+                
+                <input type="submit">
+                
+             </form>
+             </div>
+          </div>
+       </div>
+ 
+    </div>
+ 
+ </div>
