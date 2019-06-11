@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {User} from './user'
 @Injectable({
   providedIn: 'root'
 })
@@ -7,7 +8,7 @@ export class VerifyLoginService {
   
   constructor() { }
 
-  public boolean tryLogin(userInfo: User) {
-
+  public tryLogin(userInfo: User) {
+      
   }
 }
