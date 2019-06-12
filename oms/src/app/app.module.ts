@@ -13,6 +13,7 @@ import { MenuComponent } from './menu/menu.component';
 import { MainNavbarComponent } from './main-navbar/main-navbar.component';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material'
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableModule,
     NgbModule.forRoot(),
     BrowserAnimationsModule,
     RouterModule.forRoot([
