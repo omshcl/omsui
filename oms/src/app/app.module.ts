@@ -12,6 +12,7 @@ import { OrderCreateComponent } from './order-create/order-create.component';
 import { MenuComponent } from './menu/menu.component';
 import { MainNavbarComponent } from './main-navbar/main-navbar.component';
 import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
     MatDatepickerModule,
     MatNativeDateModule,
     NgbModule.forRoot(),
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'order', component: OrderComponent },
