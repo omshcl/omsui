@@ -19,11 +19,12 @@
           [matDatepicker]="picker1"
           placeholder="Select Date"
           formControlName="date"
+          (click)="picker1.open()"
         />
-        <mat-datepicker-toggle
+        <!-- <mat-datepicker-toggle
           matSuffix
           [for]="picker1"
-        ></mat-datepicker-toggle>
+        ></mat-datepicker-toggle> -->
         <mat-datepicker #picker1></mat-datepicker>
       </div>
       <div class="col-lg-2 mb-3">
