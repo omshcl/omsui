@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormArray } from '@angular/forms';
-import {Sort} from '@angular/material';
+import {Sort, MatTableDataSource} from '@angular/material';
+import { CaseListDatasource } from './elements-data-source';
+import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+
 export interface itemOrder {
    item: string;
    quantity: number;
@@ -21,7 +24,7 @@ export class OrderCreateComponent {
   itemForm;
   orderForm;  
 
-  dataSource: itemOrder[] = [
+  items: itemOrder[] = [
     {item: 'Item1', quantity: 159, price: 6},
     {item: 'Item2', quantity: 237, price: 9},
     {item: 'Item3', quantity: 262, price: 16},
@@ -29,7 +32,9 @@ export class OrderCreateComponent {
     {item: 'Item5', quantity: 356, price: 16},
   ];
   displayedColumns: string[] = ['item', 'quantity', 'price'];
-
+  subject = new BehaviorSubject(this.items);
+  dataSource = new CaseListDatasource(this.subject.asObservable());
+  
   constructor( 
     private formBuilder: FormBuilder,
     private itemFormBuilder: FormBuilder,
@@ -58,13 +63,23 @@ export class OrderCreateComponent {
   ngOnInit() {
   }
 
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+  }
+
   addItem() {
     const itemArray = this.orderForm.controls.items as FormArray;
     itemArray.push(this.formBuilder.group({
       item: 'Item',
       quantity: 5,
     }));
-    console.log(this.orderForm.value);
+    
+    this.items.push({item: this.orderForm.value.items[0].item, quantity: this.orderForm.value.items[0].quantity, price: 500});
+    this.subject.next(this.items);
+    
+    console.log(this.dataSource)
+    console.log(this.orderForm.value.items[0]);
   }
 
   createOrder() {
