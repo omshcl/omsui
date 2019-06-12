@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { OrderComponent } from './order/order.component';
 import { OrderCreateComponent } from './order-create/order-create.component';
 import { MenuComponent } from './menu/menu.component';
+import { MainNavbarComponent } from './main-navbar/main-navbar.component';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import { MenuComponent } from './menu/menu.component';
     LoginComponent,
     OrderComponent,
     OrderCreateComponent,
-    MenuComponent
+    MenuComponent,
+    MainNavbarComponent
     
   ],
   imports: [
@@ -27,6 +30,7 @@ import { MenuComponent } from './menu/menu.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    NgbModule.forRoot(),
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'order', component: OrderComponent },
