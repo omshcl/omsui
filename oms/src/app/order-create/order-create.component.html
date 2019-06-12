@@ -102,68 +102,7 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
   </div>
-  <button class="btn btn-primary" (click)="createOrder()">Create Order</button>
+  <button class="btn btn-primary" (click)="createOrder()">
+    Create Order
+  </button>
 </div>
-
-<!--
-  <mat-card class="contact-card">
-  <mat-card-header>
-    <mat-card-title>Reactive Form</mat-card-title>
-  </mat-card-header>
-  <mat-card-content>
-    <form id="contactForm" [formGroup]="form" (ngSubmit)="submit()">
-    <mat-form-field>
-      <input matInput placeholder="firstname" class="form-control"  name="firstname">
-       
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="lastname" class="form-control"  name="lastname">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <input matInput placeholder="email" class="form-control"  name="email">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <textarea rows="4" cols="50" matInput placeholder="message" class="form-control"  name="message"></textarea>
-    </mat-form-field>
-    <br>
-    <button id="btnSubmit" mat-raised-button type="submit" color="primary">Submit</button>
-    </form>
-  </mat-card-content>
-</mat-card>
-  
-  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
- 
-    <div>
-      <label>Name</label>
-      <input type="text" formControlName="name">
-    </div>
-   
-    <div>
-      <label>Address</label>
-      <input type="text" formControlName="address">
-    </div>
-   
-    <button class="button" type="submit">Purchase</button>
-    
-  </form>
---------
-    <select [(ngModel)]="state">
-      <option *ngFor="let state of states">{{state}}</option>
-    </select> 
---------
-            <div class="form-group" *ngIf="isAdmin">
-                <span>
-                    Award Status*
-                </span>
-                <select class="form-group" formControlName="AwardStatus">
-                    <option *ngFor="let awardStatus of awardStatues"
-                            [value]="awardStatus"
-                            [selected]="awardStatus.Description == userFrm.value.AwardStatus.Description">
-                        {{awardStatus.Description}}
-                    </option>
-                </select>
-            </div>
--->
