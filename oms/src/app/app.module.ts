@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { OrderComponent } from './order/order.component';
 import { OrderCreateComponent } from './order-create/order-create.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, 
+  MatSortModule, MatTableModule } from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -25,6 +27,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatTableModule,
+    MatInputModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatProgressSpinnerModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'order', component: OrderComponent },
