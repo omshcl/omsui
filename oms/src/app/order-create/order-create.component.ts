@@ -25,7 +25,7 @@ export class OrderCreateComponent implements OnInit {
   orderForm;
   itemLength;
 
-  items: itemOrder[] = [{ item: "Item1", quantity: 2, price: 6, subtotal: 12 }];
+  items: itemOrder[] = [];
   displayedColumns: string[] = ["item", "quantity", "price", "subtotal"];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
