@@ -37,18 +37,19 @@
               </p>
               
             </div>
-  
-      
-       
-    
-      
       
   
   
     
     
-      <button class="" type="submit" name="submit" value="submit" [disabled]="form1.invalid">Sign in</button>
-     
+      <button class="" type="submit" name="submit" onClick= "location.href='/order'" value="submit" [disabled]="form1.invalid">Sign in</button>
+
+      <!-- does api call and checks if login is valid in backend -->
+      <!-- if login success, get whether admin/ agent -->
+      <!-- if login fails, say login failed and redirect to same page-->
+      <!-- if success, update status of admin/agent -->
+      <!-- connect to main navbar with features depending on admin or agent -->
+
     </form>
     </body>
     
