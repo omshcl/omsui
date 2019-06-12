@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { OrderComponent } from './order/order.component';
 import { OrderCreateComponent } from './order-create/order-create.component';
 import { MenuComponent } from './menu/menu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { MenuComponent } from './menu/menu.component';
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
       { path: 'order', component: OrderComponent },
