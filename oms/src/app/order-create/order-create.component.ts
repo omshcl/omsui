@@ -27,7 +27,13 @@ export class OrderCreateComponent implements OnInit {
   itemLength;
 
   items: itemOrder[] = [];
-  displayedColumns: string[] = ["item", "quantity", "price", "subtotal"];
+  displayedColumns: string[] = [
+    "item",
+    "quantity",
+    "price",
+    "subtotal",
+    "actions"
+  ];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
 
@@ -73,6 +79,10 @@ export class OrderCreateComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
   }
 
+  getUrl() {
+    return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
+  }
+
   addItem() {
     const itemArray = this.orderForm.controls.items as FormArray;
     const curItem = this.itemForm.get("item").value;
@@ -104,6 +114,13 @@ export class OrderCreateComponent implements OnInit {
     });
     this.subject.next(this.items);
     console.log(this.orderForm.value);
+  }
+
+  removeItem(i: any) {
+    this.orderForm.value.items.splice(i, 1);
+    this.items.splice(i, 1);
+    this.subject.next(this.items);
+    console.log(this.orderForm.value.items);
   }
 
   createOrder() {
