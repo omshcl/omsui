@@ -21,7 +21,7 @@ export class OrderCreateComponent implements OnInit {
     this.itemForm = itemFormBuilder.group({
       item: '',
       quantity: '' ,
-      price: ''
+      //price: ''
     });
     this.orderForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
@@ -35,6 +35,7 @@ export class OrderCreateComponent implements OnInit {
       zip: '',
       payment: ''
     });
+    this.itemForm.controls['item'].setValue(this.itemList[0], {onlySelf: true});
     this.orderForm.controls['channel'].setValue(this.channelList[0], {onlySelf: true});
     this.orderForm.controls['payment'].setValue(this.paymentList[0], {onlySelf: true});
   }
@@ -44,11 +45,15 @@ export class OrderCreateComponent implements OnInit {
 
   addItem() {
     const itemArray = this.orderForm.controls.items as FormArray;
-    itemArray.push(this.formBuilder.group({
-      item: 'Item',
-      quantity: 5,
-    }));
+    const curItem = this.itemForm.get('item').value;
+    const curQuant = this.itemForm.get('quantity').value;
+    const group = this.itemFormBuilder.group({
+      item: curItem,
+      quantity: curQuant
+    });
+    itemArray.push(group);
     console.log(this.orderForm.value);
+    this.itemForm.controls['item'].setValue(this.itemList[0], {onlySelf: true});
   }
 
   createOrder() {
