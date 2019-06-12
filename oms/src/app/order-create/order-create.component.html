@@ -1,3 +1,138 @@
-<p>
-  order-create works!
-</p>
+<div class="container">
+  <h1>Order Create</h1>
+  <form [formGroup]="itemForm">
+      <div class="row">
+          <div class="col-lg-3 mb-3">
+              <label>Item</label>
+              <select class="custom-select" formControlName="item">
+                  <option *ngFor="let itemOption of itemList">{{itemOption}}</option>
+              </select>
+          </div>
+          <div class="col-lg-1 mb-3">
+              <label>Qty</label>
+              <input class="form-control" type="text" formControlName="quantity">
+          </div>
+          <div class="col-lg-2 mb-3">
+            <label>&nbsp;</label><br>
+            <button class="btn btn-primary" (click)="addItem()">Add Item</button>
+          </div>
+      </div>
+  </form>
+  <form [formGroup]="orderForm">
+
+  <div class="row">
+      <div class="col-lg-3 mb-3">
+        <label>First Name</label>
+        <input class="form-control" type="text" formControlName="firstname">
+    </div>
+      
+    <div class="col-lg-3 mb-3">
+        <label>Last Name</label>
+        <input class="form-control" type="text" formControlName="lastname">
+    </div>
+    <div class="col-lg-2 mb-3">
+        <label>Date</label>
+        <input class="form-control" matInput [matDatepicker]="picker1" placeholder="Select Date" formControlName="date">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+    </div>
+    <div class="col-lg-2 mb-3">
+        <label>Channel</label>
+        <select class="custom-select" formControlName="channel">
+          <option *ngFor="let chanOption of channelList">
+            {{chanOption}}
+          </option>
+        </select>
+    </div>
+    <div class="col-lg-2 mb-3">
+        <label>Payment</label>
+        <select class="custom-select" formControlName="payment">
+            <option *ngFor="let payOption of paymentList">{{payOption}}</option>
+        </select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-6 mb-3">
+        <label>Address</label>
+        <input class="form-control" type="text" formControlName="address">        
+    </div>
+    <div class="col-lg-2 mb-3">
+        <label>City</label>
+        <input class="form-control" type="text" formControlName="city">        
+    </div>
+    <div class="col-lg-2 mb-3">
+        <label>State</label>
+        <input class="form-control" type="text" formControlName="state">        
+    </div>
+    <div class="col-lg-2 mb-3">
+        <label>Zip</label>
+        <input class="form-control" type="text" formControlName="zip">        
+    </div>
+
+  </div>
+  <button class="btn btn-primary" (click)="createOrder()">Create Order</button>
+</form>
+</div>
+
+<!--
+  <mat-card class="contact-card">
+  <mat-card-header>
+    <mat-card-title>Reactive Form</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form id="contactForm" [formGroup]="form" (ngSubmit)="submit()">
+    <mat-form-field>
+      <input matInput placeholder="firstname" class="form-control"  name="firstname">
+       
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="lastname" class="form-control"  name="lastname">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="email" class="form-control"  name="email">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <textarea rows="4" cols="50" matInput placeholder="message" class="form-control"  name="message"></textarea>
+    </mat-form-field>
+    <br>
+    <button id="btnSubmit" mat-raised-button type="submit" color="primary">Submit</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+  
+  <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit(checkoutForm.value)">
+ 
+    <div>
+      <label>Name</label>
+      <input type="text" formControlName="name">
+    </div>
+   
+    <div>
+      <label>Address</label>
+      <input type="text" formControlName="address">
+    </div>
+   
+    <button class="button" type="submit">Purchase</button>
+    
+  </form>
+--------
+    <select [(ngModel)]="state">
+      <option *ngFor="let state of states">{{state}}</option>
+    </select> 
+--------
+            <div class="form-group" *ngIf="isAdmin">
+                <span>
+                    Award Status*
+                </span>
+                <select class="form-group" formControlName="AwardStatus">
+                    <option *ngFor="let awardStatus of awardStatues"
+                            [value]="awardStatus"
+                            [selected]="awardStatus.Description == userFrm.value.AwardStatus.Description">
+                        {{awardStatus.Description}}
+                    </option>
+                </select>
+            </div>
+-->
