@@ -9,14 +9,16 @@ import { MatNativeDateModule } from '@angular/material';
 import { LoginComponent } from './login/login.component';
 import { OrderComponent } from './order/order.component';
 import { OrderCreateComponent } from './order-create/order-create.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     OrderComponent,
-    OrderCreateComponent
+    OrderCreateComponent,
+    MenuComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -30,7 +32,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       { path: 'order', component: OrderComponent },
       { path: 'order/create', component: OrderCreateComponent },
     ]),
-    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
