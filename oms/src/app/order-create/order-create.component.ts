@@ -73,6 +73,7 @@ export class OrderCreateComponent implements OnInit {
     this.orderForm.controls["total"].setValue(0, { onlySelf: true });
     let curDate = new Date().toISOString();
     this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
+    this.currentTotal = 0;
   }
 
   ngOnInit() {}
@@ -99,10 +100,6 @@ export class OrderCreateComponent implements OnInit {
     this.itemForm.controls["item"].setValue(this.itemList[0], {
       onlySelf: true
     });
-    //calculate new 'total' for order
-    let curTotal = this.orderForm.get("total").value;
-    curTotal += subTotal;
-    this.orderForm.get("total").setValue(curTotal);
 
     // Add the items to the table
     this.itemLength = this.orderForm.value.items.length;
@@ -113,13 +110,29 @@ export class OrderCreateComponent implements OnInit {
       subtotal: this.orderForm.value.items[this.itemLength - 1].subtotal
     });
     this.subject.next(this.items);
+    // Update order total
+    this.updateTotal();
     console.log(this.orderForm.value);
+  }
+
+  updateTotal() {
+    let curTotal = 0;
+    for (let item of this.items) {
+      curTotal += item.price * item.quantity;
+    }
+    this.orderForm.get("total").setValue(curTotal);
+  }
+
+  getTotal() {
+    return this.orderForm.get("total").value;
   }
 
   removeItem(i: any) {
     this.orderForm.value.items.splice(i, 1);
     this.items.splice(i, 1);
     this.subject.next(this.items);
+    // Update order total
+    this.updateTotal();
     console.log(this.orderForm.value.items);
   }
 
