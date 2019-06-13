@@ -41,7 +41,9 @@ export class LoginComponent implements OnInit {
     else{
       if(e.value.user == "agent" && e.value.yes == "Agent!123"){
         location.href = "./order-agent"
-  
+      }
+      else {
+        alert("Invalid Login. Check credentials.")
       }
     }
     
