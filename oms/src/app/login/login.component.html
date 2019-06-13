@@ -23,7 +23,7 @@
       </div>
     
       <label for="inputEmail">Password: </label>
-      <input type="text" [(ngModel)]="yes.kkk" name='yes' class="form-control" #kkk="ngModel" placeholder="Password" 
+      <input type="password" [(ngModel)]="yes.kkk" name='yes' class="form-control" #kkk="ngModel" placeholder="Password" 
              required minlength="8"  >
   
             
@@ -40,10 +40,11 @@
       
   
   
-    
-    
-      <button class="" type="submit" name="submit" onClick= "location.href='/order'" value="submit" [disabled]="form1.invalid">Sign in</button>
+            <!-- location.href='/order' -->
 
+      <button class="" type="submit" name="submit" onClick="" value="submit" [disabled]="form1.invalid">Sign in</button>
+      
+         
       <!-- does api call and checks if login is valid in backend -->
       <!-- if login success, get whether admin/ agent -->
       <!-- if login fails, say login failed and redirect to same page-->
