@@ -3,6 +3,7 @@ import { FormBuilder, FormArray } from "@angular/forms";
 import { Sort, MatTableDataSource } from "@angular/material";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { HttpClient } from "@angular/common/http";
 
 export interface itemOrder {
   item: string;
@@ -38,7 +39,8 @@ export class OrderCreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private itemFormBuilder: FormBuilder
+    private itemFormBuilder: FormBuilder,
+    private http: HttpClient
   ) {
     this.itemForm = itemFormBuilder.group({
       item: "",
@@ -68,6 +70,8 @@ export class OrderCreateComponent implements OnInit {
       onlySelf: true
     });
     this.orderForm.controls["total"].setValue(0, { onlySelf: true });
+    let curDate = new Date().toISOString();
+    this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
   }
 
   ngOnInit() {}
@@ -119,6 +123,7 @@ export class OrderCreateComponent implements OnInit {
   createOrder() {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
+    //this.http.post("example.com", this.orderForm.value).subscribe();
 
     //this.orderForm.reset();
   }
