@@ -1,5 +1,7 @@
 table {
-  width: 100%;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .mat-cell {
@@ -17,4 +19,8 @@ table {
   border-left: 1px solid black;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
+}
+
+div {
+  background-color: lightgray;
 }
