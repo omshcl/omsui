@@ -70,6 +70,8 @@ export class OrderCreateComponent implements OnInit {
       onlySelf: true
     });
     this.orderForm.controls["total"].setValue(0, { onlySelf: true });
+    let curDate = new Date().toISOString();
+    this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
   }
 
   ngOnInit() {}
