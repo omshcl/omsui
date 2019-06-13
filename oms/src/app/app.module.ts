@@ -35,7 +35,7 @@ import { MatTableModule } from '@angular/material'
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: LoginComponent },
-      { path: 'order', component: OrderComponent },
+     { path: 'order', component: OrderComponent },
       { path: 'order/create', component: OrderCreateComponent },
     ]),
   ],

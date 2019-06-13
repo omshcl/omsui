@@ -12,7 +12,7 @@
     
       <div *ngIf ="name.invalid && (name.dirty || name.touched)">
         <p *ngIf =" name.hasError('required')">
-          User Name is Required
+          User Name is Required 
         </p>
         <p *ngIf="name.hasError('minlength')">
           Minimum 5 Characters are Required
@@ -46,7 +46,9 @@
   
   
     
-    
+    <!-- does the API call & check if the login is valid 
+    if login is success check whether its admin or agent 
+     if login fails redirect the user to the same page-->
       <button class="" type="submit" name="submit" value="submit" [disabled]="form1.invalid">Sign in</button>
      
     </form>
