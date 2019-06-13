@@ -72,8 +72,8 @@
     </div>
   </form>
   <hr />
-  <div class="container">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <div class="example-container">
+    <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="item">
         <th mat-header-cell *matHeaderCellDef>Item</th>
         <td mat-cell *matCellDef="let element">{{ element.item }}</td>
