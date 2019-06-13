@@ -64,6 +64,9 @@ export class OrderCreateComponent implements OnInit {
     this.itemForm.controls["item"].setValue(this.itemList[0], {
       onlySelf: true
     });
+    this.itemForm.controls["quantity"].setValue(1, {
+      onlySelf: true
+    });
     this.orderForm.controls["channel"].setValue(this.channelList[0], {
       onlySelf: true
     });
@@ -73,7 +76,6 @@ export class OrderCreateComponent implements OnInit {
     this.orderForm.controls["total"].setValue(0, { onlySelf: true });
     let curDate = new Date().toISOString();
     this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
-    this.currentTotal = 0;
   }
 
   ngOnInit() {}
@@ -142,6 +144,25 @@ export class OrderCreateComponent implements OnInit {
     //this.http.post("example.com", this.orderForm.value).subscribe();
     var bool = this._orderCreateService.postOrder();
     console.log(bool);
-    //this.orderForm.reset();
+    this.orderForm.reset();
+    //clear item table
+    this.items = [];
+    this.subject.next(this.items);
+    //reset default dropdown items and date
+    this.itemForm.controls["item"].setValue(this.itemList[0], {
+      onlySelf: true
+    });
+    this.itemForm.controls["quantity"].setValue(1, {
+      onlySelf: true
+    });
+    this.orderForm.controls["channel"].setValue(this.channelList[0], {
+      onlySelf: true
+    });
+    this.orderForm.controls["payment"].setValue(this.paymentList[0], {
+      onlySelf: true
+    });
+    this.orderForm.controls["total"].setValue(0, { onlySelf: true });
+    let curDate = new Date().toISOString();
+    this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
   }
 }
