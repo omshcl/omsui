@@ -42,13 +42,15 @@ import {
   MatTooltipModule,
   MatStepperModule
 } from "@angular/material";
+import { OrderAgentComponent } from './order-agent/order-agent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     OrderComponent,
-    OrderCreateComponent
+    OrderCreateComponent,
+    OrderAgentComponent
   ],
   imports: [
     BrowserModule,
@@ -94,7 +96,8 @@ import {
     RouterModule.forRoot([
       { path: "", component: LoginComponent },
       { path: "order", component: OrderComponent },
-      { path: "order/create", component: OrderCreateComponent }
+      { path: "order/create", component: OrderCreateComponent },
+      {path: "order-agent", component: OrderAgentComponent}
     ])
   ],
   providers: [],
