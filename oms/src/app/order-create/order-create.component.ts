@@ -3,7 +3,7 @@ import { FormBuilder, FormArray } from "@angular/forms";
 import { Sort, MatTableDataSource } from "@angular/material";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import { HttpClient } from "@angular/common/http";
+import { OrderCreateService } from "../order-create.service";
 
 export interface itemOrder {
   item: string;
@@ -36,11 +36,12 @@ export class OrderCreateComponent implements OnInit {
   ];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
+  httpClient: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private itemFormBuilder: FormBuilder,
-    private http: HttpClient
+    private _orderCreateService: OrderCreateService
   ) {
     this.itemForm = itemFormBuilder.group({
       item: "",
@@ -102,6 +103,8 @@ export class OrderCreateComponent implements OnInit {
     let curTotal = this.orderForm.get("total").value;
     curTotal += subTotal;
     this.orderForm.get("total").setValue(curTotal);
+
+    // Add the items to the table
     this.itemLength = this.orderForm.value.items.length;
     this.items.push({
       item: this.orderForm.value.items[this.itemLength - 1].item,
@@ -124,7 +127,8 @@ export class OrderCreateComponent implements OnInit {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
     //this.http.post("example.com", this.orderForm.value).subscribe();
-
+    var bool = this._orderCreateService.postOrder();
+    console.log(bool);
     //this.orderForm.reset();
   }
 }
