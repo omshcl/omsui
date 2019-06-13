@@ -37,20 +37,23 @@
               </p>
               
             </div>
-  
-      
-       
-    
-      
       
   
   
     
-    <!-- does the API call & check if the login is valid 
-    if login is success check whether its admin or agent 
-     if login fails redirect the user to the same page-->
-      <button class="" type="submit" name="submit" value="submit" [disabled]="form1.invalid">Sign in</button>
+
      
+=======
+    
+      <button class="" type="submit" name="submit" onClick= "location.href='/order'" value="submit" [disabled]="form1.invalid">Sign in</button>
+
+      <!-- does api call and checks if login is valid in backend -->
+      <!-- if login success, get whether admin/ agent -->
+      <!-- if login fails, say login failed and redirect to same page-->
+      <!-- if success, update status of admin/agent -->
+      <!-- connect to main navbar with features depending on admin or agent -->
+
+>>>>>>> 52d9c2fe3b69898f61d7f3af8199c92161f1e955
     </form>
     </body>
     

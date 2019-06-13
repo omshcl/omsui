@@ -3,6 +3,7 @@ import { FormBuilder, FormArray } from "@angular/forms";
 import { Sort, MatTableDataSource } from "@angular/material";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { HttpClient } from "@angular/common/http";
 
 export interface itemOrder {
   item: string;
@@ -26,13 +27,20 @@ export class OrderCreateComponent implements OnInit {
   itemLength;
 
   items: itemOrder[] = [];
-  displayedColumns: string[] = ["item", "quantity", "price", "subtotal"];
+  displayedColumns: string[] = [
+    "item",
+    "quantity",
+    "price",
+    "subtotal",
+    "actions"
+  ];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
 
   constructor(
     private formBuilder: FormBuilder,
-    private itemFormBuilder: FormBuilder
+    private itemFormBuilder: FormBuilder,
+    private http: HttpClient
   ) {
     this.itemForm = itemFormBuilder.group({
       item: "",
@@ -62,13 +70,14 @@ export class OrderCreateComponent implements OnInit {
       onlySelf: true
     });
     this.orderForm.controls["total"].setValue(0, { onlySelf: true });
+    let curDate = new Date().toISOString();
+    this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
   }
 
   ngOnInit() {}
 
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+  getUrl() {
+    return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
   }
 
   addItem() {
@@ -104,9 +113,17 @@ export class OrderCreateComponent implements OnInit {
     console.log(this.orderForm.value);
   }
 
+  removeItem(i: any) {
+    this.orderForm.value.items.splice(i, 1);
+    this.items.splice(i, 1);
+    this.subject.next(this.items);
+    console.log(this.orderForm.value.items);
+  }
+
   createOrder() {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
+    //this.http.post("example.com", this.orderForm.value).subscribe();
 
     //this.orderForm.reset();
   }
