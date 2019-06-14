@@ -1,5 +1,5 @@
 <div class="container" style="padding: 200px">
-<body class="text-center">
+<body clasys="text-center">
     <form (ngSubmit)="onSubmit(form1)" #form1="ngForm">
       <div class="text-center mb-4">
           <div class = "container" style="padding-left: 250px">
@@ -17,7 +17,7 @@
       <div class = "container" style="padding-left: 250px">
       <div *ngIf ="name.invalid && (name.dirty || name.touched)">
         <p *ngIf =" name.hasError('required')">
-          User Name is Required
+          User Name is Required 
         </p>
         <p *ngIf="name.hasError('minlength')">
           Minimum 5 Characters are Required
@@ -46,19 +46,25 @@
             </div>
       
   
-  
+
+    
+      
+
+
             <!-- location.href='/order' -->
-            <div style="padding-left: 250px">
+            <div style="padding-left: 325px">
                 <div style="padding-top: 20px">
       <button class="btn btn-primary" type="submit" name="submit" onClick="" value="submit" [disabled]="form1.invalid">Sign in</button>
     </div>  
     </div>
          
+
       <!-- does api call and checks if login is valid in backend -->
       <!-- if login success, get whether admin/ agent -->
       <!-- if login fails, say login failed and redirect to same page-->
       <!-- if success, update status of admin/agent -->
       <!-- connect to main navbar with features depending on admin or agent -->
+
 
     </form>
     </body>
