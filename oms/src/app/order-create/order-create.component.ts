@@ -3,7 +3,7 @@ import { FormBuilder, FormArray } from "@angular/forms";
 import { Sort, MatTableDataSource } from "@angular/material";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import { HttpClient } from "@angular/common/http";
+import { OrderCreateService } from "../order-create.service";
 
 export interface itemOrder {
   item: string;
@@ -25,6 +25,7 @@ export class OrderCreateComponent implements OnInit {
   itemForm;
   orderForm;
   itemLength;
+  currentTotal;
 
   items: itemOrder[] = [];
   displayedColumns: string[] = [
@@ -36,11 +37,12 @@ export class OrderCreateComponent implements OnInit {
   ];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
+  httpClient: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private itemFormBuilder: FormBuilder,
-    private http: HttpClient
+    private _orderCreateService: OrderCreateService
   ) {
     this.itemForm = itemFormBuilder.group({
       item: "",
@@ -72,6 +74,7 @@ export class OrderCreateComponent implements OnInit {
     this.orderForm.controls["total"].setValue(0, { onlySelf: true });
     let curDate = new Date().toISOString();
     this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
+    this.currentTotal = 0;
   }
 
   ngOnInit() {}
@@ -98,10 +101,8 @@ export class OrderCreateComponent implements OnInit {
     this.itemForm.controls["item"].setValue(this.itemList[0], {
       onlySelf: true
     });
-    //calculate new 'total' for order
-    let curTotal = this.orderForm.get("total").value;
-    curTotal += subTotal;
-    this.orderForm.get("total").setValue(curTotal);
+
+    // Add the items to the table
     this.itemLength = this.orderForm.value.items.length;
     this.items.push({
       item: this.orderForm.value.items[this.itemLength - 1].item,
@@ -110,13 +111,29 @@ export class OrderCreateComponent implements OnInit {
       subtotal: this.orderForm.value.items[this.itemLength - 1].subtotal
     });
     this.subject.next(this.items);
+    // Update order total
+    this.updateTotal();
     console.log(this.orderForm.value);
+  }
+
+  updateTotal() {
+    let curTotal = 0;
+    for (let item of this.items) {
+      curTotal += item.price * item.quantity;
+    }
+    this.orderForm.get("total").setValue(curTotal);
+  }
+
+  getTotal() {
+    return this.orderForm.get("total").value;
   }
 
   removeItem(i: any) {
     this.orderForm.value.items.splice(i, 1);
     this.items.splice(i, 1);
     this.subject.next(this.items);
+    // Update order total
+    this.updateTotal();
     console.log(this.orderForm.value.items);
   }
 
@@ -124,7 +141,8 @@ export class OrderCreateComponent implements OnInit {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
     //this.http.post("example.com", this.orderForm.value).subscribe();
-
+    var bool = this._orderCreateService.postOrder();
+    console.log(bool);
     //this.orderForm.reset();
   }
 }
