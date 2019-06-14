@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormArray } from "@angular/forms";
+import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import { Sort, MatTableDataSource } from "@angular/material";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
@@ -44,21 +44,21 @@ export class OrderCreateComponent implements OnInit {
     private _orderCreateService: OrderCreateService
   ) {
     this.itemForm = itemFormBuilder.group({
-      item: "",
-      quantity: "",
-      price: ""
+      item: ["", Validators.required],
+      quantity: ["", Validators.required],
+      price: ["", Validators.required]
     });
     this.orderForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
-      channel: "",
-      date: "",
-      firstname: "",
-      lastname: "",
-      address: "",
-      city: "",
-      state: "",
-      zip: "",
-      payment: "",
+      channel: ["", Validators.required],
+      date: ["", Validators.required],
+      firstname: ["", Validators.required],
+      lastname: ["", Validators.required],
+      address: ["", Validators.required],
+      city: ["", Validators.required],
+      state: ["", Validators.required],
+      zip: ["", Validators.required],
+      payment: ["", Validators.required],
       total: ""
     });
     this.itemForm.controls["item"].setValue(this.itemList[0], {
@@ -142,7 +142,7 @@ export class OrderCreateComponent implements OnInit {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
     //this.http.post("example.com", this.orderForm.value).subscribe();
-    var bool = this._orderCreateService.postOrder();
+    var bool = this._orderCreateService.postOrder(this.orderForm.value);
     console.log(bool);
     this.orderForm.reset();
     //clear item table
@@ -164,5 +164,30 @@ export class OrderCreateComponent implements OnInit {
     this.orderForm.controls["total"].setValue(0, { onlySelf: true });
     let curDate = new Date().toISOString();
     this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
+  }
+
+  get firstname() {
+    return this.orderForm.get("firstname");
+  }
+
+  get lastname() {
+    return this.orderForm.get("lastname");
+  }
+
+  get quantity() {
+    return this.itemForm.get("quantity");
+  }
+
+  get address() {
+    return this.orderForm.get("address");
+  }
+  get city() {
+    return this.orderForm.get("city");
+  }
+  get state() {
+    return this.orderForm.get("state");
+  }
+  get zip() {
+    return this.orderForm.get("zip");
   }
 }

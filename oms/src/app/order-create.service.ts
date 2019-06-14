@@ -10,24 +10,19 @@ const httpOptions = {
   providedIn: "root"
 })
 export class OrderCreateService {
-  apiURL: string = "http://3ab08cc9.ngrok.io/login";
+  apiURL: string = "https://2ffaca7f.ngrok.io/orders/new";
   constructor(private http: HttpClient) {}
 
-  postOrder() {
-    return this.http
-      .post(this.apiURL, {
-        username: "admin",
-        password: "Admin!123"
-      })
-      .subscribe(
-        data => {
-          console.log(data);
-          return true;
-        },
-        error => {
-          console.error("Error posting order!");
-          return false;
-        }
-      );
+  postOrder(newOrder) {
+    return this.http.post(this.apiURL, newOrder).subscribe(
+      data => {
+        console.log(data);
+        return true;
+      },
+      error => {
+        console.error("Error posting order!");
+        return false;
+      }
+    );
   }
 }
