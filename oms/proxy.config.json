@@ -1,0 +1,9 @@
+{
+  "/api/*": {
+    "target": "https://2ffaca7f.ngrok.io/",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true,
+	"pathRewrite": {"^/api/*": ""}
+  }
+}
