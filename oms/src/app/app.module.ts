@@ -45,8 +45,9 @@ import {
   MatTooltipModule,
   MatStepperModule
 } from "@angular/material";
-import { OrderAgentComponent } from './order-agent/order-agent.component';
+import { OrderAgentComponent } from "./order-agent/order-agent.component";
 import { SearchComponent } from "./search/search.component";
+import { viewcomponent } from "./view/view.component";
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { SearchComponent } from "./search/search.component";
     OrderComponent,
     OrderCreateComponent,
     OrderAgentComponent,
-    SearchComponent
+    SearchComponent,
+    viewcomponent
   ],
   imports: [
     BrowserModule,
@@ -103,15 +105,13 @@ import { SearchComponent } from "./search/search.component";
       { path: "", component: LoginComponent },
       { path: "order", component: OrderComponent },
       { path: "order/create", component: OrderCreateComponent },
-      {path: "order-agent", component: OrderAgentComponent},
-      {path:"search",component: SearchComponent}
-
+      { path: "order-agent", component: OrderAgentComponent },
+      { path: "search", component: SearchComponent },
+      { path: "view", component: viewcomponent }
     ])
 
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-
-}
+export class AppModule {}

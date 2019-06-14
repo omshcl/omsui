@@ -22,21 +22,28 @@ export class VerifyLoginService {
       })
       .subscribe(
         data => {
-          if(data[0].isValid && data[0].isAdmin) {
-            location.href = "./order"
-          }
-          else if(data[0].isValid && !data[0].isAdmin) {
-            location.href = "./order-agent"
-          }
-          else {
-                 alert("Invalid Login. Check credentials.")
-               }
-          return true;
+
+          this.redirect(data)
+
         },
         error => {
           console.error("Error posting order!");
           return false;
         }
       );
+  }
+  redirect(data){
+    if(data.isValid && data.isAdmin) {
+      console.log("here");
+      location.href = "./order"
+    }
+    else if(data.isValid && !data.isAdmin) {
+      location.href = "./order-agent"
+    }
+    else {
+           alert("Invalid Login. Check credentials.")
+         }
+    return true;
+
   }
 }

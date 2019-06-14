@@ -1,30 +1,36 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">OMS</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-      <ul class="navbar-nav mr-auto">
-        <!-- <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
-        </li> -->
-        <li ngbDropdown class="nav-item dropdown">
-          <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Order</a>
-          <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="/order/create">Create</a>
-            <a class="dropdown-item" >Update</a>
-            <a class="dropdown-item" href="/search" >Search</a>
-          </div>
-        </li>
-      </ul>
-    
-    </div>
-  </nav>
-  
+<app-order></app-order>
+
+<div ng-app="mainApp" ng-controller="studentController">
+  <table border="0">
+    <tr>
+      <td>ID</td>
+      <td>First name</td>
+      <td>Last name</td>
+      <td>Date</td>
+      <td>ZipCode</td>
+    </tr>
+    <tr>
+      <td><a id="./search.Component.html" href="/view">001</a></td>
+      <td>Aish</td>
+      <td>Dubey</td>
+      <td>01/12/2011</td>
+      <td>95118</td>
+    </tr>
+    <tr>
+      <td>
+        <a id="./search.Component.html" href="/view">001</a>
+      </td>
+      <td>Aish</td>
+      <td>Dubey</td>
+      <td>01/12/2011</td>
+      <td>95118</td>
+    </tr>
+    <tr>
+      <td><a id="./search.Component.html" href="/view">001</a></td>
+      <td>Aish</td>
+      <td>Dubey</td>
+      <td>01/12/2011</td>
+      <td>95118</td>
+    </tr>
+  </table>
+</div>
