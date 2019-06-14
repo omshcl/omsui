@@ -10,7 +10,7 @@ const httpOptions = {
   providedIn: "root"
 })
 export class VerifyLoginService {
-  apiURL: string = "https://2ffaca7f.ngrok.io/login";
+  apiURL: string = "/api/login";
   constructor(private http: HttpClient) {}
 
   verifyBackend(userL) {
@@ -21,7 +21,7 @@ export class VerifyLoginService {
       })
       .subscribe(
         data => {
-          this.redirect(data)
+          this.redirect(data);
         },
         error => {
           console.error("Error posting order!");
@@ -29,18 +29,15 @@ export class VerifyLoginService {
         }
       );
   }
-  redirect(data){
-    if(data.isValid && data.isAdmin) {
+  redirect(data) {
+    if (data.isValid && data.isAdmin) {
       console.log("here");
-      location.href = "./order"
+      location.href = "./order";
+    } else if (data.isValid && !data.isAdmin) {
+      location.href = "./order-agent";
+    } else {
+      alert("Invalid Login. Check credentials.");
     }
-    else if(data.isValid && !data.isAdmin) {
-      location.href = "./order-agent"
-    }
-    else {
-           alert("Invalid Login. Check credentials.")
-         }
     return true;
-
   }
 }
