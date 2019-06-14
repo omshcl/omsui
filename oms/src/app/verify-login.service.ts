@@ -10,7 +10,7 @@ const httpOptions = {
   providedIn: "root"
 })
 export class VerifyLoginService {
-  apiURL: string = "http://3ab08cc9.ngrok.io/login";
+  apiURL: string = "https://2ffaca7f.ngrok.io/login";
   constructor(private http: HttpClient) {}
 
   verifyBackend(userL) {
@@ -22,6 +22,7 @@ export class VerifyLoginService {
       .subscribe(
         data => {
           if(data.isValid && data.isAdmin) {
+            console.log("here");
             location.href = "./order"
           }
           else if(data.isValid && !data.isAdmin) {
