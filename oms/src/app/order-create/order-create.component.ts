@@ -142,7 +142,7 @@ export class OrderCreateComponent implements OnInit {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
     //this.http.post("example.com", this.orderForm.value).subscribe();
-    var bool = this._orderCreateService.postOrder();
+    var bool = this._orderCreateService.postOrder(this.orderForm.value);
     console.log(bool);
     this.orderForm.reset();
     //clear item table
