@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 
+
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
@@ -10,7 +11,7 @@ const httpOptions = {
   providedIn: "root"
 })
 export class VerifyLoginService {
-  apiURL: string = "http://3ab08cc9.ngrok.io/login";
+  apiURL: string = "https://2ffaca7f.ngrok.io/login";
   constructor(private http: HttpClient) {}
 
   verifyBackend(userL) {
@@ -21,10 +22,10 @@ export class VerifyLoginService {
       })
       .subscribe(
         data => {
-          if(data.isValid && data.isAdmin) {
+          if(data[0].isValid && data[0].isAdmin) {
             location.href = "./order"
           }
-          else if(data.isValid && !data.isAdmin) {
+          else if(data[0].isValid && !data[0].isAdmin) {
             location.href = "./order-agent"
           }
           else {

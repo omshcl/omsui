@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import {Component, View} from 'angular2/core';
 
 import { VerifyLoginService } from './verify-login.service';
 

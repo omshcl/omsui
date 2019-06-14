@@ -11,6 +11,9 @@ import { OrderComponent } from "./order/order.component";
 import { OrderCreateComponent } from "./order-create/order-create.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+
+
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -43,6 +46,7 @@ import {
   MatStepperModule
 } from "@angular/material";
 import { OrderAgentComponent } from './order-agent/order-agent.component';
+import { SearchComponent } from "./search/search.component";
 
 @NgModule({
   declarations: [
@@ -50,7 +54,8 @@ import { OrderAgentComponent } from './order-agent/order-agent.component';
     LoginComponent,
     OrderComponent,
     OrderCreateComponent,
-    OrderAgentComponent
+    OrderAgentComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +103,9 @@ import { OrderAgentComponent } from './order-agent/order-agent.component';
       { path: "", component: LoginComponent },
       { path: "order", component: OrderComponent },
       { path: "order/create", component: OrderCreateComponent },
-      {path: "order-agent", component: OrderAgentComponent}
+      {path: "order-agent", component: OrderAgentComponent},
+      {path:"search",component: SearchComponent}
+
     ])
 
   ],
@@ -106,5 +113,5 @@ import { OrderAgentComponent } from './order-agent/order-agent.component';
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  
+
 }
