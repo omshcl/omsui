@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormArray, Validators } from "@angular/forms";
-import { Sort, MatTableDataSource } from "@angular/material";
+import {
+  Sort,
+  MatTableDataSource,
+  getMatFormFieldMissingControlError
+} from "@angular/material";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { OrderCreateService } from "../order-create.service";
@@ -12,20 +16,26 @@ export interface itemOrder {
   subtotal: number;
 }
 
+interface myData {
+  obj: Object;
+}
+
 @Component({
   selector: "app-order-create",
   templateUrl: "./order-create.component.html",
   styleUrls: ["./order-create.component.css"]
 })
 export class OrderCreateComponent implements OnInit {
-  itemList = ["Item 1", "Item 2", "Item 3"];
-  priceList = [199, 29, 49];
+  itemList = [];
+  priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
   itemForm;
   orderForm;
   itemLength;
-
+  item;
+  data = {};
+  dataList;
   items: itemOrder[] = [];
   displayedColumns: string[] = [
     "item",
@@ -61,9 +71,6 @@ export class OrderCreateComponent implements OnInit {
       payment: ["", Validators.required],
       total: ""
     });
-    this.itemForm.controls["item"].setValue(this.itemList[0], {
-      onlySelf: true
-    });
     this.itemForm.controls["quantity"].setValue(1, {
       onlySelf: true
     });
@@ -78,7 +85,20 @@ export class OrderCreateComponent implements OnInit {
     this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._orderCreateService.getItems().subscribe(data => {
+      this.dataList = data;
+      for (let itemName of this.dataList) {
+        console.log(itemName.description);
+        this.itemList.push(itemName.description);
+        this.priceList.push(itemName.price);
+      }
+
+      this.itemForm.controls["item"].setValue(this.itemList[0], {
+        onlySelf: true
+      });
+    });
+  }
 
   getUrl() {
     return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
