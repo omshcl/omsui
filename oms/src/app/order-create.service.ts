@@ -10,7 +10,7 @@ const httpOptions = {
   providedIn: "root"
 })
 export class OrderCreateService {
-  apiURL: string = "https://2ffaca7f.ngrok.io/api/orders/new";
+  apiURL: string = "/api/orders/new";
   constructor(private http: HttpClient) {}
 
   postOrder(newOrder) {
@@ -27,6 +27,6 @@ export class OrderCreateService {
   }
 
   getItems() {
-    return this.http.get("https://2ffaca7f.ngrok.io/items/list");
+    return this.http.get("/api/items/list");
   }
 }

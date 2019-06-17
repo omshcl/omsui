@@ -1,10 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormArray, Validators } from "@angular/forms";
-import {
-  Sort,
-  MatTableDataSource,
-  getMatFormFieldMissingControlError
-} from "@angular/material";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { OrderCreateService } from "../order-create.service";
@@ -16,8 +11,9 @@ export interface itemOrder {
   subtotal: number;
 }
 
-interface myData {
-  obj: Object;
+export interface itemList {
+  itemList: [];
+  priceList: [];
 }
 
 @Component({
@@ -89,7 +85,6 @@ export class OrderCreateComponent implements OnInit {
     this._orderCreateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
-        console.log(itemName.description);
         this.itemList.push(itemName.description);
         this.priceList.push(itemName.price);
       }
