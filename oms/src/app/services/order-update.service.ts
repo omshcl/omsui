@@ -8,8 +8,8 @@ export class OrderUpdateService {
   apiURL: string = "/api/orders/update";
   constructor(private http: HttpClient) {}
 
-  postOrder(newOrder) {
-    return this.http.post(this.apiURL, newOrder).subscribe(
+  postOrder(updateOrder) {
+    return this.http.post(this.apiURL, updateOrder).subscribe(
       data => {
         console.log(data);
         return true;
@@ -23,5 +23,9 @@ export class OrderUpdateService {
 
   getItems() {
     return this.http.get("/api/items/list");
+  }
+
+  getInfo(orderID) {
+    return this.http.post("/api/orders/getinfo", { id: orderID });
   }
 }

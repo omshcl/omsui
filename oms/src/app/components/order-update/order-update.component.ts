@@ -64,21 +64,42 @@ export class OrderUpdateComponent implements OnInit {
       payment: ["", Validators.required],
       total: ""
     });
-    this.itemForm.controls["quantity"].setValue(1, {
-      onlySelf: true
-    });
-    this.orderForm.controls["channel"].setValue(this.channelList[0], {
-      onlySelf: true
-    });
-    this.orderForm.controls["payment"].setValue(this.paymentList[0], {
-      onlySelf: true
-    });
-    this.orderForm.controls["total"].setValue(0, { onlySelf: true });
+    this.setItemFormValue("quantity", 1);
+    this.setOrderFormValue("channel", this.channelList[0]);
+    this.setOrderFormValue("payment", this.paymentList[0]);
+    this.setOrderFormValue("total", 0);
     let curDate = new Date().toISOString();
-    this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
+    this.setOrderFormValue("date", curDate);
   }
 
   ngOnInit() {
+    this._orderUpdateService.getInfo(this.orderID).subscribe(data => {
+      this.dataList = data;
+      const orderDetail = this.dataList;
+      console.log(orderDetail);
+      this.setOrderFormValue("firstname", orderDetail.firstname);
+      this.setOrderFormValue("lastname", orderDetail.lastname);
+      this.setOrderFormValue("lastname", orderDetail.lastname);
+      this.setOrderFormValue("lastname", orderDetail.lastname);
+      this.setOrderFormValue("lastname", orderDetail.lastname);
+      this.setOrderFormValue("state", orderDetail.state);
+      this.setOrderFormValue("city", orderDetail.city);
+      this.setOrderFormValue("address", orderDetail.address);
+      this.setOrderFormValue("zip", orderDetail.zip);
+      this.setOrderFormValue("date", orderDetail.date);
+      this.setOrderFormValue("channel", orderDetail.channel);
+      this.setOrderFormValue("payment", orderDetail.payment);
+      for (var key in orderDetail.items) {
+        this.items.push({
+          item: key,
+          quantity: 0,
+          price: orderDetail.items[key],
+          subtotal: 0
+        });
+      }
+      this.subject.next(this.items);
+    });
+
     this._orderUpdateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
@@ -89,6 +110,18 @@ export class OrderUpdateComponent implements OnInit {
       this.itemForm.controls["item"].setValue(this.itemList[0], {
         onlySelf: true
       });
+    });
+  }
+
+  setOrderFormValue(field, value) {
+    this.orderForm.controls[field].setValue(value, {
+      onlySelf: true
+    });
+  }
+
+  setItemFormValue(field, value) {
+    this.itemForm.controls[field].setValue(value, {
+      onlySelf: true
     });
   }
 
@@ -127,7 +160,6 @@ export class OrderUpdateComponent implements OnInit {
     this.subject.next(this.items);
     // Update order total
     this.updateTotal();
-    console.log(this.orderForm.value);
   }
 
   updateTotal() {
@@ -148,35 +180,26 @@ export class OrderUpdateComponent implements OnInit {
     this.subject.next(this.items);
     // Update order total
     this.updateTotal();
-    console.log(this.orderForm.value.items);
   }
 
   createOrder() {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
     //this.http.post("example.com", this.orderForm.value).subscribe();
-    var bool = this._orderUpdateService.postOrder(this.orderForm.value);
-    console.log(bool);
+    this._orderUpdateService.postOrder(this.orderForm.value);
     this.orderForm.reset();
     //clear item table
     this.items = [];
     this.subject.next(this.items);
     //reset default dropdown items and date
-    this.itemForm.controls["item"].setValue(this.itemList[0], {
-      onlySelf: true
-    });
-    this.itemForm.controls["quantity"].setValue(1, {
-      onlySelf: true
-    });
-    this.orderForm.controls["channel"].setValue(this.channelList[0], {
-      onlySelf: true
-    });
-    this.orderForm.controls["payment"].setValue(this.paymentList[0], {
-      onlySelf: true
-    });
-    this.orderForm.controls["total"].setValue(0, { onlySelf: true });
+
+    this.setItemFormValue("item", this.channelList[0]);
+    this.setItemFormValue("quantity", 1);
+    this.setOrderFormValue("channel", this.channelList[0]);
+    this.setOrderFormValue("payment", this.paymentList[0]);
+    this.setOrderFormValue("total", 0);
     let curDate = new Date().toISOString();
-    this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
+    this.setOrderFormValue("date", curDate);
   }
 
   get firstname() {
