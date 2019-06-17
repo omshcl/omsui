@@ -1,43 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import { VerifyLoginService } from '../verify-login.service';
-
+import { Component, OnInit } from "@angular/core";
+import { VerifyLoginService } from "../verify-login.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.css"]
 })
 export class LoginComponent implements OnInit {
-
   user = {
-    Name: ''
-    
-  
+    Name: ""
   };
 
-  yes= {
-    paper:''
+  yes = {
+    paper: ""
   };
-  
 
+  constructor(private _verifyLoginService: VerifyLoginService) {}
 
-  
-  constructor(private _verifyLoginService: VerifyLoginService
-    ) { 
-
-  }
-
-  ngOnInit() {
-
-  }
-
-
+  ngOnInit() {}
 
   onSubmit(e) {
-
-    this._verifyLoginService.verifyBackend(e)
-    
+    this._verifyLoginService.verifyBackend(e);
   }
-
-
 }

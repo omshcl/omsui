@@ -1,71 +1,86 @@
 <div class="container" style="padding: 200px">
-<body clasys="text-center">
+  <body clasys="text-center">
     <form (ngSubmit)="onSubmit(form1)" #form1="ngForm">
       <div class="text-center mb-4">
-          <div class = "container" style="padding-left: 250px">
-
-        <h1 class="h3 mb-3 font-weight-normal">OMS Login</h1>
+        <div class="container" style="padding-left: 250px">
+          <h1 class="h3 mb-3 font-weight-normal">OMS Login</h1>
         </div>
       </div>
       <div class="form">
-          <div class = "container" style="padding-left: 250px">
-        <label for="inputEmail">Username: </label>
-        <input type="text" [(ngModel)]="user.name" name="user" class="form-control" #name="ngModel" placeholder="Username"
-               required minlength="5" [pattern]="'^[a-zA-Z0-9 \'\-]+$'">
+        <div class="container" style="padding-left: 250px">
+          <label for="inputEmail">Username: </label>
+          <input
+            type="text"
+            [(ngModel)]="user.name"
+            name="user"
+            class="form-control"
+            #name="ngModel"
+            placeholder="Username"
+            required
+            minlength="5"
+            [pattern]="'^[a-zA-Z0-9 \'\-]+$'"
+          />
         </div>
       </div>
-      <div class = "container" style="padding-left: 250px">
-      <div *ngIf ="name.invalid && (name.dirty || name.touched)">
-        <p *ngIf =" name.hasError('required')">
-          User Name is Required 
-        </p>
-        <p *ngIf="name.hasError('minlength')">
-          Minimum 5 Characters are Required
-        </p>
-        <p *ngIf="name.hasError('pattern')">
-          Special Characters not Allowed
-        </p>
+      <div class="container" style="padding-left: 250px">
+        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+          <p *ngIf="name.hasError('required')">
+            User Name is Required
+          </p>
+          <p *ngIf="name.hasError('minlength')">
+            Minimum 5 Characters are Required
+          </p>
+          <p *ngIf="name.hasError('pattern')">
+            Special Characters not Allowed
+          </p>
+        </div>
       </div>
+      <div class="container" style="padding-left: 250px">
+        <label for="inputEmail">Password: </label>
+        <input
+          type="password"
+          [(ngModel)]="yes.kkk"
+          name="yes"
+          class="form-control"
+          #kkk="ngModel"
+          placeholder="Password"
+          required
+          minlength="8"
+        />
       </div>
-      <div class = "container" style="padding-left: 250px">
-      <label for="inputEmail">Password: </label>
-      <input type="password" [(ngModel)]="yes.kkk" name='yes' class="form-control" #kkk="ngModel" placeholder="Password" 
-             required minlength="8"  >
-            </div>
-            
-            <div class = "container" style="padding-left: 250px">
 
-            <div *ngIf ="kkk.invalid && (kkk.dirty || kkk.touched)">
-              <p *ngIf =" kkk.hasError('required')">
-                Password is Required
-              </p>
-              <p *ngIf="kkk.hasError('minlength')">
-                Minimum 8 Characters are Required
-              </p>
-              </div>
-            </div>
-      
-  
+      <div class="container" style="padding-left: 250px">
+        <div *ngIf="kkk.invalid && (kkk.dirty || kkk.touched)">
+          <p *ngIf="kkk.hasError('required')">
+            Password is Required
+          </p>
+          <p *ngIf="kkk.hasError('minlength')">
+            Minimum 8 Characters are Required
+          </p>
+        </div>
+      </div>
 
-    
-      
-
-
-            <!-- location.href='/order' -->
-            <div style="padding-left: 325px">
-                <div style="padding-top: 20px">
-      <button class="btn btn-primary" type="submit" name="submit" onClick="" value="submit" [disabled]="form1.invalid">Sign in</button>
-    </div>  
-    </div>
-         
+      <!-- location.href='/order' -->
+      <div style="padding-left: 325px">
+        <div style="padding-top: 20px">
+          <button
+            class="btn btn-primary"
+            type="submit"
+            name="submit"
+            onClick=""
+            value="submit"
+            [disabled]="form1.invalid"
+          >
+            Sign in
+          </button>
+        </div>
+      </div>
 
       <!-- does api call and checks if login is valid in backend -->
       <!-- if login success, get whether admin/ agent -->
       <!-- if login fails, say login failed and redirect to same page-->
       <!-- if success, update status of admin/agent -->
       <!-- connect to main navbar with features depending on admin or agent -->
-
-
     </form>
-    </body>
+  </body>
 </div>
