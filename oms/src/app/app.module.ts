@@ -12,8 +12,6 @@ import { OrderCreateComponent } from "./order-create/order-create.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-
-
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -48,6 +46,7 @@ import {
 import { OrderAgentComponent } from "./order-agent/order-agent.component";
 import { SearchComponent } from "./search/search.component";
 import { viewcomponent } from "./view/view.component";
+import { OrderUpdateComponent } from "./order-update/order-update.component";
 
 @NgModule({
   declarations: [
@@ -57,7 +56,8 @@ import { viewcomponent } from "./view/view.component";
     OrderCreateComponent,
     OrderAgentComponent,
     SearchComponent,
-    viewcomponent
+    viewcomponent,
+    OrderUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -101,15 +101,14 @@ import { viewcomponent } from "./view/view.component";
     NgbModule.forRoot(),
     BrowserAnimationsModule,
     RouterModule.forRoot([
-
       { path: "", component: LoginComponent },
       { path: "order", component: OrderComponent },
       { path: "order/create", component: OrderCreateComponent },
       { path: "order-agent", component: OrderAgentComponent },
-      { path: "search", component: SearchComponent },
-      { path: "view", component: viewcomponent }
+      { path: "order/search", component: SearchComponent },
+      { path: "order/view", component: viewcomponent },
+      { path: "order/update", component: OrderUpdateComponent }
     ])
-
   ],
   providers: [],
   bootstrap: [AppComponent]
