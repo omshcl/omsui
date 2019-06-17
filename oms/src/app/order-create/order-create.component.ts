@@ -119,12 +119,13 @@ export class OrderCreateComponent implements OnInit {
     });
 
     // Add the items to the table
-    this.itemLength = this.orderForm.value.items.length;
+    const orderItems = this.orderForm.value.items;
+    this.itemLength = orderItems.length;
     this.items.push({
-      item: this.orderForm.value.items[this.itemLength - 1].item,
-      quantity: this.orderForm.value.items[this.itemLength - 1].quantity,
-      price: this.orderForm.value.items[this.itemLength - 1].price,
-      subtotal: this.orderForm.value.items[this.itemLength - 1].subtotal
+      item: orderItems[this.itemLength - 1].item,
+      quantity: orderItems[this.itemLength - 1].quantity,
+      price: orderItems[this.itemLength - 1].price,
+      subtotal: orderItems[this.itemLength - 1].subtotal
     });
     this.subject.next(this.items);
     // Update order total
