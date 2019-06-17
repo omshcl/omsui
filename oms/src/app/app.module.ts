@@ -107,7 +107,7 @@ import { OrderUpdateComponent } from "./order-update/order-update.component";
       { path: "order-agent", component: OrderAgentComponent },
       { path: "order/search", component: SearchComponent },
       { path: "order/view", component: viewcomponent },
-      { path: "order/update", component: OrderUpdateComponent }
+      { path: "order/update/:orderID", component: OrderUpdateComponent }
     ])
   ],
   providers: [],
