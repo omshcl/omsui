@@ -2,20 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import { OrderCreateService } from "../order-create.service";
+import { OrderUpdateService } from "../../services/order-update.service";
 import { ActivatedRoute } from "@angular/router";
-
-export interface itemOrder {
-  item: string;
-  quantity: number;
-  price: number;
-  subtotal: number;
-}
-
-export interface itemList {
-  itemList: [];
-  priceList: [];
-}
+import { itemOrder } from "src/app/models/itemOrder";
 
 @Component({
   selector: "app-order-update",
@@ -49,7 +38,7 @@ export class OrderUpdateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private itemFormBuilder: FormBuilder,
-    private _orderCreateService: OrderCreateService,
+    private _orderUpdateService: OrderUpdateService,
     private route: ActivatedRoute
   ) {
     this.route.paramMap.subscribe(params => {
@@ -90,7 +79,7 @@ export class OrderUpdateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._orderCreateService.getItems().subscribe(data => {
+    this._orderUpdateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
         this.itemList.push(itemName.description);
@@ -166,7 +155,7 @@ export class OrderUpdateComponent implements OnInit {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
     //this.http.post("example.com", this.orderForm.value).subscribe();
-    var bool = this._orderCreateService.postOrder(this.orderForm.value);
+    var bool = this._orderUpdateService.postOrder(this.orderForm.value);
     console.log(bool);
     this.orderForm.reset();
     //clear item table

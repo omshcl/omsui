@@ -6,9 +6,6 @@ import { HttpClientModule } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material";
-import { LoginComponent } from "./login/login.component";
-import { OrderComponent } from "./order/order.component";
-import { OrderCreateComponent } from "./order-create/order-create.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -43,11 +40,13 @@ import {
   MatTooltipModule,
   MatStepperModule
 } from "@angular/material";
-import { OrderAgentComponent } from "./order-agent/order-agent.component";
-import { SearchComponent } from "./search/search.component";
-import { viewcomponent } from "./view/view.component";
-import { OrderUpdateComponent } from "./order-update/order-update.component";
-
+import { OrderAgentComponent } from "./components/order-agent/order-agent.component";
+import { SearchComponent } from "./components/search/search.component";
+import { viewcomponent } from "./components/view/view.component";
+import { OrderUpdateComponent } from "./components/order-update/order-update.component";
+import { LoginComponent } from "./components/login/login.component";
+import { OrderComponent } from "./components/order/order.component";
+import { OrderCreateComponent } from "./components/order-create/order-create.component";
 @NgModule({
   declarations: [
     AppComponent,

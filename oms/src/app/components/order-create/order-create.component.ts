@@ -2,8 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import { OrderCreateService } from "../order-create.service";
-import { OrderUpdateService } from "../order-update.service";
+import { OrderCreateService } from "../../services/order-create.service";
 
 export interface itemOrder {
   item: string;
@@ -48,7 +47,7 @@ export class OrderCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private itemFormBuilder: FormBuilder,
-    private _orderUpdateService: OrderUpdateService
+    private _orderCreateService: OrderCreateService
   ) {
     this.itemForm = itemFormBuilder.group({
       item: ["", Validators.required],
@@ -83,7 +82,7 @@ export class OrderCreateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._orderUpdateService.getItems().subscribe(data => {
+    this._orderCreateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
         this.itemList.push(itemName.description);
@@ -159,7 +158,7 @@ export class OrderCreateComponent implements OnInit {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
     //this.http.post("example.com", this.orderForm.value).subscribe();
-    var bool = this._orderUpdateService.postOrder(this.orderForm.value);
+    var bool = this._orderCreateService.postOrder(this.orderForm.value);
     console.log(bool);
     this.orderForm.reset();
     //clear item table
