@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { VerifyLoginService } from "../verify-login.service";
+import { VerifyLoginService } from "../../services/verify-login.service";
 
 @Component({
   selector: "app-login",

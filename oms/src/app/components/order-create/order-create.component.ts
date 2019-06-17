@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormArray, Validators } from "@angular/forms";
-import { Sort, MatTableDataSource } from "@angular/material";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import { OrderCreateService } from "../order-create.service";
+import { OrderCreateService } from "../../services/order-create.service";
 
 export interface itemOrder {
   item: string;
@@ -12,21 +11,27 @@ export interface itemOrder {
   subtotal: number;
 }
 
+export interface itemList {
+  itemList: [];
+  priceList: [];
+}
+
 @Component({
   selector: "app-order-create",
   templateUrl: "./order-create.component.html",
   styleUrls: ["./order-create.component.css"]
 })
 export class OrderCreateComponent implements OnInit {
-  itemList = ["Item 1", "Item 2", "Item 3"];
-  priceList = [199, 29, 49];
+  itemList = [];
+  priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
   itemForm;
   orderForm;
   itemLength;
-  currentTotal;
-
+  item;
+  data = {};
+  dataList;
   items: itemOrder[] = [];
   displayedColumns: string[] = [
     "item",
@@ -62,9 +67,6 @@ export class OrderCreateComponent implements OnInit {
       payment: ["", Validators.required],
       total: ""
     });
-    this.itemForm.controls["item"].setValue(this.itemList[0], {
-      onlySelf: true
-    });
     this.itemForm.controls["quantity"].setValue(1, {
       onlySelf: true
     });
@@ -79,7 +81,19 @@ export class OrderCreateComponent implements OnInit {
     this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._orderCreateService.getItems().subscribe(data => {
+      this.dataList = data;
+      for (let itemName of this.dataList) {
+        this.itemList.push(itemName.description);
+        this.priceList.push(itemName.price);
+      }
+
+      this.itemForm.controls["item"].setValue(this.itemList[0], {
+        onlySelf: true
+      });
+    });
+  }
 
   getUrl() {
     return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
@@ -105,12 +119,13 @@ export class OrderCreateComponent implements OnInit {
     });
 
     // Add the items to the table
-    this.itemLength = this.orderForm.value.items.length;
+    const orderItems = this.orderForm.value.items;
+    this.itemLength = orderItems.length;
     this.items.push({
-      item: this.orderForm.value.items[this.itemLength - 1].item,
-      quantity: this.orderForm.value.items[this.itemLength - 1].quantity,
-      price: this.orderForm.value.items[this.itemLength - 1].price,
-      subtotal: this.orderForm.value.items[this.itemLength - 1].subtotal
+      item: orderItems[this.itemLength - 1].item,
+      quantity: orderItems[this.itemLength - 1].quantity,
+      price: orderItems[this.itemLength - 1].price,
+      subtotal: orderItems[this.itemLength - 1].subtotal
     });
     this.subject.next(this.items);
     // Update order total

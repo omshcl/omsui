@@ -1,16 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Observable } from "rxjs";
-
-const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" })
-};
 
 @Injectable({
   providedIn: "root"
 })
-export class OrderCreateService {
-  apiURL: string = "https://2ffaca7f.ngrok.io/orders/new";
+export class OrderUpdateService {
+  apiURL: string = "/api/orders/update";
   constructor(private http: HttpClient) {}
 
   postOrder(newOrder) {
@@ -24,5 +19,9 @@ export class OrderCreateService {
         return false;
       }
     );
+  }
+
+  getItems() {
+    return this.http.get("/api/items/list");
   }
 }
