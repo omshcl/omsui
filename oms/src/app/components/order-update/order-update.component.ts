@@ -73,6 +73,18 @@ export class OrderUpdateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._orderUpdateService.getItems().subscribe(data => {
+      this.dataList = data;
+      for (let itemName of this.dataList) {
+        this.itemList.push(itemName.description);
+        this.priceList.push(itemName.price);
+      }
+
+      this.itemForm.controls["item"].setValue(this.itemList[0], {
+        onlySelf: true
+      });
+    });
+
     this._orderUpdateService.getInfo(this.orderID).subscribe(data => {
       this.dataList = data;
       const orderDetail = this.dataList;
@@ -89,27 +101,18 @@ export class OrderUpdateComponent implements OnInit {
       this.setOrderFormValue("date", orderDetail.date);
       this.setOrderFormValue("channel", orderDetail.channel);
       this.setOrderFormValue("payment", orderDetail.payment);
+
       for (var key in orderDetail.items) {
+        const itemIndex = this.itemList.indexOf(key);
+        const curPrice = this.priceList[itemIndex];
         this.items.push({
           item: key,
-          quantity: 0,
-          price: orderDetail.items[key],
-          subtotal: 0
+          price: curPrice,
+          quantity: orderDetail.items[key],
+          subtotal: curPrice * orderDetail.items[key]
         });
       }
       this.subject.next(this.items);
-    });
-
-    this._orderUpdateService.getItems().subscribe(data => {
-      this.dataList = data;
-      for (let itemName of this.dataList) {
-        this.itemList.push(itemName.description);
-        this.priceList.push(itemName.price);
-      }
-
-      this.itemForm.controls["item"].setValue(this.itemList[0], {
-        onlySelf: true
-      });
     });
   }
 
