@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material";
@@ -42,7 +42,7 @@ import {
 } from "@angular/material";
 import { OrderAgentComponent } from "./components/order-agent/order-agent.component";
 import { SearchComponent } from "./components/search/search.component";
-import { viewcomponent } from "./components/view/view.component";
+import { ViewComponent } from "./components/view/view.component";
 import { OrderUpdateComponent } from "./components/order-update/order-update.component";
 import { LoginComponent } from "./components/login/login.component";
 import { OrderComponent } from "./components/order/order.component";
@@ -55,10 +55,10 @@ import { OrderSearchComponent } from "./components/order-search/order-search.com
     OrderComponent,
     OrderCreateComponent,
     OrderAgentComponent,
+    OrderSearchComponent,
     SearchComponent,
-    viewcomponent,
-    OrderUpdateComponent,
-    OrderSearchComponent
+    ViewComponent,
+    OrderUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +75,6 @@ import { OrderSearchComponent } from "./components/order-search/order-search.com
     MatCheckboxModule,
     MatChipsModule,
     MatStepperModule,
-    MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
@@ -107,11 +106,11 @@ import { OrderSearchComponent } from "./components/order-search/order-search.com
       { path: "order/create", component: OrderCreateComponent },
       { path: "order-agent", component: OrderAgentComponent },
       { path: "order/search", component: OrderSearchComponent },
-      { path: "order/view", component: viewcomponent },
+      { path: "order/view/:orderID", component: ViewComponent },
       { path: "order/update/:orderID", component: OrderUpdateComponent }
     ])
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
