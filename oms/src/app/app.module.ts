@@ -47,6 +47,7 @@ import { OrderUpdateComponent } from "./components/order-update/order-update.com
 import { LoginComponent } from "./components/login/login.component";
 import { OrderComponent } from "./components/order/order.component";
 import { OrderCreateComponent } from "./components/order-create/order-create.component";
+import { OrderSearchComponent } from "./components/order-search/order-search.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { OrderCreateComponent } from "./components/order-create/order-create.com
     OrderAgentComponent,
     SearchComponent,
     viewcomponent,
-    OrderUpdateComponent
+    OrderUpdateComponent,
+    OrderSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +106,7 @@ import { OrderCreateComponent } from "./components/order-create/order-create.com
       { path: "order", component: OrderComponent },
       { path: "order/create", component: OrderCreateComponent },
       { path: "order-agent", component: OrderAgentComponent },
-      { path: "order/search", component: SearchComponent },
+      { path: "order/search", component: OrderSearchComponent },
       { path: "order/view", component: viewcomponent },
       { path: "order/update/:orderID", component: OrderUpdateComponent }
     ])
