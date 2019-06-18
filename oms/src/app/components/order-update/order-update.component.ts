@@ -79,10 +79,7 @@ export class OrderUpdateComponent implements OnInit {
         this.itemList.push(itemName.description);
         this.priceList.push(itemName.price);
       }
-
-      this.itemForm.controls["item"].setValue(this.itemList[0], {
-        onlySelf: true
-      });
+      this.setItemFormValue("item", this.itemList[0]);
     });
 
     this._orderUpdateService.getInfo(this.orderID).subscribe(data => {
@@ -102,40 +99,24 @@ export class OrderUpdateComponent implements OnInit {
       this.setOrderFormValue("channel", orderDetail.channel);
       this.setOrderFormValue("payment", orderDetail.payment);
 
+      // Update the Order Table
       for (var key in orderDetail.items) {
-        const itemIndex = this.itemList.indexOf(key);
-        const curPrice = this.priceList[itemIndex];
         this.items.push({
-          item: key,
-          price: curPrice,
-          quantity: orderDetail.items[key],
-          subtotal: curPrice * orderDetail.items[key]
+          item: orderDetail.items["id"],
+          price: orderDetail.items["price"],
+          quantity: orderDetail.items["quantity"],
+          subtotal: orderDetail.items["quantity"] * orderDetail.items["price"]
         });
       }
+      this.updateTotal();
       this.subject.next(this.items);
     });
   }
 
-  setOrderFormValue(field, value) {
-    this.orderForm.controls[field].setValue(value, {
-      onlySelf: true
-    });
-  }
-
-  setItemFormValue(field, value) {
-    this.itemForm.controls[field].setValue(value, {
-      onlySelf: true
-    });
-  }
-
-  getUrl() {
-    return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
-  }
-
   addItem() {
     const itemArray = this.orderForm.controls.items as FormArray;
-    const curItem = this.itemForm.get("item").value;
-    const curQuant = this.itemForm.get("quantity").value;
+    const curItem = this.getItemValue();
+    const curQuant = this.getQuantityValue();
     var itemIndex = this.itemList.indexOf(curItem);
     const curPrice = this.priceList[itemIndex];
     let subTotal = curPrice * curQuant;
@@ -146,10 +127,9 @@ export class OrderUpdateComponent implements OnInit {
       subtotal: subTotal
     });
     itemArray.push(group);
+
     //reset item back to 'default' selected
-    this.itemForm.controls["item"].setValue(this.itemList[0], {
-      onlySelf: true
-    });
+    this.setItemFormValue("item", this.itemList[0]);
 
     // Add the items to the table
     const orderItems = this.orderForm.value.items;
@@ -163,18 +143,6 @@ export class OrderUpdateComponent implements OnInit {
     this.subject.next(this.items);
     // Update order total
     this.updateTotal();
-  }
-
-  updateTotal() {
-    let curTotal = 0;
-    for (let item of this.items) {
-      curTotal += item.price * item.quantity;
-    }
-    this.orderForm.get("total").setValue(curTotal);
-  }
-
-  getTotal() {
-    return this.orderForm.get("total").value;
   }
 
   removeItem(i: any) {
@@ -205,6 +173,42 @@ export class OrderUpdateComponent implements OnInit {
     this.setOrderFormValue("date", curDate);
   }
 
+  setOrderFormValue(field, value) {
+    this.orderForm.controls[field].setValue(value, {
+      onlySelf: true
+    });
+  }
+
+  setItemFormValue(field, value) {
+    this.itemForm.controls[field].setValue(value, {
+      onlySelf: true
+    });
+  }
+
+  updateTotal() {
+    let curTotal = 0;
+    for (let item of this.items) {
+      curTotal += item.price * item.quantity;
+    }
+    this.orderForm.get("total").setValue(curTotal);
+  }
+
+  getTotal() {
+    return this.orderForm.get("total").value;
+  }
+
+  getItemValue() {
+    return this.itemForm.get("item").value;
+  }
+
+  getQuantityValue() {
+    return this.itemForm.get("quantity").value;
+  }
+
+  getPriceValue() {
+    return this.itemForm.get("price").value;
+  }
+
   get firstname() {
     return this.orderForm.get("firstname");
   }
@@ -228,5 +232,9 @@ export class OrderUpdateComponent implements OnInit {
   }
   get zip() {
     return this.orderForm.get("zip");
+  }
+
+  getUrl() {
+    return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
   }
 }
