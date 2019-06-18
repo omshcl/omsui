@@ -42,7 +42,7 @@ import {
 } from "@angular/material";
 import { OrderAgentComponent } from "./components/order-agent/order-agent.component";
 import { SearchComponent } from "./components/search/search.component";
-import { viewcomponent } from "./components/view/view.component";
+import { ViewComponent } from "./components/view/view.component";
 import { OrderUpdateComponent } from "./components/order-update/order-update.component";
 import { LoginComponent } from "./components/login/login.component";
 import { OrderComponent } from "./components/order/order.component";
@@ -55,7 +55,7 @@ import { OrderCreateComponent } from "./components/order-create/order-create.com
     OrderCreateComponent,
     OrderAgentComponent,
     SearchComponent,
-    viewcomponent,
+    ViewComponent,
     OrderUpdateComponent
   ],
   imports: [
@@ -105,7 +105,7 @@ import { OrderCreateComponent } from "./components/order-create/order-create.com
       { path: "order/create", component: OrderCreateComponent },
       { path: "order-agent", component: OrderAgentComponent },
       { path: "order/search", component: SearchComponent },
-      { path: "order/view", component: viewcomponent },
+      { path: "order/view/:orderID", component: ViewComponent },
       { path: "order/update/:orderID", component: OrderUpdateComponent }
     ])
   ],
