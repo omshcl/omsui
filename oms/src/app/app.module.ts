@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material";
@@ -73,7 +73,6 @@ import { OrderCreateComponent } from "./components/order-create/order-create.com
     MatCheckboxModule,
     MatChipsModule,
     MatStepperModule,
-    MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
@@ -109,7 +108,7 @@ import { OrderCreateComponent } from "./components/order-create/order-create.com
       { path: "order/update/:orderID", component: OrderUpdateComponent }
     ])
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
