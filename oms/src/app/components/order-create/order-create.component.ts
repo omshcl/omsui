@@ -67,18 +67,12 @@ export class OrderCreateComponent implements OnInit {
       payment: ["", Validators.required],
       total: ""
     });
-    this.itemForm.controls["quantity"].setValue(1, {
-      onlySelf: true
-    });
-    this.orderForm.controls["channel"].setValue(this.channelList[0], {
-      onlySelf: true
-    });
-    this.orderForm.controls["payment"].setValue(this.paymentList[0], {
-      onlySelf: true
-    });
-    this.orderForm.controls["total"].setValue(0, { onlySelf: true });
+    this.setItemFormValue("quantity", 1);
+    this.setOrderFormValue("channel", this.channelList[0]);
+    this.setOrderFormValue("payment", this.paymentList[0]);
+    this.setOrderFormValue("total", 0);
     let curDate = new Date().toISOString();
-    this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
+    this.setOrderFormValue("date", curDate);
   }
 
   ngOnInit() {
@@ -89,9 +83,7 @@ export class OrderCreateComponent implements OnInit {
         this.priceList.push(itemName.price);
       }
 
-      this.itemForm.controls["item"].setValue(this.itemList[0], {
-        onlySelf: true
-      });
+      this.setItemFormValue("item", this.itemList[0]);
     });
   }
 
@@ -101,8 +93,8 @@ export class OrderCreateComponent implements OnInit {
 
   addItem() {
     const itemArray = this.orderForm.controls.items as FormArray;
-    const curItem = this.itemForm.get("item").value;
-    const curQuant = this.itemForm.get("quantity").value;
+    const curItem = this.getItemValue();
+    const curQuant = this.getQuantityValue();
     var itemIndex = this.itemList.indexOf(curItem);
     const curPrice = this.priceList[itemIndex];
     let subTotal = curPrice * curQuant;
@@ -113,10 +105,9 @@ export class OrderCreateComponent implements OnInit {
       subtotal: subTotal
     });
     itemArray.push(group);
+
     //reset item back to 'default' selected
-    this.itemForm.controls["item"].setValue(this.itemList[0], {
-      onlySelf: true
-    });
+    this.setItemFormValue("item", this.itemList[0]);
 
     // Add the items to the table
     const orderItems = this.orderForm.value.items;
@@ -130,19 +121,6 @@ export class OrderCreateComponent implements OnInit {
     this.subject.next(this.items);
     // Update order total
     this.updateTotal();
-    console.log(this.orderForm.value);
-  }
-
-  updateTotal() {
-    let curTotal = 0;
-    for (let item of this.items) {
-      curTotal += item.price * item.quantity;
-    }
-    this.orderForm.get("total").setValue(curTotal);
-  }
-
-  getTotal() {
-    return this.orderForm.get("total").value;
   }
 
   removeItem(i: any) {
@@ -158,28 +136,56 @@ export class OrderCreateComponent implements OnInit {
     // Process checkout data here
     console.warn("Your order has been submitted", this.orderForm.value);
     //this.http.post("example.com", this.orderForm.value).subscribe();
-    var bool = this._orderCreateService.postOrder(this.orderForm.value);
-    console.log(bool);
+    this._orderCreateService.postOrder(this.orderForm.value);
     this.orderForm.reset();
     //clear item table
     this.items = [];
     this.subject.next(this.items);
     //reset default dropdown items and date
-    this.itemForm.controls["item"].setValue(this.itemList[0], {
-      onlySelf: true
-    });
-    this.itemForm.controls["quantity"].setValue(1, {
-      onlySelf: true
-    });
-    this.orderForm.controls["channel"].setValue(this.channelList[0], {
-      onlySelf: true
-    });
-    this.orderForm.controls["payment"].setValue(this.paymentList[0], {
-      onlySelf: true
-    });
-    this.orderForm.controls["total"].setValue(0, { onlySelf: true });
+
+    this.setItemFormValue("item", this.channelList[0]);
+    this.setItemFormValue("quantity", 1);
+    this.setOrderFormValue("channel", this.channelList[0]);
+    this.setOrderFormValue("payment", this.paymentList[0]);
+    this.setOrderFormValue("total", 0);
     let curDate = new Date().toISOString();
-    this.orderForm.controls["date"].setValue(curDate, { onlySelf: true });
+    this.setOrderFormValue("date", curDate);
+  }
+
+  setOrderFormValue(field, value) {
+    this.orderForm.controls[field].setValue(value, {
+      onlySelf: true
+    });
+  }
+
+  setItemFormValue(field, value) {
+    this.itemForm.controls[field].setValue(value, {
+      onlySelf: true
+    });
+  }
+
+  updateTotal() {
+    let curTotal = 0;
+    for (let item of this.items) {
+      curTotal += item.price * item.quantity;
+    }
+    this.orderForm.get("total").setValue(curTotal);
+  }
+
+  getTotal() {
+    return this.orderForm.get("total").value;
+  }
+
+  getItemValue() {
+    return this.itemForm.get("item").value;
+  }
+
+  getQuantityValue() {
+    return this.itemForm.get("quantity").value;
+  }
+
+  getPriceValue() {
+    return this.itemForm.get("price").value;
   }
 
   get firstname() {
