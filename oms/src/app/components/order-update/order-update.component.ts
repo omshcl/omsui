@@ -100,12 +100,12 @@ export class OrderUpdateComponent implements OnInit {
       this.setOrderFormValue("payment", orderDetail.payment);
 
       // Update the Order Table
-      for (var key in orderDetail.items) {
+      for (const item of orderDetail.items) {
         this.items.push({
-          item: orderDetail.items["id"],
-          price: orderDetail.items["price"],
-          quantity: orderDetail.items["quantity"],
-          subtotal: orderDetail.items["quantity"] * orderDetail.items["price"]
+          item: item["id"],
+          price: item["price"],
+          quantity: item["quantity"],
+          subtotal: item["quantity"] * item["price"]
         });
       }
       this.updateTotal();
