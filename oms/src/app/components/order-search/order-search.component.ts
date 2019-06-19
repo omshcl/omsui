@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrderSearchService } from "../../services/order-search.service";
+import * as checkAdmin from "../../models/checkAdmin";
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 
 @Component({
@@ -28,6 +29,11 @@ export class OrderSearchComponent implements OnInit {
   constructor(private _orderSearchService: OrderSearchService) {}
 
   ngOnInit() {
+    if (checkAdmin.isAdmin !== true) {
+      this.displayedColumns.splice(7, 1);
+      console.log(this.displayedColumns);
+      checkAdmin.setAdmin(false);
+    }
     this._orderSearchService.getOrders().subscribe(response => {
       this.getOrdersResp = response;
       for (let order of this.getOrdersResp) {
