@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
+import * as checkAdmin from "../models/checkAdmin";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -26,7 +27,6 @@ export class VerifyLoginService {
         error => {
           console.error("Error posting order!");
 
-          
           return false;
         }
       );
@@ -35,8 +35,10 @@ export class VerifyLoginService {
     if (data.isValid && data.isAdmin) {
       console.log("here");
       location.href = "./order";
+      checkAdmin.setAdmin(true);
     } else if (data.isValid && !data.isAdmin) {
       location.href = "./order-agent";
+      checkAdmin.setAdmin(false);
     } else {
       alert("Invalid Login. Check credentials.");
     }

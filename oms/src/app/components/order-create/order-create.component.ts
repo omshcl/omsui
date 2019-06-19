@@ -124,7 +124,8 @@ export class OrderCreateComponent implements OnInit {
   }
 
   removeItem(i: any) {
-    this.orderForm.value.items.splice(i, 1);
+    var itemArray = this.orderForm.controls.items as FormArray;
+    itemArray.removeAt(i);
     this.items.splice(i, 1);
     this.subject.next(this.items);
     // Update order total
@@ -138,12 +139,14 @@ export class OrderCreateComponent implements OnInit {
     //this.http.post("example.com", this.orderForm.value).subscribe();
     this._orderCreateService.postOrder(this.orderForm.value);
     this.orderForm.reset();
+    const itemArray = this.orderForm.controls.items as FormArray;
+    itemArray.clear();
     //clear item table
     this.items = [];
     this.subject.next(this.items);
     //reset default dropdown items and date
 
-    this.setItemFormValue("item", this.channelList[0]);
+    this.setItemFormValue("item", this.itemList[0]);
     this.setItemFormValue("quantity", 1);
     this.setOrderFormValue("channel", this.channelList[0]);
     this.setOrderFormValue("payment", this.paymentList[0]);
