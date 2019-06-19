@@ -1,6 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrderSearchService } from "../../services/order-search.service";
-import { MatTableDataSource } from "@angular/material";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 
 @Component({
   selector: "app-order-search",
@@ -22,6 +22,8 @@ export class OrderSearchComponent implements OnInit {
   ];
   elementData: Element[] = [];
   dataSource;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(private _orderSearchService: OrderSearchService) {}
 
@@ -40,6 +42,8 @@ export class OrderSearchComponent implements OnInit {
         });
       }
       this.dataSource = new MatTableDataSource(this.elementData);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -47,6 +51,12 @@ export class OrderSearchComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  ngAfterViewInit() {
+    console.log("ngAfterViewInit Called");
+    if (this.dataSource) this.dataSource.paginator = this.paginator;
+    if (this.dataSource) this.dataSource.sort = this.sort;
   }
 
   updateOrder(id) {
