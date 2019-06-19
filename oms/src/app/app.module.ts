@@ -2,17 +2,12 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material";
-import { LoginComponent } from "./login/login.component";
-import { OrderComponent } from "./order/order.component";
-import { OrderCreateComponent } from "./order-create/order-create.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
-
 
 import {
   MatAutocompleteModule,
@@ -45,10 +40,14 @@ import {
   MatTooltipModule,
   MatStepperModule
 } from "@angular/material";
-import { OrderAgentComponent } from "./order-agent/order-agent.component";
-import { SearchComponent } from "./search/search.component";
-import { viewcomponent } from "./view/view.component";
-
+import { OrderAgentComponent } from "./components/order-agent/order-agent.component";
+import { SearchComponent } from "./components/search/search.component";
+import { ViewComponent } from "./components/view/view.component";
+import { OrderUpdateComponent } from "./components/order-update/order-update.component";
+import { LoginComponent } from "./components/login/login.component";
+import { OrderComponent } from "./components/order/order.component";
+import { OrderCreateComponent } from "./components/order-create/order-create.component";
+import { OrderSearchComponent } from "./components/order-search/order-search.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,8 +55,10 @@ import { viewcomponent } from "./view/view.component";
     OrderComponent,
     OrderCreateComponent,
     OrderAgentComponent,
+    OrderSearchComponent,
     SearchComponent,
-    viewcomponent
+    ViewComponent,
+    OrderUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +75,6 @@ import { viewcomponent } from "./view/view.component";
     MatCheckboxModule,
     MatChipsModule,
     MatStepperModule,
-    MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
@@ -102,17 +102,16 @@ import { viewcomponent } from "./view/view.component";
     
     BrowserAnimationsModule,
     RouterModule.forRoot([
-
       { path: "", component: LoginComponent },
       { path: "order", component: OrderComponent },
       { path: "order/create", component: OrderCreateComponent },
       { path: "order-agent", component: OrderAgentComponent },
-      { path: "search", component: SearchComponent },
-      { path: "view", component: viewcomponent }
+      { path: "order/search", component: OrderSearchComponent },
+      { path: "order/view/:orderID", component: ViewComponent },
+      { path: "order/update/:orderID", component: OrderUpdateComponent }
     ])
-
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

@@ -1,9 +1,11 @@
 {
   "/api/*": {
-    "target": "http://3bea0029.ngrok.io",
+    "target": "http://80427ec8.ngrok.io",
     "secure": false,
     "logLevel": "debug",
     "changeOrigin": true,
-	"pathRewrite": {"^/api/*": ""}
+    "pathRewrite": {
+      "^/api/*": ""
+    }
   }
 }
