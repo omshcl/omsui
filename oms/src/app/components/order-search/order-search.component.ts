@@ -52,17 +52,6 @@ export class OrderSearchComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-
-  ngAfterViewInit() {
-    console.log("ngAfterViewInit Called");
-    if (this.dataSource) this.dataSource.paginator = this.paginator;
-    if (this.dataSource) this.dataSource.sort = this.sort;
-  }
-
-  updateOrder(id) {
-    // location.href = "/order/update/" + id;
-    console.log(id);
-  }
 }
 
 export interface Element {
