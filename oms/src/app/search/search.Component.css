@@ -1,17 +1,27 @@
+table {
+  width: 50%;
+  margin-left: 350px;
+  margin-right: 300px;
+  margin-bottom: 300px;
+  margin-top: 300px;
+  box-align: center;
+
+  
+}
 
 
-table,
 
 td {
-  text-align: left;
-
+  text-align: center;
+  font-size: 14px;
+  min-height: 100px;
   margin-left: 35%;
   margin-right: 20%;
 
   margin-top: 15%;
 
-  border: 5px solid grey;
-  border-collapse: collapse;
+  
+  
   padding: 5px;
 }
 

@@ -99,6 +99,7 @@ import { viewcomponent } from "./view/view.component";
     MatToolbarModule,
     MatTooltipModule,
     NgbModule.forRoot(),
+    
     BrowserAnimationsModule,
     RouterModule.forRoot([
 

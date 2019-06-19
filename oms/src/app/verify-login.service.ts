@@ -22,12 +22,12 @@ export class VerifyLoginService {
       })
       .subscribe(
         data => {
-
-          this.redirect(data)
-
+          this.redirect(data);
         },
         error => {
           console.error("Error posting order!");
+
+          
           return false;
         }
       );
