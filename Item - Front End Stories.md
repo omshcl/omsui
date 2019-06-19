@@ -1,6 +1,6 @@
 ## Create UI Design for Create Item-Supplies Page, 3 Points
 	-Select Item from Drop Down
-	-Fill out remaing Fields
+	-Fill out remaining Fields (all fields not provided by Item table)
 	-Button to submit form
 
 ## Create UI for Item/ShipNode Search Page, 3 Points
