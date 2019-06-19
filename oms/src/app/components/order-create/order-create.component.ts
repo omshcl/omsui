@@ -150,6 +150,11 @@ export class OrderCreateComponent implements OnInit {
     this.setOrderFormValue("total", 0);
     let curDate = new Date().toISOString();
     this.setOrderFormValue("date", curDate);
+    this.processedOrder();
+  }
+
+  processedOrder() {
+    alert("Order has been placed");
   }
 
   setOrderFormValue(field, value) {
