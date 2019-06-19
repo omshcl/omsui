@@ -41,7 +41,6 @@ import {
   MatStepperModule
 } from "@angular/material";
 import { OrderAgentComponent } from "./components/order-agent/order-agent.component";
-import { SearchComponent } from "./components/search/search.component";
 import { ViewComponent } from "./components/view/view.component";
 import { OrderUpdateComponent } from "./components/order-update/order-update.component";
 import { LoginComponent } from "./components/login/login.component";
@@ -56,7 +55,6 @@ import { OrderSearchComponent } from "./components/order-search/order-search.com
     OrderCreateComponent,
     OrderAgentComponent,
     OrderSearchComponent,
-    SearchComponent,
     ViewComponent,
     OrderUpdateComponent
   ],
@@ -99,7 +97,7 @@ import { OrderSearchComponent } from "./components/order-search/order-search.com
     MatToolbarModule,
     MatTooltipModule,
     NgbModule.forRoot(),
-    
+
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: "", component: LoginComponent },
