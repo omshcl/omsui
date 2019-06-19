@@ -1,16 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { SearchComponent } from './search.component';
+import { SearchComponent } from "./search.component";
+import { OrderComponent } from "../order/order.component";
+import { Component } from "@angular/core";
 
-describe('SearchComponet', () => {
+describe("SearchComponet", () => {
   let component: SearchComponent;
   let fixture: ComponentFixture<SearchComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SearchComponent ]
-    })
-    .compileComponents();
+      declarations: [SearchComponent, OrderComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,8 +20,13 @@ describe('SearchComponet', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
 
+@Component({
+  selector: "app-order",
+  template: ""
+})
+class MockOrderComponent {}

@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { AppComponent } from "./app.component";
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HttpClient } from "@angular/common/http";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material";
@@ -47,6 +47,7 @@ import { OrderUpdateComponent } from "./components/order-update/order-update.com
 import { LoginComponent } from "./components/login/login.component";
 import { OrderComponent } from "./components/order/order.component";
 import { OrderCreateComponent } from "./components/order-create/order-create.component";
+import { OrderSearchComponent } from "./components/order-search/order-search.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { OrderCreateComponent } from "./components/order-create/order-create.com
     OrderComponent,
     OrderCreateComponent,
     OrderAgentComponent,
+    OrderSearchComponent,
     SearchComponent,
     ViewComponent,
     OrderUpdateComponent
@@ -73,7 +75,6 @@ import { OrderCreateComponent } from "./components/order-create/order-create.com
     MatCheckboxModule,
     MatChipsModule,
     MatStepperModule,
-    MatDatepickerModule,
     MatDialogModule,
     MatExpansionModule,
     MatGridListModule,
@@ -104,12 +105,12 @@ import { OrderCreateComponent } from "./components/order-create/order-create.com
       { path: "order", component: OrderComponent },
       { path: "order/create", component: OrderCreateComponent },
       { path: "order-agent", component: OrderAgentComponent },
-      { path: "order/search", component: SearchComponent },
+      { path: "order/search", component: OrderSearchComponent },
       { path: "order/view/:orderID", component: ViewComponent },
       { path: "order/update/:orderID", component: OrderUpdateComponent }
     ])
   ],
-  providers: [],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
