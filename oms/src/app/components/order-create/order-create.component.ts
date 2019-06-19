@@ -124,7 +124,8 @@ export class OrderCreateComponent implements OnInit {
   }
 
   removeItem(i: any) {
-    this.orderForm.value.items.splice(i, 1);
+    var itemArray = this.orderForm.controls.items as FormArray;
+    itemArray.removeAt(i);
     this.items.splice(i, 1);
     this.subject.next(this.items);
     // Update order total
