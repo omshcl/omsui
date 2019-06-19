@@ -99,6 +99,7 @@ export class OrderUpdateComponent implements OnInit {
       this.setOrderFormValue("channel", orderDetail.channel);
       this.setOrderFormValue("payment", orderDetail.payment);
 
+      const itemArray = this.orderForm.controls.items as FormArray;
       // Update the Order Table
       for (const item of orderDetail.items) {
         this.items.push({
@@ -107,20 +108,16 @@ export class OrderUpdateComponent implements OnInit {
           quantity: item["quantity"],
           subtotal: item["quantity"] * item["price"]
         });
+
+        const group = this.itemFormBuilder.group({
+          item: item["id"],
+          quantity: item["price"],
+          price: item["quantity"],
+          subtotal: item["quantity"] * item["price"]
+        });
+
+        itemArray.push(group);
       }
-      const itemArray = this.orderForm.controls.items as FormArray;
-      const curItem = this.getItemValue();
-      const curQuant = this.getQuantityValue();
-      var itemIndex = this.itemList.indexOf(curItem);
-      const curPrice = this.priceList[itemIndex];
-      let subTotal = curPrice * curQuant;
-      const group = this.itemFormBuilder.group({
-        item: curItem,
-        quantity: curQuant,
-        price: curPrice,
-        subtotal: subTotal
-      });
-      itemArray.push(group);
       this.updateTotal();
       this.subject.next(this.items);
     });
@@ -140,7 +137,7 @@ export class OrderUpdateComponent implements OnInit {
       subtotal: subTotal
     });
     itemArray.push(group);
-
+    console.log(this.orderForm.value);
     //reset item back to 'default' selected
     this.setItemFormValue("item", this.itemList[0]);
 
@@ -159,8 +156,8 @@ export class OrderUpdateComponent implements OnInit {
   }
 
   removeItem(i: any) {
-    // this.orderForm.value.items.splice(i, 1);
-    this.orderForm.controls.items.removeAt(i);
+    var itemArray = this.orderForm.controls.items as FormArray;
+    itemArray.removeAt(i);
     this.items.splice(i, 1);
     console.log(this.orderForm.value);
     this.subject.next(this.items);
@@ -174,6 +171,8 @@ export class OrderUpdateComponent implements OnInit {
     //this.http.post("example.com", this.orderForm.value).subscribe();
     this._orderUpdateService.postOrder(this.orderForm.value);
     this.orderForm.reset();
+    const itemArray = this.orderForm.controls.items as FormArray;
+    itemArray.clear();
     //clear item table
     this.items = [];
     this.subject.next(this.items);
