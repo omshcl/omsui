@@ -138,6 +138,7 @@ export class OrderCreateComponent implements OnInit {
     //this.http.post("example.com", this.orderForm.value).subscribe();
     this._orderCreateService.postOrder(this.orderForm.value);
     this.orderForm.reset();
+    this.itemForm.reset();
     //clear item table
     this.items = [];
     this.subject.next(this.items);
