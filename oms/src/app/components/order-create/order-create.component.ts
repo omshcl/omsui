@@ -155,6 +155,7 @@ export class OrderCreateComponent implements OnInit {
 
   processedOrder() {
     alert("Order has been placed");
+    location.href = "/order/create";
   }
 
   setOrderFormValue(field, value) {
