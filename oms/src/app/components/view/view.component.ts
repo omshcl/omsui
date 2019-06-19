@@ -24,12 +24,7 @@ export class ViewComponent implements OnInit {
   data = {};
   dataList;
   items: itemOrder[] = [];
-  displayedColumns: string[] = [
-    "item",
-    "quantity",
-    "price",
-    "subtotal",
-  ];
+  displayedColumns: string[] = ["item", "quantity", "price", "subtotal"];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
   httpClient: any;
@@ -99,12 +94,12 @@ export class ViewComponent implements OnInit {
       this.setOrderFormValue("payment", orderDetail.payment);
 
       // Update the Order Table
-      for (var key in orderDetail.items) {
+      for (const item of orderDetail.items) {
         this.items.push({
-          item: orderDetail.items["id"],
-          price: orderDetail.items["price"],
-          quantity: orderDetail.items["quantity"],
-          subtotal: orderDetail.items["quantity"] * orderDetail.items["price"]
+          item: item["id"],
+          price: item["price"],
+          quantity: item["quantity"],
+          subtotal: item["quantity"] * item["price"]
         });
       }
       this.updateTotal();
@@ -145,7 +140,7 @@ export class ViewComponent implements OnInit {
   }
 
   redirect(id) {
-    location.href = "./order/update/" + id
+    location.href = "./order/update/" + id;
   }
   removeItem(i: any) {
     this.orderForm.value.items.splice(i, 1);
