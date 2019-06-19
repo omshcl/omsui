@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { OrderSearchService } from "../../services/order-search.service";
 import { MatTableDataSource } from "@angular/material";
+import * as checkAdmin from "../../models/checkAdmin";
 
 @Component({
   selector: "app-order-search",
@@ -26,6 +27,11 @@ export class OrderSearchComponent implements OnInit {
   constructor(private _orderSearchService: OrderSearchService) {}
 
   ngOnInit() {
+    if (checkAdmin.isAdmin !== true) {
+      this.displayedColumns.splice(7, 1);
+      console.log(this.displayedColumns);
+      checkAdmin.setAdmin(false);
+    }
     this._orderSearchService.getOrders().subscribe(response => {
       this.getOrdersResp = response;
       for (let order of this.getOrdersResp) {

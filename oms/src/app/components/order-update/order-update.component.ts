@@ -108,6 +108,19 @@ export class OrderUpdateComponent implements OnInit {
           subtotal: item["quantity"] * item["price"]
         });
       }
+      const itemArray = this.orderForm.controls.items as FormArray;
+      const curItem = this.getItemValue();
+      const curQuant = this.getQuantityValue();
+      var itemIndex = this.itemList.indexOf(curItem);
+      const curPrice = this.priceList[itemIndex];
+      let subTotal = curPrice * curQuant;
+      const group = this.itemFormBuilder.group({
+        item: curItem,
+        quantity: curQuant,
+        price: curPrice,
+        subtotal: subTotal
+      });
+      itemArray.push(group);
       this.updateTotal();
       this.subject.next(this.items);
     });
@@ -146,8 +159,10 @@ export class OrderUpdateComponent implements OnInit {
   }
 
   removeItem(i: any) {
-    this.orderForm.value.items.splice(i, 1);
+    // this.orderForm.value.items.splice(i, 1);
+    this.orderForm.controls.items.removeAt(i);
     this.items.splice(i, 1);
+    console.log(this.orderForm.value);
     this.subject.next(this.items);
     // Update order total
     this.updateTotal();
