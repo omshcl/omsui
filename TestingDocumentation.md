@@ -27,11 +27,12 @@ To run the test you only need to run the command “ng test”. This command is 
 	
 ## Example test cases
 
-it(`updateTotal should give currect value`, async(() => {
+`it(`updateTotal should give currect value`, async(() => {
     component.itemForm.controls["item"].setValue("Landline");
     expect(component.getItemValue() === "Landline").toBeTruthy();
-}));
-  
+}));`
+
+`  
 it(`form should be invalid`, async(() => {
     component.orderForm.controls["firstname"].setValue("");
     component.orderForm.controls["lastname"].setValue("");
@@ -41,3 +42,4 @@ it(`form should be invalid`, async(() => {
     component.orderForm.controls["zip"].setValue("");
     expect(component.orderForm.valid).toBeFalsy();
 }));
+`
