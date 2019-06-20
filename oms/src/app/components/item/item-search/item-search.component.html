@@ -1,0 +1,36 @@
+<app-order></app-order>
+<div class="container" style="padding-top: 80px">
+  <div class="row">
+    <div class="col-lg-6 mb3">
+      <ng-select
+        [items]="itemList"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        [clearSearchOnAdd]="true"
+        [clearOnBackspace]="true"
+        [selectOnTab]="true"
+        bindLabel="shortdescription"
+        placeholder="Select Items"
+        [(ngModel)]="selectedItems"
+      >
+      </ng-select>
+    </div>
+    <div class="col-lg-6 mb3">
+      <ng-select
+        [items]="shipNodeList"
+        [multiple]="true"
+        [closeOnSelect]="false"
+        [clearSearchOnAdd]="true"
+        [clearOnBackspace]="true"
+        [selectOnTab]="true"
+        bindLabel="locationname"
+        placeholder="Select ShipNodes"
+        [(ngModel)]="selectedShipNodes"
+      >
+      </ng-select>
+    </div>
+  </div>
+  <button type="button" class="btn btn-primary" (click)="search()">
+    Search
+  </button>
+</div>
