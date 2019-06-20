@@ -3,18 +3,7 @@ import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { OrderCreateService } from "../../services/order-create.service";
-
-export interface itemOrder {
-  item: string;
-  quantity: number;
-  price: number;
-  subtotal: number;
-}
-
-export interface itemList {
-  itemList: [];
-  priceList: [];
-}
+import { itemOrder } from "src/app/models/itemOrder";
 
 @Component({
   selector: "app-order-create",
@@ -23,6 +12,7 @@ export interface itemList {
 })
 export class OrderCreateComponent implements OnInit {
   itemList = [];
+  itemId = {};
   priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
@@ -79,7 +69,8 @@ export class OrderCreateComponent implements OnInit {
     this._orderCreateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
-        this.itemList.push(itemName.description);
+        this.itemId[itemName.itemId] = itemName.shortdescription;
+        this.itemList.push(itemName.shortdescription);
         this.priceList.push(itemName.price);
       }
 
@@ -102,7 +93,9 @@ export class OrderCreateComponent implements OnInit {
     const curPrice = this.priceList[itemIndex];
     let subTotal = curPrice * curQuant;
     const group = this.itemFormBuilder.group({
-      item: curItem,
+      itemId: Object.keys(this.itemId).find(
+        key => this.itemId[key] === curItem
+      ),
       quantity: curQuant,
       price: curPrice,
       subtotal: subTotal
