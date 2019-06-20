@@ -10,4 +10,8 @@ export class ItemSearchService {
   getItems() {
     return this.http.get("/api/items/list");
   }
+
+  getShipNodes() {
+    return this.http.get("/api/shipnodes");
+  }
 }
