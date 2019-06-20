@@ -8,6 +8,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgSelectModule } from "@ng-select/ng-select";
 
 import {
   MatAutocompleteModule,
@@ -47,6 +48,7 @@ import { LoginComponent } from "./components/login/login.component";
 import { OrderComponent } from "./components/order/order.component";
 import { OrderCreateComponent } from "./components/order-create/order-create.component";
 import { OrderSearchComponent } from "./components/order-search/order-search.component";
+import { ItemSearchComponent } from "./components/item/item-search/item-search.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +58,8 @@ import { OrderSearchComponent } from "./components/order-search/order-search.com
     OrderAgentComponent,
     OrderSearchComponent,
     ViewComponent,
-    OrderUpdateComponent
+    OrderUpdateComponent,
+    ItemSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -97,8 +100,9 @@ import { OrderSearchComponent } from "./components/order-search/order-search.com
     MatToolbarModule,
     MatTooltipModule,
     NgbModule.forRoot(),
-
     BrowserAnimationsModule,
+    NgSelectModule,
+
     RouterModule.forRoot([
       { path: "", component: LoginComponent },
       { path: "order", component: OrderComponent },
@@ -106,7 +110,8 @@ import { OrderSearchComponent } from "./components/order-search/order-search.com
       { path: "order-agent", component: OrderAgentComponent },
       { path: "order/search", component: OrderSearchComponent },
       { path: "order/view/:orderID", component: ViewComponent },
-      { path: "order/update/:orderID", component: OrderUpdateComponent }
+      { path: "order/update/:orderID", component: OrderUpdateComponent },
+      { path: "item/search", component: ItemSearchComponent }
     ])
   ],
   providers: [HttpClientModule],
