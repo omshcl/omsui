@@ -13,6 +13,16 @@
         placeholder="Select Items"
         [(ngModel)]="selectedItems"
       >
+        <ng-template ng-header-tmp>
+          <div>
+            <button class="btn btn-link" (click)="onSelectAll('item')">
+              Select All
+            </button>
+            <button class="btn btn-link" (click)="onClearAll('item')">
+              Clear All
+            </button>
+          </div>
+        </ng-template>
       </ng-select>
     </div>
     <div class="col-lg-6 mb3">
@@ -27,6 +37,16 @@
         placeholder="Select ShipNodes"
         [(ngModel)]="selectedShipNodes"
       >
+        <ng-template ng-header-tmp>
+          <div>
+            <button class="btn btn-link" (click)="onSelectAll(shipnode)">
+              Select All
+            </button>
+            <button class="btn btn-link" (click)="onClearAll(shipnode)">
+              Clear All
+            </button>
+          </div>
+        </ng-template>
       </ng-select>
     </div>
   </div>
