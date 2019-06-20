@@ -91,6 +91,9 @@ export class OrderCreateComponent implements OnInit {
     return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
   }
 
+  /**
+   * Add new item to the table
+   */
   addItem() {
     const itemArray = this.orderForm.controls.items as FormArray;
     const curItem = this.getItemValue();
