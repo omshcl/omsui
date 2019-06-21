@@ -50,7 +50,7 @@ export class OrderUpdateComponent implements OnInit {
     this.itemForm = this.initializeItemForm(formBuilder);
     this.orderForm = this.initializeOrderForm(formBuilder);
 
-    this.orderID = this.getOrderId();
+    this.getOrderId();
 
     this.initializeFormValues();
   }
@@ -66,7 +66,7 @@ export class OrderUpdateComponent implements OnInit {
 
   getOrderId() {
     this.route.paramMap.subscribe(params => {
-      return params.get("orderID");
+      this.orderID = params.get("orderID");
     });
   }
 
@@ -104,11 +104,7 @@ export class OrderUpdateComponent implements OnInit {
     });
   }
 
-  getItemsFromService() {}
-
-  ngOnInit() {
-    // this.getItemsFromService();
-
+  getItemsFromService() {
     this._orderUpdateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
@@ -118,6 +114,10 @@ export class OrderUpdateComponent implements OnInit {
       }
       this.setItemFormValue("item", this.itemList[0]);
     });
+  }
+
+  ngOnInit() {
+    this.getItemsFromService();
 
     this._orderUpdateService.getInfo(this.orderID).subscribe(data => {
       this.dataList = data;
