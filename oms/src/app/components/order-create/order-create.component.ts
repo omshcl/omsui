@@ -31,6 +31,7 @@ export class OrderCreateComponent implements OnInit {
   itemLength;
   item;
   data = {};
+  itemId = {};
   dataList;
   items: itemOrder[] = [];
   displayedColumns: string[] = [
@@ -79,6 +80,7 @@ export class OrderCreateComponent implements OnInit {
     this._orderCreateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
+        this.itemId[itemName.itemId] = itemName.shortdescription;
         this.itemList.push(itemName.description);
         this.priceList.push(itemName.price);
       }
@@ -102,7 +104,9 @@ export class OrderCreateComponent implements OnInit {
     const curPrice = this.priceList[itemIndex];
     let subTotal = curPrice * curQuant;
     const group = this.itemFormBuilder.group({
-      item: curItem,
+      itemId: Object.keys(this.itemId).find(
+        key => this.itemId[key] === curItem
+      ),
       quantity: curQuant,
       price: curPrice,
       subtotal: subTotal
