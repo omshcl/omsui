@@ -1,5 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormArray, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormArray,
+  Validators,
+  Form,
+  FormGroup
+} from "@angular/forms";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { OrderUpdateService } from "../../services/order-update.service";
@@ -17,11 +23,12 @@ export class OrderUpdateComponent implements OnInit {
   priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
-  itemForm;
-  orderForm;
+  itemForm: FormGroup;
+  orderForm: FormGroup;
   itemLength;
   item;
   data = {};
+  itemId = {};
   dataList;
   items: itemOrder[] = [];
   displayedColumns: string[] = [
@@ -37,20 +44,51 @@ export class OrderUpdateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private itemFormBuilder: FormBuilder,
     private _orderUpdateService: OrderUpdateService,
     private route: ActivatedRoute
   ) {
+    this.itemForm = this.initializeItemForm(formBuilder);
+    this.orderForm = this.initializeOrderForm(formBuilder);
+
+    this.orderID = this.getOrderId();
+
+    this.initializeFormValues();
+  }
+
+  initializeFormValues() {
+    this.setItemFormValue("quantity", 1);
+    this.setOrderFormValue("channel", this.channelList[0]);
+    this.setOrderFormValue("payment", this.paymentList[0]);
+    this.setOrderFormValue("total", 0);
+    let curDate = new Date().toISOString();
+    this.setOrderFormValue("date", curDate);
+  }
+
+  getOrderId() {
     this.route.paramMap.subscribe(params => {
-      this.orderID = params.get("orderID");
-      console.log(this.orderID);
+      return params.get("orderID");
     });
-    this.itemForm = itemFormBuilder.group({
+  }
+
+  initializeItemForm(itemFormBuilder: FormBuilder) {
+    return itemFormBuilder.group({
       item: ["", Validators.required],
       quantity: ["", Validators.required],
       price: ["", Validators.required]
     });
-    this.orderForm = this.formBuilder.group({
+  }
+
+  createItemForm(itemFormBuilder: FormBuilder, item) {
+    return itemFormBuilder.group({
+      item: item["id"],
+      quantity: item["quantity"],
+      price: item["price"],
+      subtotal: item["quantity"] * item["price"]
+    });
+  }
+
+  initializeOrderForm(orderFormBuilder: FormBuilder) {
+    return orderFormBuilder.group({
       id: this.orderID,
       items: this.formBuilder.array([]),
       channel: ["", Validators.required],
@@ -64,18 +102,17 @@ export class OrderUpdateComponent implements OnInit {
       payment: ["", Validators.required],
       total: ""
     });
-    this.setItemFormValue("quantity", 1);
-    this.setOrderFormValue("channel", this.channelList[0]);
-    this.setOrderFormValue("payment", this.paymentList[0]);
-    this.setOrderFormValue("total", 0);
-    let curDate = new Date().toISOString();
-    this.setOrderFormValue("date", curDate);
   }
 
+  getItemsFromService() {}
+
   ngOnInit() {
+    // this.getItemsFromService();
+
     this._orderUpdateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
+        this.itemId[itemName.shortdescription] = itemName.itemid;
         this.itemList.push(itemName.description);
         this.priceList.push(itemName.price);
       }
@@ -109,12 +146,7 @@ export class OrderUpdateComponent implements OnInit {
           subtotal: item["quantity"] * item["price"]
         });
 
-        const group = this.itemFormBuilder.group({
-          item: item["id"],
-          quantity: item["price"],
-          price: item["quantity"],
-          subtotal: item["quantity"] * item["price"]
-        });
+        const group = this.createItemForm(this.formBuilder, item);
 
         itemArray.push(group);
       }
@@ -130,12 +162,13 @@ export class OrderUpdateComponent implements OnInit {
     var itemIndex = this.itemList.indexOf(curItem);
     const curPrice = this.priceList[itemIndex];
     let subTotal = curPrice * curQuant;
-    const group = this.itemFormBuilder.group({
-      item: curItem,
+    const item = {
+      id: this.itemId[curItem],
       quantity: curQuant,
       price: curPrice,
       subtotal: subTotal
-    });
+    };
+    const group = this.createItemForm(this.formBuilder, item);
     itemArray.push(group);
     console.log(this.orderForm.value);
     //reset item back to 'default' selected
@@ -145,7 +178,7 @@ export class OrderUpdateComponent implements OnInit {
     const orderItems = this.orderForm.value.items;
     this.itemLength = orderItems.length;
     this.items.push({
-      item: orderItems[this.itemLength - 1].item,
+      item: curItem,
       quantity: orderItems[this.itemLength - 1].quantity,
       price: orderItems[this.itemLength - 1].price,
       subtotal: orderItems[this.itemLength - 1].subtotal

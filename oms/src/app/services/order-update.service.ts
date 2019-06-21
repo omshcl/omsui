@@ -26,6 +26,6 @@ export class OrderUpdateService {
   }
 
   getInfo(orderID) {
-    return this.http.post("/api/orders/getinfo", { id: orderID });
+    return this.http.post("/api/orders/getinfo", { itemid: orderID });
   }
 }
