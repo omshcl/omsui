@@ -80,7 +80,7 @@ export class OrderUpdateComponent implements OnInit {
 
   createItemForm(itemFormBuilder: FormBuilder, item) {
     return itemFormBuilder.group({
-      item: item["id"],
+      itemid: item["itemid"],
       quantity: item["quantity"],
       price: item["price"],
       subtotal: item["quantity"] * item["price"]
@@ -109,20 +109,19 @@ export class OrderUpdateComponent implements OnInit {
       this.dataList = data;
       for (let itemName of this.dataList) {
         this.itemId[itemName.shortdescription] = itemName.itemid;
-        this.itemList.push(itemName.description);
+        this.itemList.push(itemName.shortdescription);
         this.priceList.push(itemName.price);
       }
       this.setItemFormValue("item", this.itemList[0]);
     });
   }
 
-  ngOnInit() {
-    this.getItemsFromService();
-
+  getOrderInfoFromService() {
     this._orderUpdateService.getInfo(this.orderID).subscribe(data => {
       this.dataList = data;
       const orderDetail = this.dataList;
       console.log(orderDetail);
+      this.setOrderFormValue("id", this.orderID);
       this.setOrderFormValue("firstname", orderDetail.firstname);
       this.setOrderFormValue("lastname", orderDetail.lastname);
       this.setOrderFormValue("lastname", orderDetail.lastname);
@@ -140,7 +139,7 @@ export class OrderUpdateComponent implements OnInit {
       // Update the Order Table
       for (const item of orderDetail.items) {
         this.items.push({
-          item: item["id"],
+          item: item["shortdescription"],
           price: item["price"],
           quantity: item["quantity"],
           subtotal: item["quantity"] * item["price"]
@@ -155,44 +154,72 @@ export class OrderUpdateComponent implements OnInit {
     });
   }
 
-  addItem() {
-    const itemArray = this.orderForm.controls.items as FormArray;
+  ngOnInit() {
+    this.getItemsFromService();
+
+    this.getOrderInfoFromService();
+  }
+
+  getCurrentItemInfo() {
     const curItem = this.getItemValue();
     const curQuant = this.getQuantityValue();
-    var itemIndex = this.itemList.indexOf(curItem);
+    let itemIndex = this.itemList.indexOf(curItem);
     const curPrice = this.priceList[itemIndex];
-    let subTotal = curPrice * curQuant;
+    const curSubTotal = curPrice * curQuant;
+
+    return {
+      curItem: curItem,
+      curQuant: curQuant,
+      curPrice: curPrice,
+      curSubTotal: curSubTotal
+    };
+  }
+
+  addItemInfoToJSON(itemInfo) {
+    const itemArray = this.orderForm.controls.items as FormArray;
+
+    // Create Item Form to push current Item info to FormArray
     const item = {
-      id: this.itemId[curItem],
-      quantity: curQuant,
-      price: curPrice,
-      subtotal: subTotal
+      itemid: this.itemId[itemInfo.curItem],
+      quantity: itemInfo.curQuant,
+      price: itemInfo.curPrice,
+      subtotal: itemInfo.curSubTotal
     };
     const group = this.createItemForm(this.formBuilder, item);
     itemArray.push(group);
-    console.log(this.orderForm.value);
-    //reset item back to 'default' selected
-    this.setItemFormValue("item", this.itemList[0]);
+  }
 
+  addItemInfoToItemTable(itemInfo) {
     // Add the items to the table
-    const orderItems = this.orderForm.value.items;
-    this.itemLength = orderItems.length;
     this.items.push({
-      item: curItem,
-      quantity: orderItems[this.itemLength - 1].quantity,
-      price: orderItems[this.itemLength - 1].price,
-      subtotal: orderItems[this.itemLength - 1].subtotal
+      item: itemInfo.curItem,
+      quantity: itemInfo.curQuant,
+      price: itemInfo.curPrice,
+      subtotal: itemInfo.curQuant
     });
+    // Refresh the item table
     this.subject.next(this.items);
     // Update order total
     this.updateTotal();
   }
 
-  removeItem(i: any) {
+  addItemToTableAndJSON() {
+    var itemInfo = this.getCurrentItemInfo();
+
+    this.addItemInfoToJSON(itemInfo);
+
+    //reset item back to 'default' selected
+    this.setItemFormValue("item", this.itemList[0]);
+
+    this.addItemInfoToItemTable(itemInfo);
+  }
+
+  removeItem(tableIndex: any) {
     var itemArray = this.orderForm.controls.items as FormArray;
-    itemArray.removeAt(i);
-    this.items.splice(i, 1);
-    console.log(this.orderForm.value);
+    // Remove Item From ItemForm Array
+    itemArray.removeAt(tableIndex);
+    // Remove Item From Item Table
+    this.items.splice(tableIndex, 1);
     this.subject.next(this.items);
     // Update order total
     this.updateTotal();
