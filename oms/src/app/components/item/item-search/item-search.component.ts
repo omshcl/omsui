@@ -33,7 +33,7 @@ export class ItemSearchComponent implements OnInit {
       }
       console.log(this.shipNodeList);
     });
-    this.itemList.push({ itemid: 7, shortdescription: "Pixel 3" });
+    // this.itemList.push({ itemid: 7, shortdescription: "Pixel 3" });
   }
   onSelectAll(form) {
     if (form == "item") this.selectedItems = this.itemList;
