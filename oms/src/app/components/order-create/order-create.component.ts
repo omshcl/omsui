@@ -31,6 +31,7 @@ export class OrderCreateComponent implements OnInit {
   itemLength;
   item;
   data = {};
+  itemId = {};
   dataList;
   items: itemOrder[] = [];
   displayedColumns: string[] = [
@@ -50,7 +51,7 @@ export class OrderCreateComponent implements OnInit {
     private _orderCreateService: OrderCreateService
   ) {
     this.itemForm = itemFormBuilder.group({
-      item: ["", Validators.required],
+      item: [0, Validators.required],
       quantity: ["", Validators.required],
       price: ["", Validators.required]
     });
@@ -79,7 +80,8 @@ export class OrderCreateComponent implements OnInit {
     this._orderCreateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
-        this.itemList.push(itemName.description);
+        this.itemId[itemName.shortdescription] = itemName.itemid;
+        this.itemList.push(itemName.shortdescription);
         this.priceList.push(itemName.price);
       }
 
@@ -102,13 +104,12 @@ export class OrderCreateComponent implements OnInit {
     const curPrice = this.priceList[itemIndex];
     let subTotal = curPrice * curQuant;
     const group = this.itemFormBuilder.group({
-      item: curItem,
+      itemid: this.itemId[curItem],
       quantity: curQuant,
       price: curPrice,
       subtotal: subTotal
     });
     itemArray.push(group);
-
     //reset item back to 'default' selected
     this.setItemFormValue("item", this.itemList[0]);
 
@@ -116,7 +117,7 @@ export class OrderCreateComponent implements OnInit {
     const orderItems = this.orderForm.value.items;
     this.itemLength = orderItems.length;
     this.items.push({
-      item: orderItems[this.itemLength - 1].item,
+      item: curItem,
       quantity: orderItems[this.itemLength - 1].quantity,
       price: orderItems[this.itemLength - 1].price,
       subtotal: orderItems[this.itemLength - 1].subtotal
