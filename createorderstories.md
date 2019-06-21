@@ -34,3 +34,6 @@ Use case to develop a Create Order page for admin users to create an order in OM
 ## BugFixing, 5 Points
 
     -Fix issue due to restructuring of the Item table in the database
+
+## Refactoring, 5 Points
+	-Refactoring our code to make it more efficient and reusable
