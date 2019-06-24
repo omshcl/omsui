@@ -14,4 +14,8 @@ export class ItemSearchService {
   getShipNodes() {
     return this.http.get("/api/shipnodes");
   }
+
+  postSearchQuery(form) {
+    return this.http.post("/api/items/search", form);
+  }
 }

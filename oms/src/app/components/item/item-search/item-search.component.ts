@@ -9,10 +9,11 @@ import { ItemSearchService } from "../../../services/item-search.service";
 export class ItemSearchComponent implements OnInit {
   getItemsResponse;
   getShipNodesResponse;
+  getSearchResponse;
   public itemList: Array<Item> = [];
   public shipNodeList: Array<string> = [];
-  selectedItems;
-  selectedShipNodes;
+  selectedItems = [];
+  selectedShipNodes = [];
   constructor(private _itemSearchService: ItemSearchService) {}
 
   ngOnInit() {
@@ -33,7 +34,7 @@ export class ItemSearchComponent implements OnInit {
       }
       console.log(this.shipNodeList);
     });
-    this.itemList.push({ itemid: 7, shortdescription: "Pixel 3" });
+    // this.itemList.push({ itemid: 7, shortdescription: "Pixel 3" });
   }
   onSelectAll(form) {
     if (form == "item") this.selectedItems = this.itemList;
@@ -45,10 +46,18 @@ export class ItemSearchComponent implements OnInit {
     else this.selectedShipNodes = [];
   }
 
+  formEmpty() {
+    return this.selectedItems.length == 0 || this.selectedShipNodes.length == 0;
+  }
+
   search() {
-    console.log({
+    let form = {
       items: this.selectedItems,
       shipnodes: this.selectedShipNodes
+    };
+    this._itemSearchService.postSearchQuery(form).subscribe(response => {
+      this.getSearchResponse = response;
+      console.log(this.getSearchResponse);
     });
   }
 }

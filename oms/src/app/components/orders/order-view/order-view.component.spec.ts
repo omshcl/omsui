@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ViewComponent } from "./view.component";
+import { OrderViewComponent } from "./order-view.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { OrderComponent } from "../order/order.component";
 import { Component } from "@angular/core";
@@ -15,12 +15,12 @@ import { RouterModule } from "@angular/router";
 import { APP_BASE_HREF } from "@angular/common";
 
 describe("viewComponent", () => {
-  let component: ViewComponent;
-  let fixture: ComponentFixture<ViewComponent>;
+  let component: OrderViewComponent;
+  let fixture: ComponentFixture<OrderViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ViewComponent, OrderComponent],
+      declarations: [OrderViewComponent, OrderComponent],
       imports: [
         ReactiveFormsModule,
         MatDatepickerModule,
@@ -34,7 +34,7 @@ describe("viewComponent", () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewComponent);
+    fixture = TestBed.createComponent(OrderViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

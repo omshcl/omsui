@@ -41,13 +41,13 @@ import {
   MatTooltipModule,
   MatStepperModule
 } from "@angular/material";
-import { OrderAgentComponent } from "./components/order-agent/order-agent.component";
-import { ViewComponent } from "./components/view/view.component";
-import { OrderUpdateComponent } from "./components/order-update/order-update.component";
+import { OrderAgentComponent } from "./components/orders/order-agent/order-agent.component";
+import { OrderViewComponent } from "./components/orders/order-view/order-view.component";
+import { OrderUpdateComponent } from "./components/orders/order-update/order-update.component";
 import { LoginComponent } from "./components/login/login.component";
-import { OrderComponent } from "./components/order/order.component";
-import { OrderCreateComponent } from "./components/order-create/order-create.component";
-import { OrderSearchComponent } from "./components/order-search/order-search.component";
+import { OrderComponent } from "./components/orders/order/order.component";
+import { OrderCreateComponent } from "./components/orders/order-create/order-create.component";
+import { OrderSearchComponent } from "./components/orders/order-search/order-search.component";
 import { ItemSearchComponent } from "./components/item/item-search/item-search.component";
 import { CreateSupplyComponent } from "./components/item/create-supply/create-supply.component";
 
@@ -59,7 +59,7 @@ import { CreateSupplyComponent } from "./components/item/create-supply/create-su
     OrderCreateComponent,
     OrderAgentComponent,
     OrderSearchComponent,
-    ViewComponent,
+    OrderViewComponent,
     OrderUpdateComponent,
     ItemSearchComponent,
     CreateSupplyComponent
@@ -113,7 +113,7 @@ import { CreateSupplyComponent } from "./components/item/create-supply/create-su
       { path: "order/create", component: OrderCreateComponent },
       { path: "order-agent", component: OrderAgentComponent },
       { path: "order/search", component: OrderSearchComponent },
-      { path: "order/view/:orderID", component: ViewComponent },
+      { path: "order/view/:orderID", component: OrderViewComponent },
       { path: "order/update/:orderID", component: OrderUpdateComponent },
       { path: "item/search", component: ItemSearchComponent },
       { path: "item/create-supply", component: CreateSupplyComponent }
