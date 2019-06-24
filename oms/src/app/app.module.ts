@@ -41,13 +41,13 @@ import {
   MatTooltipModule,
   MatStepperModule
 } from "@angular/material";
-import { OrderAgentComponent } from "./components/order-agent/order-agent.component";
-import { OrderViewComponent } from "./components/order-view/order-view.component";
-import { OrderUpdateComponent } from "./components/order-update/order-update.component";
+import { OrderAgentComponent } from "./components/orders/order-agent/order-agent.component";
+import { OrderViewComponent } from "./components/orders/order-view/order-view.component";
+import { OrderUpdateComponent } from "./components/orders/order-update/order-update.component";
 import { LoginComponent } from "./components/login/login.component";
-import { OrderComponent } from "./components/order/order.component";
-import { OrderCreateComponent } from "./components/order-create/order-create.component";
-import { OrderSearchComponent } from "./components/order-search/order-search.component";
+import { OrderComponent } from "./components/orders/order/order.component";
+import { OrderCreateComponent } from "./components/orders/order-create/order-create.component";
+import { OrderSearchComponent } from "./components/orders/order-search/order-search.component";
 import { ItemSearchComponent } from "./components/item/item-search/item-search.component";
 @NgModule({
   declarations: [
