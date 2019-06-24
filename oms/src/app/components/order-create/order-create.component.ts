@@ -3,6 +3,7 @@ import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { OrderCreateService } from "../../services/order-create.service";
+import { OrderService } from "src/app/services/order.service";
 
 export interface itemOrder {
   item: string;
@@ -48,13 +49,10 @@ export class OrderCreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private itemFormBuilder: FormBuilder,
-    private _orderCreateService: OrderCreateService
+    private _orderCreateService: OrderCreateService,
+    private _orderService: OrderService
   ) {
-    this.itemForm = itemFormBuilder.group({
-      item: [0, Validators.required],
-      quantity: ["", Validators.required],
-      price: ["", Validators.required]
-    });
+    this.itemForm = this._orderService.initializeItemForm(formBuilder);
     this.orderForm = this.formBuilder.group({
       items: this.formBuilder.array([]),
       channel: ["", Validators.required],
