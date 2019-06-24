@@ -9,7 +9,6 @@ import { MatNativeDateModule } from "@angular/material";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgSelectModule } from "@ng-select/ng-select";
-
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -49,6 +48,7 @@ import { OrderComponent } from "./components/orders/order/order.component";
 import { OrderCreateComponent } from "./components/orders/order-create/order-create.component";
 import { OrderSearchComponent } from "./components/orders/order-search/order-search.component";
 import { ItemSearchComponent } from "./components/item/item-search/item-search.component";
+import { Globals } from "./global";
 @NgModule({
   declarations: [
     AppComponent,
@@ -114,7 +114,7 @@ import { ItemSearchComponent } from "./components/item/item-search/item-search.c
       { path: "item/search", component: ItemSearchComponent }
     ])
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
