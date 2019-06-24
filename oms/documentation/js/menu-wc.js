@@ -55,16 +55,20 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AppModule.html" data-type="entity-link">AppModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-AppModule-bb5f8edb9ede2e4a351ac340139eccaf"' : 'data-target="#xs-components-links-module-AppModule-bb5f8edb9ede2e4a351ac340139eccaf"' }>
+                                            'data-target="#components-links-module-AppModule-883a0d4411764bc3908a069314da9093"' : 'data-target="#xs-components-links-module-AppModule-883a0d4411764bc3908a069314da9093"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AppModule-bb5f8edb9ede2e4a351ac340139eccaf"' :
-                                            'id="xs-components-links-module-AppModule-bb5f8edb9ede2e4a351ac340139eccaf"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AppModule-883a0d4411764bc3908a069314da9093"' :
+                                            'id="xs-components-links-module-AppModule-883a0d4411764bc3908a069314da9093"' }>
                                             <li class="link">
                                                 <a href="components/AppComponent.html"
                                                     data-type="entity-link" data-context="sub-entity" data-context-id="modules">AppComponent</a>
+                                            </li>
+                                            <li class="link">
+                                                <a href="components/ItemSearchComponent.html"
+                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">ItemSearchComponent</a>
                                             </li>
                                             <li class="link">
                                                 <a href="components/LoginComponent.html"
@@ -142,10 +146,16 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             </div>
                             <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
                                 <li class="link">
+                                    <a href="injectables/ItemSearchService.html" data-type="entity-link">ItemSearchService</a>
+                                </li>
+                                <li class="link">
                                     <a href="injectables/OrderCreateService.html" data-type="entity-link">OrderCreateService</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/OrderSearchService.html" data-type="entity-link">OrderSearchService</a>
+                                </li>
+                                <li class="link">
+                                    <a href="injectables/OrderService.html" data-type="entity-link">OrderService</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/OrderUpdateService.html" data-type="entity-link">OrderUpdateService</a>
@@ -165,6 +175,9 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse" ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             <li class="link">
                                 <a href="interfaces/Element.html" data-type="entity-link">Element</a>
+                            </li>
+                            <li class="link">
+                                <a href="interfaces/Item.html" data-type="entity-link">Item</a>
                             </li>
                             <li class="link">
                                 <a href="interfaces/itemList.html" data-type="entity-link">itemList</a>

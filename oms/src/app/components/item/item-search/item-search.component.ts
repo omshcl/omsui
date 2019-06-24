@@ -9,6 +9,7 @@ import { ItemSearchService } from "../../../services/item-search.service";
 export class ItemSearchComponent implements OnInit {
   getItemsResponse;
   getShipNodesResponse;
+  getSearchResponse;
   public itemList: Array<Item> = [];
   public shipNodeList: Array<string> = [];
   selectedItems = [];
@@ -50,9 +51,13 @@ export class ItemSearchComponent implements OnInit {
   }
 
   search() {
-    console.log({
+    let form = {
       items: this.selectedItems,
       shipnodes: this.selectedShipNodes
+    };
+    this._itemSearchService.postSearchQuery(form).subscribe(response => {
+      this.getSearchResponse = response;
+      console.log(this.getSearchResponse);
     });
   }
 }

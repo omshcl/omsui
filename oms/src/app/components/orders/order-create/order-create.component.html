@@ -1,7 +1,7 @@
 <app-order></app-order>
 <div class="container" style="padding-top: 80px">
   <!-- [ngStyle]="{ 'background-image': getUrl() }" -->
-  <h1>Update Order {{orderID}}</h1>
+  <h1>Create Order</h1>
   <form [formGroup]="orderForm">
     <div class="row">
       <div class="col-lg-3 mb-3">
@@ -120,7 +120,7 @@
       <ng-container matColumnDef="subtotal">
         <th mat-header-cell *matHeaderCellDef>Sub Total</th>
         <td mat-cell *matCellDef="let element">${{ element.subtotal }}</td>
-        <td mat-footer-cell *matFooterCellDef>${{ getTotal() }}</td>
+        <td mat-footer-cell *matFooterCellDef>${{ _orderService.getTotal() }}</td>
       </ng-container>
       <ng-container matColumnDef="actions">
         <th width="10%" mat-header-cell *matHeaderCellDef>Actions</th>
@@ -137,6 +137,7 @@
     </table>
   </div>
   <button class="btn btn-primary m-3" [disabled]="!this.items.length || !orderForm.valid" (click)="createOrder()">
-    Update Order
+    Create Order
   </button>
+
 </div>
