@@ -64,8 +64,4 @@ describe("OrderCreateComponent", () => {
   }));
 });
 
-@Component({
-  selector: "app-order",
-  template: ""
-})
-class MockOrderComponent {}
+
