@@ -1,11 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-  FormBuilder,
-  FormArray,
-  Validators,
-  Form,
-  FormGroup
-} from "@angular/forms";
+import { FormBuilder, FormArray, Validators } from "@angular/forms";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { OrderUpdateService } from "../../services/order-update.service";
@@ -14,39 +8,34 @@ import { itemOrder } from "src/app/models/itemOrder";
 import { OrderService } from "src/app/services/order.service";
 
 @Component({
-  selector: "app-order-update",
-  templateUrl: "./order-update.component.html",
-  styleUrls: ["./order-update.component.css"]
+  selector: "app-view",
+  templateUrl: "./order-view.component.html",
+  styleUrls: ["./order-view.component.css"]
 })
-export class OrderUpdateComponent implements OnInit {
+export class OrderViewComponent implements OnInit {
   orderID;
   itemList = [];
   priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
-  itemForm: FormGroup;
-  orderForm: FormGroup;
+  itemForm;
+  orderForm;
   itemLength;
   item;
   data = {};
   itemId = {};
   dataList;
   items: itemOrder[] = [];
-  displayedColumns: string[] = [
-    "item",
-    "quantity",
-    "price",
-    "subtotal",
-    "actions"
-  ];
+  displayedColumns: string[] = ["item", "quantity", "price", "subtotal"];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
   httpClient: any;
 
   constructor(
     private formBuilder: FormBuilder,
-    private _orderUpdateService: OrderUpdateService,
+    private itemFormBuilder: FormBuilder,
     private _orderService: OrderService,
+    private _orderUpdateService: OrderUpdateService,
     private route: ActivatedRoute
   ) {
     this.itemForm = this._orderService.initializeItemForm(formBuilder);
@@ -99,50 +88,8 @@ export class OrderUpdateComponent implements OnInit {
     });
   }
 
-  addItemToTableAndJSON() {
-    var itemInfo = this._orderService.getCurrentItemInfo(
-      this.itemList,
-      this.priceList
-    );
-
-    this._orderService.addItemInfoToJSON(itemInfo, this.itemId);
-
-    //reset item back to 'default' selected
-    this._orderService.setItemFormValue("item", this.itemList[0]);
-
-    this.items = this._orderService.addItemInfoToItemTable(
-      itemInfo,
-      this.items
-    );
-
-    // Refresh the item table
-    this.subject.next(this.items);
-  }
-
-  removeItem(tableIndex: any) {
-    var itemArray = this.orderForm.controls.items as FormArray;
-    // Remove Item From ItemForm Array
-    itemArray.removeAt(tableIndex);
-    // Remove Item From Item Table
-    this.items.splice(tableIndex, 1);
-    this.subject.next(this.items);
-    // Update order total
-    this._orderService.updateTotal(this.items);
-  }
-
-  createOrder() {
-    // Process checkout data here
-    console.warn("Your order has been submitted", this.orderForm.value);
-    //this.http.post("example.com", this.orderForm.value).subscribe();
-    this._orderUpdateService.postOrder(this.orderForm.value);
-
-    this._orderService.resetOrderFormArray();
-
-    //clear item table
-    this.items = [];
-    this.subject.next(this.items);
-
-    this._orderService.initializeFormValues();
+  redirect(id) {
+    location.href = "./order/update/" + id;
   }
 
   get firstname() {

@@ -1,21 +1,10 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormArray, Validators } from "@angular/forms";
+import { FormBuilder, FormArray, Validators, FormGroup } from "@angular/forms";
 import { CaseListDatasource } from "./elements-data-source";
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { OrderCreateService } from "../../services/order-create.service";
 import { OrderService } from "src/app/services/order.service";
-
-export interface itemOrder {
-  item: string;
-  quantity: number;
-  price: number;
-  subtotal: number;
-}
-
-export interface itemList {
-  itemList: [];
-  priceList: [];
-}
+import { itemOrder } from "src/app/models/itemOrder";
 
 @Component({
   selector: "app-order-create",
@@ -27,10 +16,9 @@ export class OrderCreateComponent implements OnInit {
   priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
-  itemForm;
-  orderForm;
-  itemLength;
-  item;
+  itemForm: FormGroup;
+  orderForm: FormGroup;
+  itemLength: Int16Array;
   data = {};
   itemId = {};
   dataList;
@@ -53,28 +41,15 @@ export class OrderCreateComponent implements OnInit {
     private _orderService: OrderService
   ) {
     this.itemForm = this._orderService.initializeItemForm(formBuilder);
-    this.orderForm = this.formBuilder.group({
-      items: this.formBuilder.array([]),
-      channel: ["", Validators.required],
-      date: ["", Validators.required],
-      firstname: ["", Validators.required],
-      lastname: ["", Validators.required],
-      address: ["", Validators.required],
-      city: ["", Validators.required],
-      state: ["", Validators.required],
-      zip: ["", Validators.required],
-      payment: ["", Validators.required],
-      total: ""
-    });
-    this.setItemFormValue("quantity", 1);
-    this.setOrderFormValue("channel", this.channelList[0]);
-    this.setOrderFormValue("payment", this.paymentList[0]);
-    this.setOrderFormValue("total", 0);
-    let curDate = new Date().toISOString();
-    this.setOrderFormValue("date", curDate);
+    this.orderForm = this._orderService.initializeOrderForm(formBuilder, 0);
+    this._orderService.initializeFormValues();
   }
 
   ngOnInit() {
+    this.getItemsFromService();
+  }
+
+  getItemsFromService() {
     this._orderCreateService.getItems().subscribe(data => {
       this.dataList = data;
       for (let itemName of this.dataList) {
@@ -82,57 +57,42 @@ export class OrderCreateComponent implements OnInit {
         this.itemList.push(itemName.shortdescription);
         this.priceList.push(itemName.price);
       }
-
-      this.setItemFormValue("item", this.itemList[0]);
+      this._orderService.setItemFormValue("item", this.itemList[0]);
     });
-  }
-
-  getUrl() {
-    return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
   }
 
   /**
    * Add new item to the table
    */
-  addItem() {
-    const itemArray = this.orderForm.controls.items as FormArray;
-    const curItem = this.getItemValue();
-    const curQuant = this.getQuantityValue();
-    var itemIndex = this.itemList.indexOf(curItem);
-    const curPrice = this.priceList[itemIndex];
-    let subTotal = curPrice * curQuant;
-    const group = this.itemFormBuilder.group({
-      itemid: this.itemId[curItem],
-      quantity: curQuant,
-      price: curPrice,
-      subtotal: subTotal
-    });
-    itemArray.push(group);
-    //reset item back to 'default' selected
-    this.setItemFormValue("item", this.itemList[0]);
+  addItemToTableAndJSON() {
+    var itemInfo = this._orderService.getCurrentItemInfo(
+      this.itemList,
+      this.priceList
+    );
 
-    // Add the items to the table
-    const orderItems = this.orderForm.value.items;
-    this.itemLength = orderItems.length;
-    this.items.push({
-      item: curItem,
-      quantity: orderItems[this.itemLength - 1].quantity,
-      price: orderItems[this.itemLength - 1].price,
-      subtotal: orderItems[this.itemLength - 1].subtotal
-    });
+    this._orderService.addItemInfoToJSON(itemInfo, this.itemId);
+
+    //reset item back to 'default' selected
+    this._orderService.setItemFormValue("item", this.itemList[0]);
+
+    this.items = this._orderService.addItemInfoToItemTable(
+      itemInfo,
+      this.items
+    );
+
+    // Refresh the item table
     this.subject.next(this.items);
-    // Update order total
-    this.updateTotal();
   }
 
-  removeItem(i: any) {
+  removeItem(tableIndex: any) {
     var itemArray = this.orderForm.controls.items as FormArray;
-    itemArray.removeAt(i);
-    this.items.splice(i, 1);
+    // Remove Item From ItemForm Array
+    itemArray.removeAt(tableIndex);
+    // Remove Item From Item Table
+    this.items.splice(tableIndex, 1);
     this.subject.next(this.items);
     // Update order total
-    this.updateTotal();
-    console.log(this.orderForm.value.items);
+    this._orderService.updateTotal(this.items);
   }
 
   createOrder() {
@@ -140,62 +100,20 @@ export class OrderCreateComponent implements OnInit {
     console.warn("Your order has been submitted", this.orderForm.value);
     //this.http.post("example.com", this.orderForm.value).subscribe();
     this._orderCreateService.postOrder(this.orderForm.value);
-    this.orderForm.reset();
-    const itemArray = this.orderForm.controls.items as FormArray;
-    itemArray.clear();
+
+    this._orderService.resetOrderFormArray();
+
     //clear item table
     this.items = [];
     this.subject.next(this.items);
-    //reset default dropdown items and date
 
-    this.setItemFormValue("item", this.itemList[0]);
-    this.setItemFormValue("quantity", 1);
-    this.setOrderFormValue("channel", this.channelList[0]);
-    this.setOrderFormValue("payment", this.paymentList[0]);
-    this.setOrderFormValue("total", 0);
-    let curDate = new Date().toISOString();
-    this.setOrderFormValue("date", curDate);
+    this._orderService.initializeFormValues();
+
     this.processedOrder();
   }
 
   processedOrder() {
     alert("Order has been placed");
-  }
-
-  setOrderFormValue(field, value) {
-    this.orderForm.controls[field].setValue(value, {
-      onlySelf: true
-    });
-  }
-
-  setItemFormValue(field, value) {
-    this.itemForm.controls[field].setValue(value, {
-      onlySelf: true
-    });
-  }
-
-  updateTotal() {
-    let curTotal = 0;
-    for (let item of this.items) {
-      curTotal += item.price * item.quantity;
-    }
-    this.orderForm.get("total").setValue(curTotal);
-  }
-
-  getTotal() {
-    return this.orderForm.get("total").value;
-  }
-
-  getItemValue() {
-    return this.itemForm.get("item").value;
-  }
-
-  getQuantityValue() {
-    return this.itemForm.get("quantity").value;
-  }
-
-  getPriceValue() {
-    return this.itemForm.get("price").value;
   }
 
   get firstname() {

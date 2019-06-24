@@ -42,7 +42,7 @@ import {
   MatStepperModule
 } from "@angular/material";
 import { OrderAgentComponent } from "./components/order-agent/order-agent.component";
-import { ViewComponent } from "./components/view/view.component";
+import { OrderViewComponent } from "./components/order-view/order-view.component";
 import { OrderUpdateComponent } from "./components/order-update/order-update.component";
 import { LoginComponent } from "./components/login/login.component";
 import { OrderComponent } from "./components/order/order.component";
@@ -57,7 +57,7 @@ import { ItemSearchComponent } from "./components/item/item-search/item-search.c
     OrderCreateComponent,
     OrderAgentComponent,
     OrderSearchComponent,
-    ViewComponent,
+    OrderViewComponent,
     OrderUpdateComponent,
     ItemSearchComponent
   ],
@@ -109,7 +109,7 @@ import { ItemSearchComponent } from "./components/item/item-search/item-search.c
       { path: "order/create", component: OrderCreateComponent },
       { path: "order-agent", component: OrderAgentComponent },
       { path: "order/search", component: OrderSearchComponent },
-      { path: "order/view/:orderID", component: ViewComponent },
+      { path: "order/view/:orderID", component: OrderViewComponent },
       { path: "order/update/:orderID", component: OrderUpdateComponent },
       { path: "item/search", component: ItemSearchComponent }
     ])
