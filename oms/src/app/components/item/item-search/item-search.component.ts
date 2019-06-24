@@ -11,8 +11,8 @@ export class ItemSearchComponent implements OnInit {
   getShipNodesResponse;
   public itemList: Array<Item> = [];
   public shipNodeList: Array<string> = [];
-  selectedItems;
-  selectedShipNodes;
+  selectedItems = [];
+  selectedShipNodes = [];
   constructor(private _itemSearchService: ItemSearchService) {}
 
   ngOnInit() {
@@ -43,6 +43,10 @@ export class ItemSearchComponent implements OnInit {
   onClearAll(form) {
     if (form == "item") this.selectedItems = [];
     else this.selectedShipNodes = [];
+  }
+
+  formEmpty() {
+    return this.selectedItems.length == 0 || this.selectedShipNodes.length == 0;
   }
 
   search() {

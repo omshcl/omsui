@@ -52,7 +52,20 @@
       </ng-select>
     </div>
   </div>
-  <button type="button" class="btn btn-primary" (click)="search()">
-    Search
-  </button>
+
+  <div *ngIf="formEmpty(); then thenBlock; else elseBlock"></div>
+  <ng-template #thenBlock
+    ><button type="button" class="btn btn-primary" (click)="search()" disabled>
+      Search
+    </button></ng-template
+  >
+  <ng-template #elseBlock>
+    <button type="button" class="btn btn-primary" (click)="search()">
+      Search
+    </button></ng-template
+  >
 </div>
+
+<!-- <div *ngIf="condition; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>Content to render when condition is true.</ng-template>
+<ng-template #elseBlock>Content to render when condition is false.</ng-template> -->
