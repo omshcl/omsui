@@ -10,7 +10,6 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from "@angular/common/http/testing";
-import { OrderComponent } from "../../order/order.component";
 
 describe("CreateSupplyComponent", () => {
   let component: CreateSupplyComponent;
@@ -38,5 +37,4 @@ describe("CreateSupplyComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
-  
 });

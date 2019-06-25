@@ -9,6 +9,7 @@ import { MatNativeDateModule } from "@angular/material";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgSelectModule } from "@ng-select/ng-select";
+import { Globals } from "./global";
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -118,7 +119,7 @@ import { CreateSupplyComponent } from "./components/item/create-supply/create-su
       { path: "item/create-supply", component: CreateSupplyComponent }
     ])
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
