@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private _verifyLoginService: VerifyLoginService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    localStorage.removeItem("role");
+  }
 
   onSubmit(e) {
     this._verifyLoginService.verifyBackend(e);

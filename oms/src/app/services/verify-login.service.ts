@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 import * as checkAdmin from "../models/checkAdmin";
+import { AuthService } from "./auth.service";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -12,7 +13,7 @@ const httpOptions = {
 })
 export class VerifyLoginService {
   apiURL: string = "/api/login";
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private authService: AuthService) {}
 
   verifyBackend(userL) {
     return this.http
@@ -33,12 +34,12 @@ export class VerifyLoginService {
   }
   redirect(data) {
     if (data.isValid && data.isAdmin) {
-      console.log("here");
+      localStorage.setItem("role", "admin");
       location.href = "./order";
-      checkAdmin.setAdmin(true);
     } else if (data.isValid && !data.isAdmin) {
+      this.authService.storeUserRole("user");
+      localStorage.setItem("role", "user");
       location.href = "./order-agent";
-      checkAdmin.setAdmin(false);
     } else {
       alert("Invalid Login. Check credentials.");
     }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ItemSearchService } from "../../../services/item-search.service";
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 
 @Component({
   selector: "app-item-search",
@@ -14,6 +15,18 @@ export class ItemSearchComponent implements OnInit {
   public shipNodeList: Array<string> = [];
   selectedItems = [];
   selectedShipNodes = [];
+  displayedColumns = [
+    "shipnode",
+    "shortdescription",
+    "type",
+    "productclass",
+    "quantity"
+  ];
+  elementData: Element[] = [];
+  dataSource;
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
+
   constructor(private _itemSearchService: ItemSearchService) {}
 
   ngOnInit() {
@@ -51,6 +64,7 @@ export class ItemSearchComponent implements OnInit {
   }
 
   search() {
+    this.elementData = [];
     let form = {
       items: this.selectedItems,
       shipnodes: this.selectedShipNodes
@@ -58,11 +72,39 @@ export class ItemSearchComponent implements OnInit {
     this._itemSearchService.postSearchQuery(form).subscribe(response => {
       this.getSearchResponse = response;
       console.log(this.getSearchResponse);
+      for (let itemsupply of this.getSearchResponse) {
+        this.elementData.push({
+          shipnode: itemsupply.shipnode,
+          shortdescription: this.itemList.find(
+            x => x.itemid == itemsupply.itemid
+          ).shortdescription,
+          quantity: itemsupply.quantity,
+          productclass: itemsupply.productclass,
+          type: itemsupply.type
+        });
+      }
+      this.dataSource = new MatTableDataSource(this.elementData);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     });
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 }
 
 export interface Item {
   itemid: number;
   shortdescription: string;
+}
+
+export interface Element {
+  shipnode: any;
+  shortdescription: any;
+  quantity: any;
+  productclass: any; //new or used
+  type: any; //onhand or pipeline
 }

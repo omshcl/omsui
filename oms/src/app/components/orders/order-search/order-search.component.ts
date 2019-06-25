@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrderSearchService } from "../../../services/order-search.service";
 import * as checkAdmin from "../../../models/checkAdmin";
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { Globals } from "../../../global";
 
 @Component({
   selector: "app-order-search",
@@ -26,13 +27,14 @@ export class OrderSearchComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  constructor(private _orderSearchService: OrderSearchService) {}
+  constructor(
+    private _orderSearchService: OrderSearchService,
+    private globals: Globals
+  ) {}
 
   ngOnInit() {
-    if (checkAdmin.isAdmin !== true) {
+    if (localStorage.getItem("role") !== "admin") {
       this.displayedColumns.splice(7, 1);
-      console.log(this.displayedColumns);
-      checkAdmin.setAdmin(false);
     }
     this._orderSearchService.getOrders().subscribe(response => {
       this.getOrdersResp = response;

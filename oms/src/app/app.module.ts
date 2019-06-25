@@ -9,7 +9,6 @@ import { MatNativeDateModule } from "@angular/material";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgSelectModule } from "@ng-select/ng-select";
-
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -49,8 +48,12 @@ import { OrderComponent } from "./components/orders/order/order.component";
 import { OrderCreateComponent } from "./components/orders/order-create/order-create.component";
 import { OrderSearchComponent } from "./components/orders/order-search/order-search.component";
 import { ItemSearchComponent } from "./components/item/item-search/item-search.component";
+<<<<<<< HEAD
 import { CreateSupplyComponent } from "./components/item/create-supply/create-supply.component";
 
+=======
+import { Globals } from "./global";
+>>>>>>> bdeb2251352b5ac972674366e429f15e95d90a9d
 @NgModule({
   declarations: [
     AppComponent,
@@ -119,7 +122,7 @@ import { CreateSupplyComponent } from "./components/item/create-supply/create-su
       { path: "item/create-supply", component: CreateSupplyComponent }
     ])
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, Globals],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
