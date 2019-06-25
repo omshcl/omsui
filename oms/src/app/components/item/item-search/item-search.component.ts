@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ItemSearchService } from "../../../services/item-search.service";
-import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 
 @Component({
   selector: "app-item-search",
@@ -12,20 +11,10 @@ export class ItemSearchComponent implements OnInit {
   getShipNodesResponse;
   getSearchResponse;
   public itemList: Array<Item> = [];
-  public shipNodeList: Array<string> = [];
+  public shipNodeList: Array<ShipNode> = [];
   selectedItems = [];
   selectedShipNodes = [];
-  displayedColumns = [
-    "shipnode",
-    "shortdescription",
-    "type",
-    "productclass",
-    "quantity"
-  ];
-  elementData: Element[] = [];
-  dataSource;
-  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: false }) sort: MatSort;
+  dataSource: Array<ShipNodeItemElement> = [];
 
   constructor(private _itemSearchService: ItemSearchService) {}
 
@@ -36,8 +25,13 @@ export class ItemSearchComponent implements OnInit {
         var newItem = {} as Item;
         newItem.itemid = curItem.itemid;
         newItem.shortdescription = curItem.shortdescription;
+        newItem.itemdescription = curItem.itemdescription;
+        newItem.price = curItem.price;
         this.itemList = [...this.itemList, newItem];
       }
+      this.itemList.sort((a, b) =>
+        a.shortdescription.localeCompare(b.shortdescription)
+      );
       console.log(this.itemList);
     });
     this._itemSearchService.getShipNodes().subscribe(response => {
@@ -45,6 +39,9 @@ export class ItemSearchComponent implements OnInit {
       for (let curNode of this.getShipNodesResponse) {
         this.shipNodeList = [...this.shipNodeList, curNode];
       }
+      this.shipNodeList.sort((a, b) =>
+        a.locationname.localeCompare(b.locationname)
+      );
       console.log(this.shipNodeList);
     });
     // this.itemList.push({ itemid: 7, shortdescription: "Pixel 3" });
@@ -64,7 +61,7 @@ export class ItemSearchComponent implements OnInit {
   }
 
   search() {
-    this.elementData = [];
+    this.dataSource = [];
     let form = {
       items: this.selectedItems,
       shipnodes: this.selectedShipNodes
@@ -72,39 +69,107 @@ export class ItemSearchComponent implements OnInit {
     this._itemSearchService.postSearchQuery(form).subscribe(response => {
       this.getSearchResponse = response;
       console.log(this.getSearchResponse);
+      let curNode = "";
+      let curItem = "";
+      let itemShortDesc = "";
+      let itemDesc = "";
+      let itemPrice = 0;
       for (let itemsupply of this.getSearchResponse) {
-        this.elementData.push({
-          shipnode: itemsupply.shipnode,
-          shortdescription: this.itemList.find(
-            x => x.itemid == itemsupply.itemid
-          ).shortdescription,
-          quantity: itemsupply.quantity,
-          productclass: itemsupply.productclass,
-          type: itemsupply.type
-        });
+        //CASE 1: need a new card
+        if (itemsupply.itemid != curItem || itemsupply.shipnode != curNode) {
+          //update variable values
+          curItem = itemsupply.itemid;
+          curNode = itemsupply.shipnode;
+          itemShortDesc = this.itemList.find(x => x.itemid == itemsupply.itemid)
+            .shortdescription;
+          itemDesc = this.itemList.find(x => x.itemid == itemsupply.itemid)
+            .itemdescription;
+          itemPrice = this.itemList.find(x => x.itemid == itemsupply.itemid)
+            .price;
+          //create new ItemSupplyElement
+          let newItemSupplyElement = createItemSupplyElement(
+            itemShortDesc,
+            itemsupply.type,
+            itemsupply.productclass,
+            itemsupply.quantity,
+            itemPrice
+          );
+          //create new ShipNodeItemElement
+          let newShipNodeItemElement = createShipNodeItemElement(
+            curNode,
+            itemShortDesc,
+            newItemSupplyElement,
+            itemDesc
+          );
+          //push new element onto dataSource
+          this.dataSource.push(newShipNodeItemElement);
+        }
+        //CASE 2: add item row to current card (i.e. last element in dataSource array)
+        else {
+          //create new ItemSupplyElement
+          let newItemSupplyElement = createItemSupplyElement(
+            itemShortDesc,
+            itemsupply.type,
+            itemsupply.productclass,
+            itemsupply.quantity,
+            itemPrice
+          );
+          //push new element to the "current" card
+          this.dataSource[this.dataSource.length - 1].items.push(
+            newItemSupplyElement
+          );
+        }
       }
-      this.dataSource = new MatTableDataSource(this.elementData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      console.log(this.dataSource);
     });
   }
-
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+  viewItemSupply() {
+    console.log("view item supply");
   }
 }
 
 export interface Item {
   itemid: number;
   shortdescription: string;
+  itemdescription: string;
+  price: number;
 }
 
-export interface Element {
+export interface ShipNode {
+  locationname: string;
+}
+
+export interface ItemSupplyElement {
+  shortdescription: any;
+  type: any; //onhand or pipeline
+  productclass: any; //new or used
+  quantity: any;
+  price: any;
+}
+
+export interface ShipNodeItemElement {
   shipnode: any;
   shortdescription: any;
-  quantity: any;
-  productclass: any; //new or used
-  type: any; //onhand or pipeline
+  items: ItemSupplyElement[];
+  itemdescription: any;
+}
+
+function createItemSupplyElement(sd, tp, pc, qty, pr) {
+  let newISE = {} as ItemSupplyElement;
+  newISE.shortdescription = sd;
+  newISE.type = tp;
+  newISE.productclass = pc;
+  newISE.quantity = qty;
+  newISE.price = pr;
+  return newISE;
+}
+
+function createShipNodeItemElement(sn, sd, is, id) {
+  let newSNIE = {} as ShipNodeItemElement;
+  newSNIE.shipnode = sn;
+  newSNIE.shortdescription = sd;
+  newSNIE.items = [];
+  newSNIE.items.push(is);
+  newSNIE.itemdescription = id;
+  return newSNIE;
 }
