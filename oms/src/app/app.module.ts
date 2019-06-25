@@ -48,7 +48,8 @@ import { OrderComponent } from "./components/orders/order/order.component";
 import { OrderCreateComponent } from "./components/orders/order-create/order-create.component";
 import { OrderSearchComponent } from "./components/orders/order-search/order-search.component";
 import { ItemSearchComponent } from "./components/item/item-search/item-search.component";
-import { Globals } from "./global";
+import { CreateSupplyComponent } from "./components/item/create-supply/create-supply.component";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,8 @@ import { Globals } from "./global";
     OrderSearchComponent,
     OrderViewComponent,
     OrderUpdateComponent,
-    ItemSearchComponent
+    ItemSearchComponent,
+    CreateSupplyComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +83,7 @@ import { Globals } from "./global";
     MatGridListModule,
     MatIconModule,
     MatInputModule,
+    MatDatepickerModule,
     MatListModule,
     MatMenuModule,
     MatNativeDateModule,
@@ -111,10 +114,11 @@ import { Globals } from "./global";
       { path: "order/search", component: OrderSearchComponent },
       { path: "order/view/:orderID", component: OrderViewComponent },
       { path: "order/update/:orderID", component: OrderUpdateComponent },
-      { path: "item/search", component: ItemSearchComponent }
+      { path: "item/search", component: ItemSearchComponent },
+      { path: "item/create-supply", component: CreateSupplyComponent }
     ])
   ],
-  providers: [HttpClientModule, Globals],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

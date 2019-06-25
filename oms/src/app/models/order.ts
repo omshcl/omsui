@@ -1,11 +1,9 @@
-import {Order_Address} from './order_address'
-export class Order{
-    constructor(
-        public item: string,
-        public itemDescription: string,
-        public quantity: number,
-        public unitcost: number,
-        public totalcost: number,
-        public address: Order_Address
-    ){}
+import { Order_Address } from "./order_address";
+export class Order {
+  item: string;
+  itemDescription: string;
+  quantity: number;
+  unitcost: number;
+  totalcost: number;
+  address: Order_Address;
 }

@@ -63,9 +63,3 @@ describe("OrderCreateComponent", () => {
   //   expect(component._orderService.getItemValue() === "Landline").toBeTruthy();
   // }));
 });
-
-@Component({
-  selector: "app-order",
-  template: ""
-})
-class MockOrderComponent {}
