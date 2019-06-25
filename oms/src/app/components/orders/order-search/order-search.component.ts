@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrderSearchService } from "../../../services/order-search.service";
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
-import { Globals } from "../../../global";
-
 @Component({
   selector: "app-order-search",
   templateUrl: "./order-search.component.html",
@@ -26,10 +24,7 @@ export class OrderSearchComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: false }) sort: MatSort;
 
-  constructor(
-    private _orderSearchService: OrderSearchService,
-    private globals: Globals
-  ) {}
+  constructor(private _orderSearchService: OrderSearchService) {}
 
   ngOnInit() {
     if (localStorage.getItem("role") !== "admin") {

@@ -1,8 +1,7 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 import { ReactiveFormsModule } from "@angular/forms";
-
+import { OrderComponent } from "../../orders/order/order.component";
 import { CreateSupplyComponent } from "./create-supply.component";
-import { Component } from "@angular/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material";
 import { MatTableModule } from "@angular/material";
@@ -10,6 +9,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from "@angular/common/http/testing";
+import { RouterTestingModule } from "@angular/router/testing";
 
 describe("CreateSupplyComponent", () => {
   let component: CreateSupplyComponent;
@@ -17,13 +17,14 @@ describe("CreateSupplyComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateSupplyComponent],
+      declarations: [CreateSupplyComponent, OrderComponent],
       imports: [
         ReactiveFormsModule,
         MatDatepickerModule,
         MatNativeDateModule,
         MatTableModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        RouterTestingModule
       ]
     }).compileComponents();
   }));

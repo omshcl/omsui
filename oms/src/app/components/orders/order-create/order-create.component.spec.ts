@@ -10,7 +10,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from "@angular/common/http/testing";
-
+import { RouterTestingModule } from "@angular/router/testing";
 describe("OrderCreateComponent", () => {
   let component: OrderCreateComponent;
   let fixture: ComponentFixture<OrderCreateComponent>;
@@ -19,6 +19,7 @@ describe("OrderCreateComponent", () => {
     TestBed.configureTestingModule({
       declarations: [OrderCreateComponent, OrderComponent],
       imports: [
+        RouterTestingModule,
         ReactiveFormsModule,
         MatDatepickerModule,
         MatNativeDateModule,
