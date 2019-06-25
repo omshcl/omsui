@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrderSearchService } from "../../../services/order-search.service";
-import * as checkAdmin from "../../../models/checkAdmin";
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 import { Globals } from "../../../global";
 
