@@ -15,7 +15,7 @@ export class SupplyserviceService {
   initializesupplyform(supplyFormBuilder: FormBuilder) {
     return (this.supplyform = supplyFormBuilder.group({
       shortdescription: ["", Validators.required],
-      Date: ["", Validators.required],
+      date: ["", Validators.required],
       unitofmeasure: ["", Validators.required],
       price: ["", Validators.required],
       shippingaddress: ["", Validators.required],
@@ -28,7 +28,8 @@ export class SupplyserviceService {
       manufacturername: ["", Validators.required],
       category: ["", Validators.required],
       subcategory: ["", Validators.required],
-      Quantity: ["", Validators.required]
+      quantity: ["", Validators.required],
+      productclass: ["", Validators.required]
     }));
   }
 
@@ -41,7 +42,7 @@ export class SupplyserviceService {
     // this.setsupplyformValue("type", this.typeList[0]);
 
     let curDate = new Date().toISOString();
-    this.setsupplyformValue("Date", curDate);
+    this.setsupplyformValue("date", curDate);
   }
   setsupplyformValue(field, value) {
     this.supplyform.controls[field].setValue(value, {
@@ -58,11 +59,12 @@ export class SupplyserviceService {
     this.setsupplyformValue("city", supplydetail.city);
     this.setsupplyformValue("shippingaddress", supplydetail.shippingaddress);
     this.setsupplyformValue("zip", supplydetail.zip);
-    this.setsupplyformValue("Date", supplydetail.Date);
+    this.setsupplyformValue("date", supplydetail.date);
     this.setsupplyformValue("category", supplydetail.category);
     this.setsupplyformValue("subcategory", supplydetail.subcategory);
     this.setsupplyformValue("manufacturername", supplydetail.manufacturername);
-    this.setsupplyformValue("Quantity", supplydetail.Quantity);
+    this.setsupplyformValue("quantity", supplydetail.quantity);
     this.setsupplyformValue("type", supplydetail.type);
+    this.setsupplyformValue("productclass", supplydetail.productclass);
   }
 }

@@ -58,10 +58,8 @@ describe("OrderCreateComponent", () => {
     expect(component.orderForm.valid).toBeTruthy();
   }));
 
-  it(`updateTotal should give currect value`, async(() => {
-    component.itemForm.controls["item"].setValue("Landline");
-    expect(component.getItemValue() === "Landline").toBeTruthy();
-  }));
+  // it(`updateTotal should give currect value`, async(() => {
+  //   component.itemForm.controls["item"].setValue("Landline");
+  //   expect(component.getItemValue() === "Landline").toBeTruthy();
+  // }));
 });
-
-

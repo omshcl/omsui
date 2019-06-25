@@ -1,6 +1,4 @@
 import { Component, OnInit } from "@angular/core";
-import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import { CaseListDatasource } from "./elements-data-src";
 
 import { FormBuilder, FormArray, Validators, FormGroup } from "@angular/forms";
 import { SupplyCreateService } from "../../../services/supply-create.service";
@@ -14,10 +12,9 @@ import { SupplyserviceService } from "../../../services/supplyservice.service";
 })
 export class CreateSupplyComponent implements OnInit {
   supplyform: FormGroup;
-  ReturnableList = ["YES", "NO"];
+  returnableList = ["YES", "NO"];
   productList = ["new", "Used"];
   typeList = ["Onhand", "Pipeline"];
-
   shipnodeList = [];
 
   httpClient: any;
@@ -39,7 +36,7 @@ export class CreateSupplyComponent implements OnInit {
     this.supplyform.reset();
     this._supplyService.setsupplyformValue(
       "returnable",
-      this.ReturnableList[0]
+      this.returnableList[0]
     );
   }
 
@@ -73,6 +70,9 @@ export class CreateSupplyComponent implements OnInit {
   get subcategory() {
     return this.supplyform.get("subcategory");
   }
+  get productclass() {
+    return this.supplyform.get("productclass");
+  }
   get type() {
     return this.supplyform.get("type");
   }
@@ -80,8 +80,8 @@ export class CreateSupplyComponent implements OnInit {
     return this.supplyform.get("locationname");
   }
 
-  get Quantity() {
-    return this.supplyform.get("Quantity");
+  get quantity() {
+    return this.supplyform.get("quantity");
   }
 
   get manufacturername() {

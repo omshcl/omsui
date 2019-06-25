@@ -6,13 +6,7 @@
     <div class="row">
       <div class="col-lg-2 mb-3">
         <label>Short Description</label>
-        <input
-          class="form-control"
-          type="text"
-          required
-          formControlName="shortdescription"
-          defer
-        />
+        <input class="form-control" type="text" required formControlName="shortdescription" defer />
 
         <p *ngIf="shortdescription.invalid" class="is-size-6 has-text-danger">
           Short Description is required.
@@ -20,12 +14,7 @@
       </div>
       <div class="col-lg-2 mb-3">
         <label>Unit of Description</label>
-        <input
-          class="form-control"
-          type="text"
-          formControlName="unitofmeasure"
-          defer
-        />
+        <input class="form-control" type="text" formControlName="unitofmeasure" defer />
 
         <p *ngIf="unitofmeasure.invalid" class="is-size-6 has-text-danger">
           Unit of Description is required.
@@ -42,7 +31,7 @@
       <div class="col-lg-2 mb-3">
         <label>Returnable</label>
         <select class="custom-select" formControlName="returnable">
-          <option *ngFor="let returnable of ReturnableList">{{
+          <option *ngFor="let returnable of returnableList">{{
             returnable
           }}</option>
         </select>
@@ -56,13 +45,8 @@
 
       <div class="col-lg-2 mb-3">
         <label>Quantity</label>
-        <input
-          class="form-control"
-          type="text"
-          defer
-          formControlName="Quantity"
-        />
-        <p *ngIf="Quantity.invalid" class="is-size-6 has-text-danger">
+        <input class="form-control" type="text" defer formControlName="quantity" />
+        <p *ngIf="quantity.invalid" class="is-size-6 has-text-danger">
           Quantity is required.
         </p>
       </div>
@@ -79,55 +63,31 @@
 
       <div class="col-lg-2 mb-3">
         <label>Manufacture Name</label>
-        <input
-          class="form-control"
-          type="text"
-          defer
-          formControlName="manufacturername"
-        />
-        <p *ngIf="manufacturename.invalid" class="is-size-6 has-text-danger">
+        <input class="form-control" type="text" defer formControlName="manufacturername" />
+        <p *ngIf="manufacturername.invalid" class="is-size-6 has-text-danger">
           manufacturername is required.
         </p>
       </div>
 
       <div class="col-lg-2 mb-3">
         <label>Date</label>
-        <input
-          class="form-control"
-          matInput
-          [matDatepicker]="picker2"
-          placeholder="Select Date"
-          formControlName="Date"
-          (click)="picker2.open()"
-        />
-        <mat-datepicker-toggle
-          matSuffix
-          [for]="picker2"
-        ></mat-datepicker-toggle>
+        <input class="form-control" matInput [matDatepicker]="picker2" placeholder="Select Date" formControlName="date"
+          (click)="picker2.open()" />
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
 
         <mat-datepicker #picker2></mat-datepicker>
       </div>
       <div class="col-lg-2 mb-3">
         <label>Category</label>
-        <input
-          class="form-control"
-          type="text"
-          defer
-          formControlName="category"
-        />
-        <p *ngIf="Category.invalid" class="is-size-6 has-text-danger">
+        <input class="form-control" type="text" defer formControlName="category" />
+        <p *ngIf="category.invalid" class="is-size-6 has-text-danger">
           Category is required
         </p>
       </div>
       <div class="col-lg-2 mb-3">
         <label>SubCategory</label>
-        <input
-          class="form-control"
-          type="text"
-          defer
-          formControlName="subcategory"
-        />
-        <p *ngIf="SubCategory.invalid" class="is-size-6 has-text-danger">
+        <input class="form-control" type="text" defer formControlName="subcategory" />
+        <p *ngIf="subcategory.invalid" class="is-size-6 has-text-danger">
           SubCategory is required
         </p>
       </div>
@@ -145,12 +105,7 @@
     <div class="row">
       <div class="col-lg-6 mb-3">
         <label>Address</label>
-        <input
-          class="form-control"
-          type="text"
-          defer
-          formControlName="shippingaddress"
-        />
+        <input class="form-control" type="text" defer formControlName="shippingaddress" />
         <p *ngIf="shippingaddress.invalid" class="is-size-6 has-text-danger">
           Address is required.
         </p>
@@ -182,11 +137,7 @@
 
   <hr />
 
-  <button
-    class="btn btn-primary m-3"
-    [disabled]="!supplyform.valid"
-    (click)="supplycreateOrder()"
-  >
+  <button class="btn btn-primary m-3" [disabled]="!supplyform.valid" (click)="supplycreateOrder()">
     Create Order
   </button>
 </div>
