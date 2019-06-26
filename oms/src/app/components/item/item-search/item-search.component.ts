@@ -123,6 +123,23 @@ export class ItemSearchComponent implements OnInit {
       console.log(this.dataSource);
     });
   }
+
+  getAsset(shortdesc) {
+    switch (shortdesc) {
+      case "Google Pixel": {
+        return "assets/icons/pixel.png";
+      }
+      case "Lenovo Laptop": {
+        return "assets/icons/laptop.png";
+      }
+      case "Samsung TV": {
+        return "assets/icons/tv.png";
+      }
+      default: {
+        return "assets/icons/default.png";
+      }
+    }
+  }
   viewItemSupply() {
     console.log("view item supply");
   }
