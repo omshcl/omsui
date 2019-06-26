@@ -47,4 +47,9 @@ describe("ItemSearchComponent", () => {
   it("should create", () => {
     expect(component).toBeTruthy();
   });
+
+  it(`is formempty valid`, async(() => {
+    component.selectedShipNodes = [];
+    expect(component.formEmpty()).toBeTruthy();
+  }));
 });

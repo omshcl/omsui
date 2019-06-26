@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { itemPost } from "../models/postItems";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
@@ -27,6 +28,6 @@ export class OrderCreateService {
   }
 
   getItems() {
-    return this.http.get("/api/items/list");
+    return this.http.get<itemPost[]>("/api/items/list");
   }
 }
