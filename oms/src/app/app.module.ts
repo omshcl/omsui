@@ -49,6 +49,7 @@ import { OrderCreateComponent } from "./components/orders/order-create/order-cre
 import { OrderSearchComponent } from "./components/orders/order-search/order-search.component";
 import { ItemSearchComponent } from "./components/item/item-search/item-search.component";
 import { CreateSupplyComponent } from "./components/item/create-supply/create-supply.component";
+import { ItemViewComponent } from "./components/item/item-view/item-view.component";
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { CreateSupplyComponent } from "./components/item/create-supply/create-su
     OrderViewComponent,
     OrderUpdateComponent,
     ItemSearchComponent,
-    CreateSupplyComponent
+    CreateSupplyComponent,
+    ItemViewComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +117,8 @@ import { CreateSupplyComponent } from "./components/item/create-supply/create-su
       { path: "order/view/:orderID", component: OrderViewComponent },
       { path: "order/update/:orderID", component: OrderUpdateComponent },
       { path: "item/search", component: ItemSearchComponent },
-      { path: "item/create-supply", component: CreateSupplyComponent }
+      { path: "item/create-supply", component: CreateSupplyComponent },
+      { path: "item/view", component: ItemViewComponent }
     ])
   ],
   providers: [HttpClientModule],

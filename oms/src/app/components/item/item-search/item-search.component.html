@@ -92,7 +92,14 @@
           <div
             *ngFor="let curItem of curSNI.items"
             class="row hoverDiv"
-            (click)="viewItemSupply()"
+            (click)="
+              viewItemSupply({
+                locationname: curSNI.shipnode,
+                itemid: curSNI.itemid,
+                type: curItem.type,
+                productclass: curItem.productclass
+              })
+            "
           >
             <div class="col-md-3">{{ curItem.type }}</div>
             <div class="col-md-3">{{ curItem.productclass }}</div>
