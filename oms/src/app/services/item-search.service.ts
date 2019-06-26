@@ -18,4 +18,8 @@ export class ItemSearchService {
   postSearchQuery(form) {
     return this.http.post("/api/items/search", form);
   }
+
+  postViewDetails(form) {
+    return this.http.post("/api/items/details", form);
+  }
 }

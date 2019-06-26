@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ItemSearchService } from "../../../services/item-search.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-item-search",
@@ -16,7 +17,10 @@ export class ItemSearchComponent implements OnInit {
   selectedShipNodes = [];
   dataSource: Array<ShipNodeItemElement> = [];
 
-  constructor(private _itemSearchService: ItemSearchService) {}
+  constructor(
+    private _itemSearchService: ItemSearchService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this._itemSearchService.getItems().subscribe(response => {
@@ -97,6 +101,7 @@ export class ItemSearchComponent implements OnInit {
           //create new ShipNodeItemElement
           let newShipNodeItemElement = createShipNodeItemElement(
             curNode,
+            itemsupply.itemid,
             itemShortDesc,
             newItemSupplyElement,
             itemDesc
@@ -123,8 +128,27 @@ export class ItemSearchComponent implements OnInit {
       console.log(this.dataSource);
     });
   }
-  viewItemSupply() {
-    console.log("view item supply");
+
+  getAsset(shortdesc) {
+    switch (shortdesc) {
+      case "Google Pixel": {
+        return "assets/icons/pixel.png";
+      }
+      case "Lenovo Laptop": {
+        return "assets/icons/laptop.png";
+      }
+      case "Samsung TV": {
+        return "assets/icons/tv.png";
+      }
+      default: {
+        return "assets/icons/default.png";
+      }
+    }
+  }
+
+  viewItemSupply(form) {
+    console.log(form);
+    this.router.navigate(["/item/view", form]);
   }
 }
 
@@ -149,14 +173,15 @@ export interface ItemSupplyElement {
 
 export interface ShipNodeItemElement {
   shipnode: any;
+  itemid: any;
   shortdescription: any;
   items: ItemSupplyElement[];
   itemdescription: any;
 }
 
-function createItemSupplyElement(sd, tp, pc, qty, pr) {
+function createItemSupplyElement(sdesc, tp, pc, qty, pr) {
   let newISE = {} as ItemSupplyElement;
-  newISE.shortdescription = sd;
+  newISE.shortdescription = sdesc;
   newISE.type = tp;
   newISE.productclass = pc;
   newISE.quantity = qty;
@@ -164,12 +189,13 @@ function createItemSupplyElement(sd, tp, pc, qty, pr) {
   return newISE;
 }
 
-function createShipNodeItemElement(sn, sd, is, id) {
+function createShipNodeItemElement(sn, id, sdesc, itms, idesc) {
   let newSNIE = {} as ShipNodeItemElement;
   newSNIE.shipnode = sn;
-  newSNIE.shortdescription = sd;
+  newSNIE.itemid = id;
+  newSNIE.shortdescription = sdesc;
   newSNIE.items = [];
-  newSNIE.items.push(is);
-  newSNIE.itemdescription = id;
+  newSNIE.items.push(itms);
+  newSNIE.itemdescription = idesc;
   return newSNIE;
 }

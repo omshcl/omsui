@@ -65,11 +65,67 @@
     </button></ng-template
   >
 </div>
-<div class="container" style="padding-bottom: 80px">
+
+<div class="container">
   <mat-card *ngFor="let curSNI of dataSource" flex-gt-sm>
-    <mat-card-title
-      >{{ curSNI.shipnode }} | {{ curSNI.shortdescription }}</mat-card-title
-    >
+    <div class="row">
+      <div class="col-md-3">
+        <img
+          [src]="getAsset(curSNI.shortdescription)"
+          style="margin-bottom: 3px"
+        />
+      </div>
+      <div class="col-md-9">
+        <mat-card-title
+          >{{ curSNI.shipnode }} | {{ curSNI.shortdescription }}</mat-card-title
+        >
+        <mat-card-subtitle>
+          <div class="row">
+            <div class="col-md-3">Type</div>
+            <div class="col-md-3">Product Class</div>
+            <div class="col-md-3">Quantity</div>
+            <div class="col-md-3">Price</div>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-card-subtitle>
+        <mat-card-content>
+          <div
+            *ngFor="let curItem of curSNI.items"
+            class="row hoverDiv"
+            (click)="
+              viewItemSupply({
+                locationname: curSNI.shipnode,
+                itemid: curSNI.itemid,
+                type: curItem.type,
+                productclass: curItem.productclass
+              })
+            "
+          >
+            <div class="col-md-3">{{ curItem.type }}</div>
+            <div class="col-md-3">{{ curItem.productclass }}</div>
+            <div class="col-md-3">{{ curItem.quantity }}</div>
+            <div class="col-md-3">${{ curItem.price }}</div>
+          </div>
+        </mat-card-content>
+      </div>
+    </div>
+    <mat-divider> </mat-divider>
+    <mat-card-footer>{{ curSNI.itemdescription }}</mat-card-footer>
+  </mat-card>
+</div>
+
+<!-- <div class="container" style="padding-bottom: 80px">
+  <mat-card *ngFor="let curSNI of dataSource" flex-gt-sm>
+    <mat-card-title>
+      <div class="row">
+        <div class="col-md-2">
+          <img [src]="getAsset(curSNI.shortdescription)" />
+        </div>
+        <div class="cold-md-4">
+          {{ curSNI.shipnode }} | {{ curSNI.shortdescription }}
+        </div>
+      </div>
+    </mat-card-title>
     <mat-card-subtitle>
       <div class="row">
         <div class="col-md-3">Type</div>
@@ -94,32 +150,4 @@
     <mat-divider></mat-divider>
     <mat-card-footer>{{ curSNI.itemdescription }}</mat-card-footer>
   </mat-card>
-  <!-- <mat-card flex-gt-sm>
-    <mat-card-title>Austin | Lenovo Laptop</mat-card-title>
-    <mat-card-subtitle>
-      <div class="row">
-        <div class="col-md-3">Type</div>
-        <div class="col-md-3">Product Class</div>
-        <div class="col-md-3">Quantity</div>
-        <div class="col-md-3">Price</div>
-      </div>
-      <mat-divider></mat-divider>
-    </mat-card-subtitle>
-    <mat-card-content>
-      <div class="row hoverDiv" (click)="viewItemSupply()">
-        <div class="col-md-3">onhand</div>
-        <div class="col-md-3">new</div>
-        <div class="col-md-3">20</div>
-        <div class="col-md-3">$1500</div>
-      </div>
-      <div class="row hoverDiv">
-        <div class="col-md-3">pipeline</div>
-        <div class="col-md-3">new</div>
-        <div class="col-md-3">5</div>
-        <div class="col-md-3">$1500</div>
-      </div>
-    </mat-card-content>
-    <mat-divider></mat-divider>
-    <mat-card-footer>15 inch Lenovo 2019 laptop P52</mat-card-footer>
-  </mat-card> -->
-</div>
+</div> -->
