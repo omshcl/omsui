@@ -12,7 +12,6 @@ import { OrderUpdateService } from "../../../services/order-update.service";
 import { ActivatedRoute } from "@angular/router";
 import { itemOrder } from "src/app/models/itemOrder";
 import { OrderService } from "src/app/services/order.service";
-import { Globals } from "../../../global";
 
 @Component({
   selector: "app-order-update",
@@ -48,8 +47,7 @@ export class OrderUpdateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private _orderUpdateService: OrderUpdateService,
     private _orderService: OrderService,
-    private route: ActivatedRoute,
-    private globals: Globals
+    private route: ActivatedRoute
   ) {
     this.itemForm = this._orderService.initializeItemForm(formBuilder);
     this.orderForm = this._orderService.initializeOrderForm(
@@ -102,7 +100,6 @@ export class OrderUpdateComponent implements OnInit {
   }
 
   addItemToTableAndJSON() {
-    console.log(this.globals.admin);
     var itemInfo = this._orderService.getCurrentItemInfo(
       this.itemList,
       this.priceList
