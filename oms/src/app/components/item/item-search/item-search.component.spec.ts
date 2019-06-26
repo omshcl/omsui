@@ -7,7 +7,9 @@ import { FormsModule } from "@angular/forms";
 import {
   MatFormFieldModule,
   MatTableModule,
-  MatInputModule
+  MatInputModule,
+  MatCardModule,
+  MatDividerModule
 } from "@angular/material";
 import { MatPaginatorModule } from "@angular/material";
 import { RouterTestingModule } from "@angular/router/testing";
@@ -29,6 +31,8 @@ describe("ItemSearchComponent", () => {
         MatPaginatorModule,
         RouterTestingModule,
         MatInputModule,
+        MatCardModule,
+        MatDividerModule,
         BrowserAnimationsModule
       ]
     }).compileComponents();
