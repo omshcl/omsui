@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ItemSearchService } from "src/app/services/item-search.service";
+import { MatTableDataSource, MatSort } from "@angular/material";
 
 @Component({
   selector: "app-item-view",
@@ -13,6 +14,13 @@ export class ItemViewComponent implements OnInit {
   type;
   productclass;
   viewResponse;
+  getInfo;
+
+  name = "Angular 5";
+  displayedColumns = ["itemfield", "itemdetail"];
+  dataSource;
+  itemdescription: ItemDescription[] = [];
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,12 +40,44 @@ export class ItemViewComponent implements OnInit {
         type: this.type,
         productclass: this.productclass
       };
-      console.log(form);
 
       this._itemSearchService.postViewDetails(form).subscribe(response => {
         this.viewResponse = response;
-        console.log(this.viewResponse);
+        for (let key in this.viewResponse) {
+          this.itemdescription.push({
+            itemfield: key,
+            itemdetail: this.viewResponse[key]
+          });
+        }
+        this._itemSearchService
+          .getItemInfo(this.viewResponse.itemid)
+          .subscribe(response => {
+            this.viewResponse = response;
+            for (let key in this.viewResponse) {
+              if (key === "itemid") {
+                continue;
+              }
+              this.itemdescription.push({
+                itemfield: key,
+                itemdetail: this.viewResponse[key]
+              });
+            }
+            this.dataSource = new MatTableDataSource(this.itemdescription);
+            this.dataSource.sort = this.sort;
+            console.log(this.itemdescription);
+          });
       });
     });
   }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
+  }
+}
+
+export interface ItemDescription {
+  itemfield: string;
+  itemdetail: string;
 }

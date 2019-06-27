@@ -2,18 +2,9 @@
 <div class="container" style="padding-top: 80px">
   <div class="row">
     <div class="col-lg-6 mb3">
-      <ng-select
-        [items]="itemList"
-        [multiple]="true"
-        [closeOnSelect]="false"
-        [clearSearchOnAdd]="true"
-        [clearOnBackspace]="true"
-        [selectOnTab]="true"
-        dropdownPosition="bottom"
-        bindLabel="shortdescription"
-        placeholder="Select Items"
-        [(ngModel)]="selectedItems"
-      >
+      <ng-select [items]="itemList" [multiple]="true" [closeOnSelect]="false" [clearSearchOnAdd]="true"
+        [clearOnBackspace]="true" [selectOnTab]="true" dropdownPosition="bottom" bindLabel="shortdescription"
+        placeholder="Select Items" [(ngModel)]="selectedItems">
         <ng-template ng-header-tmp>
           <div>
             <button class="btn btn-link" (click)="onSelectAll('item')">
@@ -27,18 +18,9 @@
       </ng-select>
     </div>
     <div class="col-lg-6 mb3">
-      <ng-select
-        [items]="shipNodeList"
-        [multiple]="true"
-        [closeOnSelect]="false"
-        [clearSearchOnAdd]="true"
-        [clearOnBackspace]="true"
-        [selectOnTab]="true"
-        dropdownPosition="bottom"
-        bindLabel="locationname"
-        placeholder="Select ShipNodes"
-        [(ngModel)]="selectedShipNodes"
-      >
+      <ng-select [items]="shipNodeList" [multiple]="true" [closeOnSelect]="false" [clearSearchOnAdd]="true"
+        [clearOnBackspace]="true" [selectOnTab]="true" dropdownPosition="bottom" bindLabel="locationname"
+        placeholder="Select ShipNodes" [(ngModel)]="selectedShipNodes">
         <ng-template ng-header-tmp>
           <div>
             <button class="btn btn-link" (click)="onSelectAll(shipnode)">
@@ -54,31 +36,23 @@
   </div>
 
   <div *ngIf="formEmpty(); then thenBlock; else elseBlock"></div>
-  <ng-template #thenBlock
-    ><button type="button" class="btn btn-primary" (click)="search()" disabled>
+  <ng-template #thenBlock><button type="button" class="btn btn-primary" (click)="search()" disabled>
       Search
-    </button></ng-template
-  >
+    </button></ng-template>
   <ng-template #elseBlock>
     <button type="button" class="btn btn-primary" (click)="search()">
       Search
-    </button></ng-template
-  >
+    </button></ng-template>
 </div>
 
 <div class="container">
   <mat-card *ngFor="let curSNI of dataSource" flex-gt-sm>
     <div class="row">
       <div class="col-md-3">
-        <img
-          [src]="getAsset(curSNI.shortdescription)"
-          style="margin-bottom: 3px"
-        />
+        <img [src]="getAsset(curSNI.shortdescription)" style="margin-bottom: 3px" />
       </div>
       <div class="col-md-9">
-        <mat-card-title
-          >{{ curSNI.shipnode }} | {{ curSNI.shortdescription }}</mat-card-title
-        >
+        <mat-card-title>{{ curSNI.shipnode }} | {{ curSNI.shortdescription }}</mat-card-title>
         <mat-card-subtitle>
           <div class="row">
             <div class="col-md-3">Type</div>
@@ -89,18 +63,14 @@
           <mat-divider></mat-divider>
         </mat-card-subtitle>
         <mat-card-content>
-          <div
-            *ngFor="let curItem of curSNI.items"
-            class="row hoverDiv"
-            (click)="
+          <div *ngFor="let curItem of curSNI.items" class="row hoverDiv" (click)="
               viewItemSupply({
                 locationname: curSNI.shipnode,
                 itemid: curSNI.itemid,
                 type: curItem.type,
                 productclass: curItem.productclass
               })
-            "
-          >
+            ">
             <div class="col-md-3">{{ curItem.type }}</div>
             <div class="col-md-3">{{ curItem.productclass }}</div>
             <div class="col-md-3">{{ curItem.quantity }}</div>
