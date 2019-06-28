@@ -1,0 +1,15 @@
+<div class="container" style="margin-bottom: 80px">
+  <div
+    class="col-lg-10 h-100"
+    *ngIf="chart"
+    style="position: relative; height:40vh; width:80vw;"
+  >
+    <h1>
+      Bar Graph
+      <button class="btn btn-primary m-3" (click)="changeStyle()">
+        Change Style
+      </button>
+    </h1>
+    <canvas id="barchart">{{ chart }}</canvas>
+  </div>
+</div>
