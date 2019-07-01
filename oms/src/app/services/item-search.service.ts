@@ -22,4 +22,8 @@ export class ItemSearchService {
   postViewDetails(form) {
     return this.http.post("/api/items/details", form);
   }
+
+  getItemInfo(itemid) {
+    return this.http.post("/api/items/getinfo", { itemid: itemid });
+  }
 }
