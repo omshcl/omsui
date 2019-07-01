@@ -16,6 +16,7 @@ export class OrderCreateComponent implements OnInit {
   priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
+  discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
   orderForm: FormGroup;
   itemLength: Int16Array;
@@ -69,6 +70,10 @@ export class OrderCreateComponent implements OnInit {
       this.itemList,
       this.priceList
     );
+
+    // Update price of item and subtotal based on discount
+    itemInfo.curPrice = this._orderService.applyDiscount(itemInfo.curPrice);
+    itemInfo.curSubTotal = itemInfo.curPrice * itemInfo.curQuant;
 
     this._orderService.addItemInfoToJSON(itemInfo, this.itemId);
 
