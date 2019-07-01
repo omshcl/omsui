@@ -54,6 +54,10 @@ export class OrderSearchComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+  fullfill() {
+    console.log("fulfill clicked");
+  }
 }
 
 export interface Element {

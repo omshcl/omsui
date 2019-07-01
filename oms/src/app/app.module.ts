@@ -50,6 +50,9 @@ import { OrderSearchComponent } from "./components/orders/order-search/order-sea
 import { ItemSearchComponent } from "./components/item/item-search/item-search.component";
 import { CreateSupplyComponent } from "./components/item/create-supply/create-supply.component";
 import { ItemViewComponent } from "./components/item/item-view/item-view.component";
+import { DashboardViewComponent } from "./components/dashboard/dashboard-view/dashboard-view.component";
+import { OrderPriceGraphComponent } from './components/dashboard/order-price-graph/order-price-graph.component';
+import { CategorySoldGraphComponent } from './components/dashboard/category-sold-graph/category-sold-graph.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +66,10 @@ import { ItemViewComponent } from "./components/item/item-view/item-view.compone
     OrderUpdateComponent,
     ItemSearchComponent,
     CreateSupplyComponent,
-    ItemViewComponent
+    ItemViewComponent,
+    DashboardViewComponent,
+    OrderPriceGraphComponent,
+    CategorySoldGraphComponent
   ],
   imports: [
     BrowserModule,
@@ -118,7 +124,8 @@ import { ItemViewComponent } from "./components/item/item-view/item-view.compone
       { path: "order/update/:orderID", component: OrderUpdateComponent },
       { path: "item/search", component: ItemSearchComponent },
       { path: "item/create-supply", component: CreateSupplyComponent },
-      { path: "item/view", component: ItemViewComponent }
+      { path: "item/view", component: ItemViewComponent },
+      { path: "dashboard", component: DashboardViewComponent }
     ])
   ],
   providers: [HttpClientModule],
