@@ -1,0 +1,17 @@
+{
+  "items": [
+    { "item": "Item 1", "quantity": "2", "price": 199, "subtotal": 398 },
+    { "item": "Item 2", "quantity": "3", "price": 29, "subtotal": 87 },
+    { "item": "Item 3", "quantity": "1", "price": 49, "subtotal": 49 }
+  ],
+  "channel": "Online",
+  "date": "2019-06-12T05:00:00.000Z",
+  "firstname": "John",
+  "lastname": "Doe",
+  "address": "12345 Main St",
+  "city": "Frisco",
+  "state": "TX",
+  "zip": "75033",
+  "payment": "Credit",
+  "total": 534
+}

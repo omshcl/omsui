@@ -1,0 +1,28 @@
+.pokemon {
+    list-style-type: none;
+    margin: 0 0 2em 0;
+    margin: 0 0 2em 0;
+    list-style-type: none;
+    padding: 0;
+
+}
+a {
+    color: white;
+    text-decoration: none;
+
+}
+.pokemon .badge {
+    display: inline-block;
+    font-size: large;
+    color: white;
+   width:10em;
+    background-color:#2a2d35;
+    line-height: 1em;
+    position: relative;
+    left: -3px;
+    top: -4px;
+    height: 2em;
+    margin-top: 2em;
+    margin-right: .8em;
+   border-radius: 4px 4px 4px 4px;
+  }

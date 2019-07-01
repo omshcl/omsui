@@ -1,0 +1,123 @@
+<app-order></app-order>
+<div class="container" style="padding-top: 80px">
+  <div class="row">
+    <div class="col-lg-6 mb3">
+      <ng-select [items]="itemList" [multiple]="true" [closeOnSelect]="false" [clearSearchOnAdd]="true"
+        [clearOnBackspace]="true" [selectOnTab]="true" dropdownPosition="bottom" bindLabel="shortdescription"
+        placeholder="Select Items" [(ngModel)]="selectedItems">
+        <ng-template ng-header-tmp>
+          <div>
+            <button class="btn btn-link" (click)="onSelectAll('item')">
+              Select All
+            </button>
+            <button class="btn btn-link" (click)="onClearAll('item')">
+              Clear All
+            </button>
+          </div>
+        </ng-template>
+      </ng-select>
+    </div>
+    <div class="col-lg-6 mb3">
+      <ng-select [items]="shipNodeList" [multiple]="true" [closeOnSelect]="false" [clearSearchOnAdd]="true"
+        [clearOnBackspace]="true" [selectOnTab]="true" dropdownPosition="bottom" bindLabel="locationname"
+        placeholder="Select ShipNodes" [(ngModel)]="selectedShipNodes">
+        <ng-template ng-header-tmp>
+          <div>
+            <button class="btn btn-link" (click)="onSelectAll(shipnode)">
+              Select All
+            </button>
+            <button class="btn btn-link" (click)="onClearAll(shipnode)">
+              Clear All
+            </button>
+          </div>
+        </ng-template>
+      </ng-select>
+    </div>
+  </div>
+
+  <div *ngIf="formEmpty(); then thenBlock; else elseBlock"></div>
+  <ng-template #thenBlock><button type="button" class="btn btn-primary" (click)="search()" disabled>
+      Search
+    </button></ng-template>
+  <ng-template #elseBlock>
+    <button type="button" class="btn btn-primary" (click)="search()">
+      Search
+    </button></ng-template>
+</div>
+
+<div class="container">
+  <mat-card *ngFor="let curSNI of dataSource" flex-gt-sm>
+    <div class="row">
+      <div class="col-md-3">
+        <img [src]="getAsset(curSNI.shortdescription)" style="margin-bottom: 3px" />
+      </div>
+      <div class="col-md-9">
+        <mat-card-title>{{ curSNI.shipnode }} | {{ curSNI.shortdescription }}</mat-card-title>
+        <mat-card-subtitle>
+          <div class="row">
+            <div class="col-md-3">Type</div>
+            <div class="col-md-3">Product Class</div>
+            <div class="col-md-3">Quantity</div>
+            <div class="col-md-3">Price</div>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-card-subtitle>
+        <mat-card-content>
+          <div *ngFor="let curItem of curSNI.items" class="row hoverDiv" (click)="
+              viewItemSupply({
+                locationname: curSNI.shipnode,
+                itemid: curSNI.itemid,
+                type: curItem.type,
+                productclass: curItem.productclass
+              })
+            ">
+            <div class="col-md-3">{{ curItem.type }}</div>
+            <div class="col-md-3">{{ curItem.productclass }}</div>
+            <div class="col-md-3">{{ curItem.quantity }}</div>
+            <div class="col-md-3">${{ curItem.price }}</div>
+          </div>
+        </mat-card-content>
+      </div>
+    </div>
+    <mat-divider> </mat-divider>
+    <mat-card-footer>{{ curSNI.itemdescription }}</mat-card-footer>
+  </mat-card>
+</div>
+
+<!-- <div class="container" style="padding-bottom: 80px">
+  <mat-card *ngFor="let curSNI of dataSource" flex-gt-sm>
+    <mat-card-title>
+      <div class="row">
+        <div class="col-md-2">
+          <img [src]="getAsset(curSNI.shortdescription)" />
+        </div>
+        <div class="cold-md-4">
+          {{ curSNI.shipnode }} | {{ curSNI.shortdescription }}
+        </div>
+      </div>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <div class="row">
+        <div class="col-md-3">Type</div>
+        <div class="col-md-3">Product Class</div>
+        <div class="col-md-3">Quantity</div>
+        <div class="col-md-3">Price</div>
+      </div>
+      <mat-divider></mat-divider>
+    </mat-card-subtitle>
+    <mat-card-content>
+      <div
+        *ngFor="let curItem of curSNI.items"
+        class="row hoverDiv"
+        (click)="viewItemSupply()"
+      >
+        <div class="col-md-3">{{ curItem.type }}</div>
+        <div class="col-md-3">{{ curItem.productclass }}</div>
+        <div class="col-md-3">{{ curItem.quantity }}</div>
+        <div class="col-md-3">${{ curItem.price }}</div>
+      </div>
+    </mat-card-content>
+    <mat-divider></mat-divider>
+    <mat-card-footer>{{ curSNI.itemdescription }}</mat-card-footer>
+  </mat-card>
+</div> -->

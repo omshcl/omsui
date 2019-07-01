@@ -1,0 +1,24 @@
+<app-order></app-order>
+<div class="container" style="padding-top: 80px">
+  <h1>Item Description</h1>
+  <div class="col-lg-1 mb3"></div>
+  <div class="col-lg-3 mb3">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter" />
+    </mat-form-field>
+  </div>
+  <div class="example-container">
+    <table mat-table #table matSort [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="itemfield" id="item">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Field</th>
+        <td mat-cell *matCellDef="let element">{{ element.itemfield }}</td>
+      </ng-container>
+      <ng-container matColumnDef="itemdetail">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Description</th>
+        <td mat-cell *matCellDef="let element">{{ element.itemdetail }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

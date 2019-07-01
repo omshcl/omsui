@@ -1,0 +1,27 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Weather Alerts
+  </h1>
+  <p>
+
+      <select [(ngModel)]="state" value="3">
+          <option *ngFor="let state of states">{{state}}</option>
+      </select>
+        
+    <button (click)="search()">Search</button>
+  </p>
+  <table *ngIf="response">
+    <tr>
+      <th>Date/Time</th>
+      <th>Location</th>
+      <th>Event</th>
+    </tr>
+    <tr *ngFor="let feature of response.features">
+      <td>{{feature.properties.sent}}</td>
+      <td>{{feature.properties.areaDesc}}</td>
+      <td>{{feature.properties.event}}</td>
+    </tr>
+  </table>
+
+<router-outlet></router-outlet>

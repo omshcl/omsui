@@ -1,0 +1,10 @@
+<div class="container" style="margin-bottom: 80px">
+  <div
+    class="col-lg-10 h-100"
+    *ngIf="chart"
+    style="position: relative; height:40vh; width:80vw;"
+  >
+    <h1>Line Graph</h1>
+    <canvas id="linechart">{{ chart }}</canvas>
+  </div>
+</div>
