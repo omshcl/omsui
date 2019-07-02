@@ -84,7 +84,6 @@ export class OrderService {
     this.setOrderFormValue("date", orderDetail.date);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
-    this.setOrderFormValue("discount", orderDetail.discount);
   }
 
   getCurrentItemInfo(itemList, priceList) {
