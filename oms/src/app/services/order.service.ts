@@ -202,11 +202,11 @@ export class OrderService {
     let curPrice = price;
     let discountprice = (discountPerc * curPrice) / 100;
     curPrice -= discountprice;
-    return curPrice;
+    return Math.floor(curPrice);
   }
 
   getTotal() {
-    return this.orderForm.get("total").value;
+    return Math.floor(this.orderForm.get("total").value);
   }
 
   getItemValue() {
