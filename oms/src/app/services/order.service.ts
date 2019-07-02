@@ -7,6 +7,7 @@ import { FormBuilder, Validators, FormGroup, FormArray } from "@angular/forms";
 export class OrderService {
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
+  discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
   orderForm: FormGroup;
 
@@ -16,7 +17,8 @@ export class OrderService {
     return (this.itemForm = itemFormBuilder.group({
       item: ["", Validators.required],
       quantity: ["", Validators.required],
-      price: ["", Validators.required]
+      price: ["", Validators.required],
+      discount: ""
     }));
   }
 
@@ -40,6 +42,7 @@ export class OrderService {
   initializeFormValues() {
     //reset default dropdown items and date
     this.setItemFormValue("quantity", 1);
+    this.setItemFormValue("discount", this.discountList[0]);
     this.setOrderFormValue("channel", this.channelList[0]);
     this.setOrderFormValue("payment", this.paymentList[0]);
     this.setOrderFormValue("total", 0);
@@ -81,6 +84,7 @@ export class OrderService {
     this.setOrderFormValue("date", orderDetail.date);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
+    this.setOrderFormValue("discount", orderDetail.discount);
   }
 
   getCurrentItemInfo(itemList, priceList) {
@@ -139,11 +143,10 @@ export class OrderService {
       item: itemInfo.curItem,
       quantity: itemInfo.curQuant,
       price: itemInfo.curPrice,
-      subtotal: itemInfo.curQuant
+      subtotal: itemInfo.curSubTotal
     });
     // Update order total
     this.updateTotal(items);
-
     return items;
   }
 
@@ -161,6 +164,15 @@ export class OrderService {
     this.orderForm.get("total").setValue(curTotal);
   }
 
+  applyDiscount(price) {
+    console.log("Apply Discount works");
+    const discountPerc = this.getDiscountValue();
+    let curPrice = price;
+    let discountprice = (discountPerc * curPrice) / 100;
+    curPrice -= discountprice;
+    return curPrice;
+  }
+
   getTotal() {
     return this.orderForm.get("total").value;
   }
@@ -171,6 +183,10 @@ export class OrderService {
 
   getQuantityValue() {
     return this.itemForm.get("quantity").value;
+  }
+
+  getDiscountValue() {
+    return this.itemForm.get("discount").value;
   }
 
   getPriceValue() {
