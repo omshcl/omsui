@@ -52,6 +52,9 @@ import { CreateSupplyComponent } from "./components/item/create-supply/create-su
 import { ItemViewComponent } from "./components/item/item-view/item-view.component";
 import { GeoComponent } from './components/geo/geo.component';
 import { AdminGuard } from './admin.guard';
+import { DashboardViewComponent } from "./components/dashboard/dashboard-view/dashboard-view.component";
+import { OrderPriceGraphComponent } from './components/dashboard/order-price-graph/order-price-graph.component';
+import { CategorySoldGraphComponent } from './components/dashboard/category-sold-graph/category-sold-graph.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +69,10 @@ import { AdminGuard } from './admin.guard';
     ItemSearchComponent,
     CreateSupplyComponent,
     ItemViewComponent,
-    GeoComponent
+    GeoComponent,
+    DashboardViewComponent,
+    OrderPriceGraphComponent,
+    CategorySoldGraphComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +128,8 @@ import { AdminGuard } from './admin.guard';
       { path: "item/search", component: ItemSearchComponent, canActivate:[AdminGuard]},
       { path: "item/create-supply", component: CreateSupplyComponent, canActivate:[AdminGuard] },
       { path: "item/view", component: ItemViewComponent,canActivate:[AdminGuard] },
-      { path: "geo", component: GeoComponent,canActivate:[AdminGuard]}
+      { path: "geo", component: GeoComponent,canActivate:[AdminGuard]},
+      { path: "dashboard", component: DashboardViewComponent }
     ])
   ],
   providers: [HttpClientModule],
