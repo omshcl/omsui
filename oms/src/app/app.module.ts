@@ -9,6 +9,7 @@ import { MatNativeDateModule } from "@angular/material";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgSelectModule } from "@ng-select/ng-select";
+import { ChartsModule } from "ng2-charts";
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -50,9 +51,11 @@ import { OrderSearchComponent } from "./components/orders/order-search/order-sea
 import { ItemSearchComponent } from "./components/item/item-search/item-search.component";
 import { CreateSupplyComponent } from "./components/item/create-supply/create-supply.component";
 import { ItemViewComponent } from "./components/item/item-view/item-view.component";
+import { GeoComponent } from './components/geo/geo.component';
+import { AdminGuard } from './admin.guard';
 import { DashboardViewComponent } from "./components/dashboard/dashboard-view/dashboard-view.component";
-import { OrderPriceGraphComponent } from './components/dashboard/order-price-graph/order-price-graph.component';
-import { CategorySoldGraphComponent } from './components/dashboard/category-sold-graph/category-sold-graph.component';
+import { OrderPriceGraphComponent } from "./components/dashboard/order-price-graph/order-price-graph.component";
+import { CategorySoldGraphComponent } from "./components/dashboard/category-sold-graph/category-sold-graph.component";
 
 @NgModule({
   declarations: [
@@ -67,6 +70,7 @@ import { CategorySoldGraphComponent } from './components/dashboard/category-sold
     ItemSearchComponent,
     CreateSupplyComponent,
     ItemViewComponent,
+    GeoComponent,
     DashboardViewComponent,
     OrderPriceGraphComponent,
     CategorySoldGraphComponent
@@ -113,18 +117,20 @@ import { CategorySoldGraphComponent } from './components/dashboard/category-sold
     NgbModule.forRoot(),
     BrowserAnimationsModule,
     NgSelectModule,
+    ChartsModule,
 
     RouterModule.forRoot([
-      { path: "", component: LoginComponent },
-      { path: "order", component: OrderComponent },
-      { path: "order/create", component: OrderCreateComponent },
-      { path: "order-agent", component: OrderAgentComponent },
-      { path: "order/search", component: OrderSearchComponent },
-      { path: "order/view/:orderID", component: OrderViewComponent },
-      { path: "order/update/:orderID", component: OrderUpdateComponent },
-      { path: "item/search", component: ItemSearchComponent },
-      { path: "item/create-supply", component: CreateSupplyComponent },
-      { path: "item/view", component: ItemViewComponent },
+      { path: "", component: LoginComponent, canActivateChild:[AdminGuard] },
+      { path: "order", component: OrderComponent,canActivateChild:[AdminGuard] },
+      { path: "order/create", component: OrderCreateComponent,canActivate:[AdminGuard] },
+      { path: "order-agent", component: OrderAgentComponent,canActivate:[AdminGuard] },
+      { path: "order/search", component: OrderSearchComponent,canActivate:[AdminGuard] },
+      { path: "order/view/:orderID", component: OrderViewComponent,canActivate:[AdminGuard]},
+      { path: "order/update/:orderID", component: OrderUpdateComponent,canActivate:[AdminGuard] },
+      { path: "item/search", component: ItemSearchComponent, canActivate:[AdminGuard]},
+      { path: "item/create-supply", component: CreateSupplyComponent, canActivate:[AdminGuard] },
+      { path: "item/view", component: ItemViewComponent,canActivate:[AdminGuard] },
+      { path: "geo", component: GeoComponent,canActivate:[AdminGuard]},
       { path: "dashboard", component: DashboardViewComponent }
     ])
   ],
