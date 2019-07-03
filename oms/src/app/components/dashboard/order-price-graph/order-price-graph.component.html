@@ -1,10 +1,24 @@
 <div class="container" style="margin-bottom: 80px">
   <div
     class="col-lg-10 h-100"
-    style="position: relative; height:40vh; width:80vw; margin-left: auto; margin-right: auto"
+    style="position: relative; height:40vh; width:80vw; margin-left: auto; margin-right: auto; background: white; "
   >
-    <h1>Item Price History per Order</h1>
-    <button class="btn btn-secondary" (click)="showAll()">Show All</button>
-    <canvas id="linechart">{{ chart }}</canvas>
+    <h2 style="text-align: left">
+      Item Price History per Order
+      <button class="btn btn-secondary btn-xs m-2" (click)="hideAll()">
+        Hide All
+      </button>
+      <button class="btn btn-secondary btn-xs m-2" (click)="showAll()">
+        Show All
+      </button>
+    </h2>
+    <canvas
+      *ngIf="lineChartData"
+      baseChart
+      [datasets]="lineChartData"
+      [labels]="lineChartLabels"
+      [options]="lineChartOptions"
+      [chartType]="chartType"
+    ></canvas>
   </div>
 </div>

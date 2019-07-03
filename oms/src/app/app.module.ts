@@ -9,6 +9,7 @@ import { MatNativeDateModule } from "@angular/material";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgSelectModule } from "@ng-select/ng-select";
+import { ChartsModule } from "ng2-charts";
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -51,8 +52,8 @@ import { ItemSearchComponent } from "./components/item/item-search/item-search.c
 import { CreateSupplyComponent } from "./components/item/create-supply/create-supply.component";
 import { ItemViewComponent } from "./components/item/item-view/item-view.component";
 import { DashboardViewComponent } from "./components/dashboard/dashboard-view/dashboard-view.component";
-import { OrderPriceGraphComponent } from './components/dashboard/order-price-graph/order-price-graph.component';
-import { CategorySoldGraphComponent } from './components/dashboard/category-sold-graph/category-sold-graph.component';
+import { OrderPriceGraphComponent } from "./components/dashboard/order-price-graph/order-price-graph.component";
+import { CategorySoldGraphComponent } from "./components/dashboard/category-sold-graph/category-sold-graph.component";
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { CategorySoldGraphComponent } from './components/dashboard/category-sold
     NgbModule.forRoot(),
     BrowserAnimationsModule,
     NgSelectModule,
+    ChartsModule,
 
     RouterModule.forRoot([
       { path: "", component: LoginComponent },
