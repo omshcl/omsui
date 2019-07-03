@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 
+
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" })
 };
@@ -14,8 +15,7 @@ export class VerifyLoginService {
   constructor(private http: HttpClient) {}
 
   verifyBackend(userL) {
-    return this.http
-      .post(this.apiURL, {
+    return this.http.post(this.apiURL, {
         username: userL.value.user,
         password: userL.value.yes
       })
@@ -30,6 +30,7 @@ export class VerifyLoginService {
         }
       );
   }
+
   redirect(data) {
     if (data.isValid && data.isAdmin) {
       localStorage.setItem("role", "admin");
@@ -42,4 +43,8 @@ export class VerifyLoginService {
     }
     return true;
   }
+
+  checkCookie() {
+    return this.http.get( "/api/validate").subscribe()
+ }
 }
