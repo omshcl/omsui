@@ -128,6 +128,8 @@ export class OrderUpdateComponent implements OnInit {
     var itemArray = this.orderForm.controls.items as FormArray;
     // Remove Item From ItemForm Array
     itemArray.removeAt(tableIndex);
+    // Remove quantity and price array0
+    this._orderService.removeQtyandPrice(tableIndex);
     // Remove Item From Item Table
     this.items.splice(tableIndex, 1);
     this.subject.next(this.items);

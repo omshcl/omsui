@@ -9,7 +9,12 @@ export class OrderService {
   paymentList = ["Credit", "Cash", "PO"];
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
+  quantityForm: FormGroup;
+  priceForm: FormGroup;
   orderForm: FormGroup;
+
+  qtyArray = [];
+  priceArray = [];
 
   constructor(private formBuilder: FormBuilder) {}
 
@@ -21,11 +26,12 @@ export class OrderService {
       discount: ""
     }));
   }
-
   initializeOrderForm(orderFormBuilder: FormBuilder, orderId) {
     return (this.orderForm = orderFormBuilder.group({
       id: orderId,
       items: this.formBuilder.array([]),
+      quantity: [],
+      price: [],
       channel: ["", Validators.required],
       date: ["", Validators.required],
       firstname: ["", Validators.required],
@@ -65,8 +71,6 @@ export class OrderService {
   createItemForm(itemFormBuilder: FormBuilder, item) {
     return itemFormBuilder.group({
       itemid: item["itemid"],
-      quantity: item["quantity"],
-      price: item["price"],
       subtotal: item["quantity"] * item["price"]
     });
   }
@@ -112,6 +116,16 @@ export class OrderService {
         subtotal: item["quantity"] * item["price"]
       });
 
+      this.qtyArray.push({
+        itemid: item["itemid"],
+        quantity: item["quantity"]
+      });
+
+      this.priceArray.push({
+        itemid: item["itemid"],
+        price: item["price"]
+      });
+
       const group = this.createItemForm(this.formBuilder, item);
 
       itemArray.push(group);
@@ -124,7 +138,6 @@ export class OrderService {
 
   addItemInfoToJSON(itemInfo, itemId) {
     const itemArray = this.orderForm.controls.items as FormArray;
-
     // Create Item Form to push current Item info to FormArray
     const item = {
       itemid: itemId[itemInfo.curItem],
@@ -132,8 +145,20 @@ export class OrderService {
       price: itemInfo.curPrice,
       subtotal: itemInfo.curSubTotal
     };
+    const quantity = {
+      itemid: itemId[itemInfo.curItem],
+      quantity: itemInfo.curQuant
+    };
+    const price = {
+      itemid: itemId[itemInfo.curItem],
+      price: itemInfo.curPrice
+    };
     const group = this.createItemForm(this.formBuilder, item);
     itemArray.push(group);
+    this.qtyArray.push(quantity);
+    this.priceArray.push(price);
+    this.setOrderFormValue("quantity", this.qtyArray);
+    this.setOrderFormValue("price", this.priceArray);
   }
 
   addItemInfoToItemTable(itemInfo, items) {
@@ -153,6 +178,14 @@ export class OrderService {
     this.orderForm.reset();
     const itemArray = this.orderForm.controls.items as FormArray;
     itemArray.clear();
+  }
+
+  removeQtyandPrice(itemIndex) {
+    this.qtyArray.splice(itemIndex, 1);
+    this.priceArray.splice(itemIndex, 1);
+    console.log(this.qtyArray);
+    this.setOrderFormValue("quantity", this.qtyArray);
+    this.setOrderFormValue("price", this.priceArray);
   }
 
   updateTotal(items) {

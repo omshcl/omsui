@@ -19,6 +19,8 @@ export class OrderCreateComponent implements OnInit {
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
   orderForm: FormGroup;
+  quantityForm: FormGroup;
+  priceForm: FormGroup;
   itemLength: Int16Array;
   data = {};
   itemId = {};
@@ -93,6 +95,8 @@ export class OrderCreateComponent implements OnInit {
     var itemArray = this.orderForm.controls.items as FormArray;
     // Remove Item From ItemForm Array
     itemArray.removeAt(tableIndex);
+    // Remove quantity and price array0
+    this._orderService.removeQtyandPrice(tableIndex);
     // Remove Item From Item Table
     this.items.splice(tableIndex, 1);
     this.subject.next(this.items);
