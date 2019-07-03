@@ -17,6 +17,20 @@ export class CategorySoldGraphComponent implements OnInit {
 
   pieChartData: Array<number> = null;
   pieChartLabels: Array<string> = [];
+  pieChartOptions = {
+    title: {
+      text: "Total Sales: ",
+      display: true
+    }
+    // ,
+    // pieceLabel: {
+    //   render: function(args) {
+    //     const label = args.label,
+    //       value = args.value;
+    //     return "$" + value;
+    //   }
+    // }
+  };
   chartType = "pie";
 
   @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;
@@ -60,12 +74,13 @@ export class CategorySoldGraphComponent implements OnInit {
         console.log(this.categoryMap);
         this.pieChartData = [];
         let keySet = this.categoryMap.keys();
+        let totalSales = 0;
         for (let key of keySet) {
           this.pieChartLabels.push(key);
           this.pieChartData.push(this.categoryMap.get(key));
+          totalSales += this.categoryMap.get(key);
         }
-        console.log(this.pieChartData);
-        console.log(this.pieChartLabels);
+        this.pieChartOptions.title.text = "Total Sales: $" + totalSales;
       });
     });
   }

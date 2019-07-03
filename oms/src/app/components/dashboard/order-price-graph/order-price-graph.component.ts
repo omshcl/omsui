@@ -22,6 +22,30 @@ export class OrderPriceGraphComponent implements OnInit {
       line: {
         tension: 0
       }
+    },
+    scales: {
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Order ID"
+          }
+        }
+      ],
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Price"
+          },
+          ticks: {
+            // Include a dollar sign in the ticks
+            callback: function(value, index, values) {
+              return "$" + value;
+            }
+          }
+        }
+      ]
     }
   };
   chartType = "line";
