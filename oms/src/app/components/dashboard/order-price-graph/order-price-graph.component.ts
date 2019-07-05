@@ -55,6 +55,12 @@ export class OrderPriceGraphComponent implements OnChanges {
           }
         }
       ]
+    },
+    plugins: {
+      datalabels: {
+        // hide datalabels for all datasets
+        display: false
+      }
     }
   };
   chartType = "line";
