@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrderSearchService } from "src/app/services/order-search.service";
 import { ItemSearchService } from "src/app/services/item-search.service";
 import { BaseChartDirective } from "ng2-charts";
+import * as pluginDataLabels from "chartjs-plugin-datalabels";
 
 @Component({
   selector: "app-category-sold-graph",
@@ -21,16 +22,20 @@ export class CategorySoldGraphComponent implements OnInit {
     title: {
       text: "Total Sales: ",
       display: true
+    },
+    plugins: {
+      datalabels: {
+        formatter: (value, ctx) => {
+          const label = ctx.chart.data.labels[ctx.dataIndex];
+          let total = 0;
+          for (let curVal of ctx.chart.data.datasets[0].data) total += curVal;
+          let percent = ((value / total) * 100).toFixed(2);
+          return [label, "$" + value, "%" + percent];
+        }
+      }
     }
-    // ,
-    // pieceLabel: {
-    //   render: function(args) {
-    //     const label = args.label,
-    //       value = args.value;
-    //     return "$" + value;
-    //   }
-    // }
   };
+  pieChartPlugins = [pluginDataLabels];
   chartType = "pie";
 
   @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;
