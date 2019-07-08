@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrderSearchService } from "../../../services/order-search.service";
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
+import { element } from 'protractor';
+import { getLocaleDateFormat } from '@angular/common';
 @Component({
   selector: "app-order-search",
   templateUrl: "./order-search.component.html",
@@ -33,6 +35,8 @@ export class OrderSearchComponent implements OnInit {
     this._orderSearchService.getOrders().subscribe(response => {
       this.getOrdersResp = response;
       for (let order of this.getOrdersResp) {
+        if (order.demand_type!='COMPLETE_ORDER')
+        {
         this.elementData.push({
           id: order.id,
           date: order.date.slice(0, 10),
@@ -43,10 +47,13 @@ export class OrderSearchComponent implements OnInit {
           total: order.total
         });
       }
+     
+      }
       this.dataSource = new MatTableDataSource(this.elementData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
+    
   }
 
   applyFilter(filterValue: string) {
@@ -55,8 +62,18 @@ export class OrderSearchComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  fullfill() {
+  fulfill(orderid) {
     console.log("fulfill clicked");
+    let today= new Date();
+    let date = today.getDate();
+    let month = today.getMonth();
+    let year = today.getFullYear();
+    let current_date = month+'/'+date+'/'+year;
+    console.log(current_date)
+    let obj = {id: orderid, date: current_date}
+    this._orderSearchService.full(obj).subscribe(response => {
+    this.getOrdersResp=response;
+    })
   }
 }
 
