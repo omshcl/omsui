@@ -10,7 +10,7 @@ import {
 import { OrderSearchService } from "src/app/services/order-search.service";
 import { ItemSearchService } from "src/app/services/item-search.service";
 import { BaseChartDirective } from "ng2-charts";
-// import * as pluginDataLabels from "chartjs-plugin-datalabels";
+import * as pluginDataLabels from "chartjs-plugin-datalabels";
 
 @Component({
   selector: "app-category-sold-graph",
@@ -43,7 +43,7 @@ export class CategorySoldGraphComponent implements OnChanges {
       }
     }
   };
-  // pieChartPlugins = [pluginDataLabels];
+  pieChartPlugins = [pluginDataLabels];
   chartType = "pie";
 
   @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;

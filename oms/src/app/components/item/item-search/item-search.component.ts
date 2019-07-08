@@ -131,13 +131,13 @@ export class ItemSearchComponent implements OnInit {
 
   getAsset(shortdesc) {
     switch (shortdesc) {
-      case "Google Pixel": {
+      case "Phone": {
         return "assets/icons/pixel.png";
       }
-      case "Lenovo Laptop": {
+      case "Laptop": {
         return "assets/icons/laptop.png";
       }
-      case "Samsung TV": {
+      case "Monitor": {
         return "assets/icons/tv.png";
       }
       default: {
