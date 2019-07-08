@@ -176,7 +176,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/login/login.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/login/login.component.ts:15</a></div>
                             </td>
                         </tr>
 
@@ -245,8 +245,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="20"
-                            class="link-to-prism">src/app/components/login/login.component.ts:20</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="19"
+                            class="link-to-prism">src/app/components/login/login.component.ts:19</a></div>
                 </td>
             </tr>
 
@@ -284,8 +284,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/components/login/login.component.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="23"
+                            class="link-to-prism">src/app/components/login/login.component.ts:23</a></div>
                 </td>
             </tr>
 
@@ -361,7 +361,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/components/login/login.component.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/components/login/login.component.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -395,7 +395,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/login/login.component.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/components/login/login.component.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -410,7 +410,6 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &quot;@angular/core&quot;;
 import { VerifyLoginService } from &quot;../../services/verify-login.service&quot;;
-
 @Component({
   selector: &quot;app-login&quot;,
   templateUrl: &quot;./login.component.html&quot;,
@@ -427,7 +426,9 @@ export class LoginComponent implements OnInit {
 
   constructor(private _verifyLoginService: VerifyLoginService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    localStorage.removeItem(&quot;role&quot;);
+  }
 
   onSubmit(e) {
     this._verifyLoginService.verifyBackend(e);
@@ -602,7 +603,7 @@ body {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="container" style="padding: 200px">  <body clasys="text-center">    <form (ngSubmit)="onSubmit(form1)" #form1="ngForm">      <div class="text-center mb-4">        <div class="container" style="padding-left: 250px">          <h1 class="h3 mb-3 font-weight-normal">OMS Login</h1>        </div>      </div>      <div class="form">        <div class="container" style="padding-left: 250px">          <label for="inputEmail">Username: </label>          <input            type="text"            [(ngModel)]="user.name"            name="user"            class="form-control"            #name="ngModel"            placeholder="Username"            required            minlength="5"            [pattern]="\'^[a-zA-Z0-9 \\'\-]+$\'"          />        </div>      </div>      <div class="container" style="padding-left: 250px">        <div *ngIf="name.invalid && (name.dirty || name.touched)">          <p *ngIf="name.hasError(\'required\')">            User Name is Required          </p>          <p *ngIf="name.hasError(\'minlength\')">            Minimum 5 Characters are Required          </p>          <p *ngIf="name.hasError(\'pattern\')">            Special Characters not Allowed          </p>        </div>      </div>      <div class="container" style="padding-left: 250px">        <label for="inputEmail">Password: </label>        <input          type="password"          [(ngModel)]="yes.kkk"          name="yes"          class="form-control"          #kkk="ngModel"          placeholder="Password"          required          minlength="8"        />      </div>      <div class="container" style="padding-left: 250px">        <div *ngIf="kkk.invalid && (kkk.dirty || kkk.touched)">          <p *ngIf="kkk.hasError(\'required\')">            Password is Required          </p>          <p *ngIf="kkk.hasError(\'minlength\')">            Minimum 8 Characters are Required          </p>        </div>      </div>      <!-- location.href=\'/order\' -->      <div style="padding-left: 325px">        <div style="padding-top: 20px">          <button            class="btn btn-primary"            type="submit"            name="submit"            onClick=""            value="submit"            [disabled]="form1.invalid"          >            Sign in          </button>        </div>      </div>      <!-- does api call and checks if login is valid in backend -->      <!-- if login success, get whether admin/ agent -->      <!-- if login fails, say login failed and redirect to same page-->      <!-- if success, update status of admin/agent -->      <!-- connect to main navbar with features depending on admin or agent -->    </form>  </body></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ItemSearchComponent', 'selector': 'app-item-search'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'OrderAgentComponent', 'selector': 'app-order-agent'},{'name': 'OrderComponent', 'selector': 'app-order'},{'name': 'OrderCreateComponent', 'selector': 'app-order-create'},{'name': 'OrderSearchComponent', 'selector': 'app-order-search'},{'name': 'OrderUpdateComponent', 'selector': 'app-order-update'},{'name': 'ViewComponent', 'selector': 'app-view'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CategorySoldGraphComponent', 'selector': 'app-category-sold-graph'},{'name': 'CreateSupplyComponent', 'selector': 'app-create-supply'},{'name': 'DashboardViewComponent', 'selector': 'app-dashboard-view'},{'name': 'GeoComponent', 'selector': 'app-geo'},{'name': 'ItemSearchComponent', 'selector': 'app-item-search'},{'name': 'ItemViewComponent', 'selector': 'app-item-view'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'OrderComponent', 'selector': 'app-order'},{'name': 'OrderCreateComponent', 'selector': 'app-order-create'},{'name': 'OrderPriceGraphComponent', 'selector': 'app-order-price-graph'},{'name': 'OrderSearchComponent', 'selector': 'app-order-search'},{'name': 'OrderUpdateComponent', 'selector': 'app-order-update'},{'name': 'OrderViewComponent', 'selector': 'app-view'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>

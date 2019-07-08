@@ -1,0 +1,387 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>oms documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">oms documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li>ShipNode</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/app/components/item/item-search/item-search.component.ts</code>
+        </p>
+
+
+
+        <section>
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#locationname">locationname</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="locationname"></a>
+                                        <span class="name"><b>locationname</b><a href="#locationname"><span class="icon ion-ios-link"></span></a></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>locationname:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &quot;@angular/core&quot;;
+import { ItemSearchService } from &quot;../../../services/item-search.service&quot;;
+import { Router } from &quot;@angular/router&quot;;
+
+@Component({
+  selector: &quot;app-item-search&quot;,
+  templateUrl: &quot;./item-search.component.html&quot;,
+  styleUrls: [&quot;./item-search.component.css&quot;]
+})
+export class ItemSearchComponent implements OnInit {
+  getItemsResponse;
+  getShipNodesResponse;
+  getSearchResponse;
+  public itemList: Array&lt;Item&gt; &#x3D; [];
+  public shipNodeList: Array&lt;ShipNode&gt; &#x3D; [];
+  selectedItems &#x3D; [];
+  selectedShipNodes &#x3D; [];
+  dataSource: Array&lt;ShipNodeItemElement&gt; &#x3D; [];
+
+  constructor(
+    private _itemSearchService: ItemSearchService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this._itemSearchService.getItems().subscribe(response &#x3D;&gt; {
+      this.getItemsResponse &#x3D; response;
+      for (let curItem of this.getItemsResponse) {
+        var newItem &#x3D; {} as Item;
+        newItem.itemid &#x3D; curItem.itemid;
+        newItem.shortdescription &#x3D; curItem.shortdescription;
+        newItem.itemdescription &#x3D; curItem.itemdescription;
+        newItem.price &#x3D; curItem.price;
+        this.itemList &#x3D; [...this.itemList, newItem];
+      }
+      this.itemList.sort((a, b) &#x3D;&gt;
+        a.shortdescription.localeCompare(b.shortdescription)
+      );
+      console.log(this.itemList);
+    });
+    this._itemSearchService.getShipNodes().subscribe(response &#x3D;&gt; {
+      this.getShipNodesResponse &#x3D; response;
+      for (let curNode of this.getShipNodesResponse) {
+        this.shipNodeList &#x3D; [...this.shipNodeList, curNode];
+      }
+      this.shipNodeList.sort((a, b) &#x3D;&gt;
+        a.locationname.localeCompare(b.locationname)
+      );
+      console.log(this.shipNodeList);
+    });
+    // this.itemList.push({ itemid: 7, shortdescription: &quot;Pixel 3&quot; });
+  }
+  onSelectAll(form) {
+    if (form &#x3D;&#x3D; &quot;item&quot;) this.selectedItems &#x3D; this.itemList;
+    else this.selectedShipNodes &#x3D; this.shipNodeList;
+  }
+
+  onClearAll(form) {
+    if (form &#x3D;&#x3D; &quot;item&quot;) this.selectedItems &#x3D; [];
+    else this.selectedShipNodes &#x3D; [];
+  }
+
+  formEmpty() {
+    return this.selectedItems.length &#x3D;&#x3D; 0 || this.selectedShipNodes.length &#x3D;&#x3D; 0;
+  }
+
+  search() {
+    this.dataSource &#x3D; [];
+    let form &#x3D; {
+      items: this.selectedItems,
+      shipnodes: this.selectedShipNodes
+    };
+    this._itemSearchService.postSearchQuery(form).subscribe(response &#x3D;&gt; {
+      this.getSearchResponse &#x3D; response;
+      console.log(this.getSearchResponse);
+      let curNode &#x3D; &quot;&quot;;
+      let curItem &#x3D; &quot;&quot;;
+      let itemShortDesc &#x3D; &quot;&quot;;
+      let itemDesc &#x3D; &quot;&quot;;
+      let itemPrice &#x3D; 0;
+      for (let itemsupply of this.getSearchResponse) {
+        //CASE 1: need a new card
+        if (itemsupply.itemid !&#x3D; curItem || itemsupply.shipnode !&#x3D; curNode) {
+          //update variable values
+          curItem &#x3D; itemsupply.itemid;
+          curNode &#x3D; itemsupply.shipnode;
+          itemShortDesc &#x3D; this.itemList.find(x &#x3D;&gt; x.itemid &#x3D;&#x3D; itemsupply.itemid)
+            .shortdescription;
+          itemDesc &#x3D; this.itemList.find(x &#x3D;&gt; x.itemid &#x3D;&#x3D; itemsupply.itemid)
+            .itemdescription;
+          itemPrice &#x3D; this.itemList.find(x &#x3D;&gt; x.itemid &#x3D;&#x3D; itemsupply.itemid)
+            .price;
+          //create new ItemSupplyElement
+          let newItemSupplyElement &#x3D; createItemSupplyElement(
+            itemShortDesc,
+            itemsupply.type,
+            itemsupply.productclass,
+            itemsupply.quantity,
+            itemPrice
+          );
+          //create new ShipNodeItemElement
+          let newShipNodeItemElement &#x3D; createShipNodeItemElement(
+            curNode,
+            itemsupply.itemid,
+            itemShortDesc,
+            newItemSupplyElement,
+            itemDesc
+          );
+          //push new element onto dataSource
+          this.dataSource.push(newShipNodeItemElement);
+        }
+        //CASE 2: add item row to current card (i.e. last element in dataSource array)
+        else {
+          //create new ItemSupplyElement
+          let newItemSupplyElement &#x3D; createItemSupplyElement(
+            itemShortDesc,
+            itemsupply.type,
+            itemsupply.productclass,
+            itemsupply.quantity,
+            itemPrice
+          );
+          //push new element to the &quot;current&quot; card
+          this.dataSource[this.dataSource.length - 1].items.push(
+            newItemSupplyElement
+          );
+        }
+      }
+      console.log(this.dataSource);
+    });
+  }
+
+  getAsset(shortdesc) {
+    switch (shortdesc) {
+      case &quot;Phone&quot;: {
+        return &quot;assets/icons/pixel.png&quot;;
+      }
+      case &quot;Laptop&quot;: {
+        return &quot;assets/icons/laptop.png&quot;;
+      }
+      case &quot;Monitor&quot;: {
+        return &quot;assets/icons/tv.png&quot;;
+      }
+      default: {
+        return &quot;assets/icons/default.png&quot;;
+      }
+    }
+  }
+
+  viewItemSupply(form) {
+    console.log(form);
+    this.router.navigate([&quot;/item/view&quot;, form]);
+  }
+}
+
+export interface Item {
+  itemid: number;
+  shortdescription: string;
+  itemdescription: string;
+  price: number;
+}
+
+export interface ShipNode {
+  locationname: string;
+}
+
+export interface ItemSupplyElement {
+  shortdescription: any;
+  type: any; //onhand or pipeline
+  productclass: any; //new or used
+  quantity: any;
+  price: any;
+}
+
+export interface ShipNodeItemElement {
+  shipnode: any;
+  itemid: any;
+  shortdescription: any;
+  items: ItemSupplyElement[];
+  itemdescription: any;
+}
+
+function createItemSupplyElement(sdesc, tp, pc, qty, pr) {
+  let newISE &#x3D; {} as ItemSupplyElement;
+  newISE.shortdescription &#x3D; sdesc;
+  newISE.type &#x3D; tp;
+  newISE.productclass &#x3D; pc;
+  newISE.quantity &#x3D; qty;
+  newISE.price &#x3D; pr;
+  return newISE;
+}
+
+function createShipNodeItemElement(sn, id, sdesc, itms, idesc) {
+  let newSNIE &#x3D; {} as ShipNodeItemElement;
+  newSNIE.shipnode &#x3D; sn;
+  newSNIE.itemid &#x3D; id;
+  newSNIE.shortdescription &#x3D; sdesc;
+  newSNIE.items &#x3D; [];
+  newSNIE.items.push(itms);
+  newSNIE.itemdescription &#x3D; idesc;
+  return newSNIE;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'ShipNode.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

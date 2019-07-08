@@ -38,7 +38,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li>ItemSearchService</li>
+  <li>SupplyCreateService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,7 +56,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/services/item-search.service.ts</code>
+            <code>src/app/services/supply-create.service.ts</code>
         </p>
 
 
@@ -66,6 +66,20 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#apiURL">apiURL</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -76,19 +90,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getItemInfo">getItemInfo</a>
-                            </li>
-                            <li>
                                 <a href="#getItems">getItems</a>
                             </li>
                             <li>
-                                <a href="#getShipNodes">getShipNodes</a>
-                            </li>
-                            <li>
-                                <a href="#postSearchQuery">postSearchQuery</a>
-                            </li>
-                            <li>
-                                <a href="#postViewDetails">postViewDetails</a>
+                                <a href="#postOrder">postOrder</a>
                             </li>
                         </ul>
                     </td>
@@ -113,7 +118,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/app/services/item-search.service.ts:7</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/services/supply-create.service.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -160,72 +165,6 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getItemInfo"></a>
-                    <span class="name">
-                        <b>
-                            getItemInfo
-                        </b>
-                        <a href="#getItemInfo"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getItemInfo(itemid)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="26"
-                            class="link-to-prism">src/app/services/item-search.service.ts:26</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>itemid</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
                     <a name="getItems"></a>
                     <span class="name">
                         <b>
@@ -244,8 +183,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="10"
-                            class="link-to-prism">src/app/services/item-search.service.ts:10</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/services/supply-create.service.ts:28</a></div>
                 </td>
             </tr>
 
@@ -265,65 +204,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getShipNodes"></a>
+                    <a name="postOrder"></a>
                     <span class="name">
                         <b>
-                            getShipNodes
+                            postOrder
                         </b>
-                        <a href="#getShipNodes"><span class="icon ion-ios-link"></span></a>
+                        <a href="#postOrder"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getShipNodes()</code>
+<code>postOrder(supplyOrder)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="14"
-                            class="link-to-prism">src/app/services/item-search.service.ts:14</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="postSearchQuery"></a>
-                    <span class="name">
-                        <b>
-                            postSearchQuery
-                        </b>
-                        <a href="#postSearchQuery"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>postSearchQuery(form)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/app/services/item-search.service.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">src/app/services/supply-create.service.ts:15</a></div>
                 </td>
             </tr>
 
@@ -342,73 +242,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>form</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="postViewDetails"></a>
-                    <span class="name">
-                        <b>
-                            postViewDetails
-                        </b>
-                        <a href="#postViewDetails"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>postViewDetails(form)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/services/item-search.service.ts:22</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>form</td>
+                                    <td>supplyOrder</td>
 
                                     <td>
                                         No
@@ -433,38 +267,78 @@
         </tbody>
     </table>
 </section>
+            <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="apiURL"></a>
+                        <span class="name">
+                            <b>
+                            apiURL</b>
+                            <a href="#apiURL"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>&quot;/api/supply/new&quot;</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/services/supply-create.service.ts:12</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &quot;@angular/core&quot;;
-import { HttpClient } from &quot;@angular/common/http&quot;;
+import { HttpClient, HttpHeaders } from &quot;@angular/common/http&quot;;
+
+const httpOptions &#x3D; {
+  headers: new HttpHeaders({ &quot;Content-Type&quot;: &quot;application/json&quot; })
+};
 
 @Injectable({
   providedIn: &quot;root&quot;
 })
-export class ItemSearchService {
+export class SupplyCreateService {
+  apiURL: string &#x3D; &quot;/api/supply/new&quot;;
   constructor(private http: HttpClient) {}
 
+  postOrder(supplyOrder) {
+    return this.http.post(this.apiURL, supplyOrder).subscribe(
+      data &#x3D;&gt; {
+        console.log(data);
+        return true;
+      },
+      error &#x3D;&gt; {
+        console.error(&quot;Error posting order!&quot;);
+        return false;
+      }
+    );
+  }
+
   getItems() {
-    return this.http.get(&quot;/api/items/list&quot;);
-  }
-
-  getShipNodes() {
     return this.http.get(&quot;/api/shipnodes&quot;);
-  }
-
-  postSearchQuery(form) {
-    return this.http.post(&quot;/api/items/search&quot;, form);
-  }
-
-  postViewDetails(form) {
-    return this.http.post(&quot;/api/items/details&quot;, form);
-  }
-
-  getItemInfo(itemid) {
-    return this.http.post(&quot;/api/items/getinfo&quot;, { itemid: itemid });
   }
 }
 </code></pre>
@@ -499,7 +373,7 @@ export class ItemSearchService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'ItemSearchService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'SupplyCreateService.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

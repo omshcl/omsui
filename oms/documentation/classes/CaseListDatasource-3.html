@@ -27,7 +27,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content class">
                    <div class="content-data">
 
 
@@ -36,9 +36,13 @@
 
 
 
+
+
+
+
 <ol class="breadcrumb">
-  <li>Injectables</li>
-  <li>OrderCreateService</li>
+  <li>Classes</li>
+  <li>CaseListDatasource</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -56,9 +60,16 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/services/order-create.service.ts</code>
+            <code>src/app/components/item/create-supply/elements-data-src.ts</code>
         </p>
 
+
+            <p class="comment">
+                <h3>Extends</h3>
+            </p>
+            <p class="comment">
+                    <code>DataSource</code>
+            </p>
 
 
 
@@ -75,7 +86,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#apiURL">apiURL</a>
+                                <a href="#filter">filter</a>
                             </li>
                         </ul>
                     </td>
@@ -90,10 +101,10 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getItems">getItems</a>
+                                <a href="#connect">connect</a>
                             </li>
                             <li>
-                                <a href="#postOrder">postOrder</a>
+                                <a href="#disconnect">disconnect</a>
                             </li>
                         </ul>
                     </td>
@@ -113,12 +124,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+<code>constructor(_list$: Observable<any[]>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/order-create.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/components/item/create-supply/elements-data-src.ts:5</a></div>
                             </td>
                         </tr>
 
@@ -136,10 +147,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>http</td>
+                                                        <td>_list$</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                                    <code>Observable&lt;any[]&gt;</code>
                                                         </td>
                                                   
                                                     <td>
@@ -158,117 +169,6 @@
 
             <section>
     
-    <h3 id="methods">
-        Methods
-    </h3>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getItems"></a>
-                    <span class="name">
-                        <b>
-                            getItems
-                        </b>
-                        <a href="#getItems"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getItems()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="30"
-                            class="link-to-prism">src/app/services/order-create.service.ts:30</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="postOrder"></a>
-                    <span class="name">
-                        <b>
-                            postOrder
-                        </b>
-                        <a href="#postOrder"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>postOrder(newOrder)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/app/services/order-create.service.ts:17</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Parameters :</b>
-                        <table class="params">
-                            <thead>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Optional</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>newOrder</td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div>
-                    </div>
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                    <div class="io-description">
-                        
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</section>
-            <section>
-    
         <h3 id="inputs">
             Properties
         </h3>
@@ -276,11 +176,11 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="apiURL"></a>
+                        <a name="filter"></a>
                         <span class="name">
                             <b>
-                            apiURL</b>
-                            <a href="#apiURL"><span class="icon ion-ios-link"></span></a>
+                            filter</b>
+                            <a href="#filter"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -290,14 +190,9 @@
 
                         </td>
                     </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Default value : </i><code>&quot;/api/orders/new&quot;</code>
-                        </td>
-                    </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/order-create.service.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/components/item/create-supply/elements-data-src.ts:5</a></div>
                             </td>
                         </tr>
 
@@ -306,51 +201,118 @@
         </table>
 </section>
 
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="connect"></a>
+                    <span class="name">
+                        <b>
+                            connect
+                        </b>
+                        <a href="#connect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>connect()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="11"
+                            class="link-to-prism">src/app/components/item/create-supply/elements-data-src.ts:11</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Observable&lt;any[]&gt;</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="disconnect"></a>
+                    <span class="name">
+                        <b>
+                            disconnect
+                        </b>
+                        <a href="#disconnect"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>disconnect()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">src/app/components/item/create-supply/elements-data-src.ts:15</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &quot;@angular/core&quot;;
-import { HttpClient, HttpHeaders } from &quot;@angular/common/http&quot;;
-import { Observable } from &quot;rxjs&quot;;
-import { itemPost } from &quot;../models/postItems&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { DataSource } from &quot;@angular/cdk/collections&quot;;
+import { Observable } from &quot;rxjs/Observable&quot;;
 
-const httpOptions &#x3D; {
-  headers: new HttpHeaders({ &quot;Content-Type&quot;: &quot;application/json&quot; })
-};
+export class CaseListDatasource extends DataSource&lt;any&gt; {
+  filter: string;
 
-@Injectable({
-  providedIn: &quot;root&quot;
-})
-export class OrderCreateService {
-  apiURL: string &#x3D; &quot;/api/orders/new&quot;;
-  constructor(private http: HttpClient) {}
-
-  postOrder(newOrder) {
-    return this.http.post(this.apiURL, newOrder).subscribe(
-      data &#x3D;&gt; {
-        console.log(data);
-        return true;
-      },
-      error &#x3D;&gt; {
-        console.error(&quot;Error posting order!&quot;);
-        return false;
-      }
-    );
+  constructor(private _list$: Observable&lt;any[]&gt;) {
+    super();
   }
 
-  getItems() {
-    return this.http.get&lt;itemPost[]&gt;(&quot;/api/items/list&quot;);
+  connect(): Observable&lt;any[]&gt; {
+    return this._list$;
   }
+
+  disconnect() {}
 }
 </code></pre>
     </div>
-
 </div>
-
-
-
-
 
 
 
@@ -374,8 +336,8 @@ export class OrderCreateService {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'OrderCreateService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'CaseListDatasource-3.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

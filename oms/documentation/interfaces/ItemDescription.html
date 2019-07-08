@@ -43,7 +43,7 @@
 
 <ol class="breadcrumb">
   <li>Interfaces</li>
-  <li>Item</li>
+  <li>ItemDescription</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -61,7 +61,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/components/dashboard/category-sold-graph/category-sold-graph.component.ts</code>
+            <code>src/app/components/item/item-view/item-view.component.ts</code>
         </p>
 
 
@@ -79,13 +79,10 @@
                         <td class="col-md-4">
                             <ul class="index-list">
                                 <li>
-                                        <a href="#category">category</a>
+                                        <a href="#itemdetail">itemdetail</a>
                                 </li>
                                 <li>
-                                        <a href="#itemid">itemid</a>
-                                </li>
-                                <li>
-                                        <a href="#shortdescription">shortdescription</a>
+                                        <a href="#itemfield">itemfield</a>
                                 </li>
                             </ul>
                         </td>
@@ -102,13 +99,13 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="category"></a>
-                                        <span class="name"><b>category</b><a href="#category"><span class="icon ion-ios-link"></span></a></span>
+                                        <a name="itemdetail"></a>
+                                        <span class="name"><b>itemdetail</b><a href="#itemdetail"><span class="icon ion-ios-link"></span></a></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>category:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>itemdetail:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -131,42 +128,13 @@
                         <tbody>
                                 <tr>
                                     <td class="col-md-4">
-                                        <a name="itemid"></a>
-                                        <span class="name"><b>itemid</b><a href="#itemid"><span class="icon ion-ios-link"></span></a></span>
+                                        <a name="itemfield"></a>
+                                        <span class="name"><b>itemfield</b><a href="#itemfield"><span class="icon ion-ios-link"></span></a></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="col-md-4">
-                                        <code>itemid:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-</code>
-                                    </td>
-                                </tr>
-
-
-                                    <tr>
-                                        <td class="col-md-4">
-                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                                        </td>
-                                    </tr>
-
-
-
-
-
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <a name="shortdescription"></a>
-                                        <span class="name"><b>shortdescription</b><a href="#shortdescription"><span class="icon ion-ios-link"></span></a></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="col-md-4">
-                                        <code>shortdescription:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                        <code>itemfield:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
 </code>
                                     </td>
                                 </tr>
@@ -190,113 +158,88 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  Component,
-  OnInit,
-  ViewChild,
-  Input,
-  OnChanges,
-  SimpleChange,
-  SimpleChanges
-} from &quot;@angular/core&quot;;
-import { OrderSearchService } from &quot;src/app/services/order-search.service&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &quot;@angular/core&quot;;
+import { ActivatedRoute } from &quot;@angular/router&quot;;
 import { ItemSearchService } from &quot;src/app/services/item-search.service&quot;;
-import { BaseChartDirective } from &quot;ng2-charts&quot;;
-import * as pluginDataLabels from &quot;chartjs-plugin-datalabels&quot;;
+import { MatTableDataSource, MatSort } from &quot;@angular/material&quot;;
 
 @Component({
-  selector: &quot;app-category-sold-graph&quot;,
-  templateUrl: &quot;./category-sold-graph.component.html&quot;,
-  styleUrls: [&quot;./category-sold-graph.component.css&quot;]
+  selector: &quot;app-item-view&quot;,
+  templateUrl: &quot;./item-view.component.html&quot;,
+  styleUrls: [&quot;./item-view.component.css&quot;]
 })
-export class CategorySoldGraphComponent implements OnChanges {
-  getItemsResponse;
-  getOrdersResponse;
-  itemList: Array&lt;Item&gt; &#x3D; [];
-  @Input() responseData: any;
-  categoryMap: Map&lt;string, number&gt; &#x3D; new Map&lt;string, number&gt;();
+export class ItemViewComponent implements OnInit {
+  locationname;
+  itemid;
+  type;
+  productclass;
+  viewResponse;
+  getInfo;
 
-  pieChartData: Array&lt;number&gt; &#x3D; null;
-  pieChartLabels: Array&lt;string&gt; &#x3D; [];
-  pieChartOptions &#x3D; {
-    title: {
-      text: &quot;Total Sales: &quot;,
-      display: true
-    },
-    plugins: {
-      datalabels: {
-        formatter: (value, ctx) &#x3D;&gt; {
-          const label &#x3D; ctx.chart.data.labels[ctx.dataIndex];
-          let total &#x3D; 0;
-          for (let curVal of ctx.chart.data.datasets[0].data) total +&#x3D; curVal;
-          let percent &#x3D; ((value / total) * 100).toFixed(2);
-          return [label, &quot;$&quot; + value, &quot;%&quot; + percent];
-        }
-      }
-    }
-  };
-  pieChartPlugins &#x3D; [pluginDataLabels];
-  chartType &#x3D; &quot;pie&quot;;
-
-  @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;
+  name &#x3D; &quot;Angular 5&quot;;
+  displayedColumns &#x3D; [&quot;itemfield&quot;, &quot;itemdetail&quot;];
+  dataSource;
+  itemdescription: ItemDescription[] &#x3D; [];
+  @ViewChild(MatSort, { static: false }) sort: MatSort;
 
   constructor(
-    private _OrderSearchService: OrderSearchService,
+    private route: ActivatedRoute,
     private _itemSearchService: ItemSearchService
   ) {}
 
-  ngOnChanges(changes: SimpleChanges) {
-    let change &#x3D; changes[&quot;responseData&quot;];
-    let Response &#x3D; change.currentValue;
-    console.log(Response.itemsData);
-    if (Response.itemsData) {
-      let ItemsResponse &#x3D; Response.itemsData;
-      for (let curItem of ItemsResponse) {
-        var newItem &#x3D; {} as Item;
-        newItem.itemid &#x3D; curItem.itemid;
-        newItem.shortdescription &#x3D; curItem.shortdescription;
-        newItem.category &#x3D; curItem.category;
-        this.itemList &#x3D; [...this.itemList, newItem];
-      }
+  ngOnInit() {
+    this.route.paramMap.subscribe(params &#x3D;&gt; {
+      // (+) before &#x60;params.get()&#x60; turns the string into a number
+      this.locationname &#x3D; params.get(&quot;locationname&quot;);
+      this.itemid &#x3D; params.get(&quot;itemid&quot;);
+      this.type &#x3D; params.get(&quot;type&quot;);
+      this.productclass &#x3D; params.get(&quot;productclass&quot;);
+      let form &#x3D; {
+        locationname: this.locationname,
+        itemid: this.itemid,
+        type: this.type,
+        productclass: this.productclass
+      };
 
-      let OrdersResponse &#x3D; Response.ordersData;
-      for (let order of OrdersResponse) {
-        for (let item of order.items) {
-          let curCategory &#x3D; this.getCategory(item.itemid);
-          if (this.categoryMap.has(curCategory)) {
-            //add total to cur value
-            let subTotal &#x3D; item.price * item.quantity;
-            let curValue &#x3D; this.categoryMap.get(curCategory);
-            curValue +&#x3D; subTotal;
-            this.categoryMap.set(curCategory, curValue);
-          } else {
-            //make new entry in map
-            let subTotal &#x3D; item.price * item.quantity;
-            this.categoryMap.set(curCategory, subTotal);
-          }
+      this._itemSearchService.postViewDetails(form).subscribe(response &#x3D;&gt; {
+        this.viewResponse &#x3D; response;
+        for (let key in this.viewResponse) {
+          this.itemdescription.push({
+            itemfield: key,
+            itemdetail: this.viewResponse[key]
+          });
         }
-      }
-      this.pieChartData &#x3D; [];
-      let keySet &#x3D; this.categoryMap.keys();
-      let totalSales &#x3D; 0;
-      for (let key of keySet) {
-        this.pieChartLabels.push(key);
-        this.pieChartData.push(this.categoryMap.get(key));
-        totalSales +&#x3D; this.categoryMap.get(key);
-      }
-      this.pieChartOptions.title.text &#x3D; &quot;Total Sales: $&quot; + totalSales;
-    }
+        this._itemSearchService
+          .getItemInfo(this.viewResponse.itemid)
+          .subscribe(response &#x3D;&gt; {
+            this.viewResponse &#x3D; response;
+            for (let key in this.viewResponse) {
+              if (key &#x3D;&#x3D;&#x3D; &quot;itemid&quot;) {
+                continue;
+              }
+              this.itemdescription.push({
+                itemfield: key,
+                itemdetail: this.viewResponse[key]
+              });
+            }
+            this.dataSource &#x3D; new MatTableDataSource(this.itemdescription);
+            this.dataSource.sort &#x3D; this.sort;
+            console.log(this.itemdescription);
+          });
+      });
+    });
   }
 
-  getCategory(itemID) {
-    return this.itemList.find(x &#x3D;&gt; x.itemid &#x3D;&#x3D; itemID).category;
+  applyFilter(filterValue: string) {
+    filterValue &#x3D; filterValue.trim(); // Remove whitespace
+    filterValue &#x3D; filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter &#x3D; filterValue;
   }
 }
 
-export interface Item {
-  itemid: number;
-  shortdescription: string;
-  category: string;
+export interface ItemDescription {
+  itemfield: string;
+  itemdetail: string;
 }
 </code></pre>
     </div>
@@ -324,7 +267,7 @@ export interface Item {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
-            var COMPODOC_CURRENT_PAGE_URL = 'Item.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'ItemDescription.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

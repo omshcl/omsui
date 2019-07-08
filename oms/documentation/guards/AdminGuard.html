@@ -27,7 +27,7 @@
                    <compodoc-menu mode="normal"></compodoc-menu>
                </div>
                <!-- START CONTENT -->
-               <div class="content injectable">
+               <div class="content guard">
                    <div class="content-data">
 
 
@@ -36,9 +36,11 @@
 
 
 
+
+
 <ol class="breadcrumb">
-  <li>Injectables</li>
-  <li>ItemSearchService</li>
+    <li>Guards</li>
+    <li>AdminGuard</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -51,18 +53,19 @@
 </ul>
 
 <div class="tab-content">
-    <div class="tab-pane fade active in" id="c-info">
-        <p class="comment">
+        <div class="tab-pane fade active in" id="c-info">
+            <p class="comment">
             <h3>File</h3>
-        </p>
-        <p class="comment">
-            <code>src/app/services/item-search.service.ts</code>
-        </p>
+            </p>
+            <p class="comment">
+                <code>src/app/admin.guard.ts</code>
+            </p>
 
 
 
 
-            <section>
+
+                <section>
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
@@ -76,19 +79,13 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getItemInfo">getItemInfo</a>
+                                <a href="#canActivate">canActivate</a>
                             </li>
                             <li>
-                                <a href="#getItems">getItems</a>
+                                <a href="#canActivateChild">canActivateChild</a>
                             </li>
                             <li>
-                                <a href="#getShipNodes">getShipNodes</a>
-                            </li>
-                            <li>
-                                <a href="#postSearchQuery">postSearchQuery</a>
-                            </li>
-                            <li>
-                                <a href="#postViewDetails">postViewDetails</a>
+                                <a href="#canLoad">canLoad</a>
                             </li>
                         </ul>
                     </td>
@@ -102,18 +99,18 @@
     </table>
 </section>
 
-            <section>
+                <section>
     <h3 id="constructor">Constructor</h3>
         <table class="table table-sm table-bordered">
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+<code>constructor(verifyLoginService: <a href="../injectables/VerifyLoginService.html">VerifyLoginService</a>, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/app/services/item-search.service.ts:7</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/admin.guard.ts:9</a></div>
                             </td>
                         </tr>
 
@@ -131,10 +128,22 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>http</td>
+                                                        <td>verifyLoginService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                                        <code><a href="../injectables/VerifyLoginService.html" target="_self" >VerifyLoginService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -151,7 +160,7 @@
         </table>
 </section>
 
-            <section>
+                <section>
     
     <h3 id="methods">
         Methods
@@ -160,26 +169,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getItemInfo"></a>
+                    <a name="canActivate"></a>
                     <span class="name">
                         <b>
-                            getItemInfo
+                            canActivate
                         </b>
-                        <a href="#getItemInfo"><span class="icon ion-ios-link"></span></a>
+                        <a href="#canActivate"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getItemInfo(itemid)</code>
+<code>canActivate(next: <a href="https://angular.io/api/router/ActivatedRouteSnapshot" target="_blank">ActivatedRouteSnapshot</a>, state: <a href="https://angular.io/api/router/RouterStateSnapshot" target="_blank">RouterStateSnapshot</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="26"
-                            class="link-to-prism">src/app/services/item-search.service.ts:26</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="13"
+                            class="link-to-prism">src/app/admin.guard.ts:13</a></div>
                 </td>
             </tr>
 
@@ -193,12 +202,28 @@
                             <thead>
                                 <tr>
                                     <td>Name</td>
+                                    <td>Type</td>
                                     <td>Optional</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>itemid</td>
+                                    <td>next</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/ActivatedRouteSnapshot" target="_blank" >ActivatedRouteSnapshot</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>state</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/RouterStateSnapshot" target="_blank" >RouterStateSnapshot</a></code>
+                                    </td>
 
                                     <td>
                                         No
@@ -212,7 +237,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Observable | Promise | boolean | UrlTree</code>
 
                     </div>
                     <div class="io-description">
@@ -226,104 +251,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getItems"></a>
+                    <a name="canActivateChild"></a>
                     <span class="name">
                         <b>
-                            getItems
+                            canActivateChild
                         </b>
-                        <a href="#getItems"><span class="icon ion-ios-link"></span></a>
+                        <a href="#canActivateChild"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getItems()</code>
+<code>canActivateChild(next: <a href="https://angular.io/api/router/ActivatedRouteSnapshot" target="_blank">ActivatedRouteSnapshot</a>, state: <a href="https://angular.io/api/router/RouterStateSnapshot" target="_blank">RouterStateSnapshot</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="10"
-                            class="link-to-prism">src/app/services/item-search.service.ts:10</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getShipNodes"></a>
-                    <span class="name">
-                        <b>
-                            getShipNodes
-                        </b>
-                        <a href="#getShipNodes"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getShipNodes()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="14"
-                            class="link-to-prism">src/app/services/item-search.service.ts:14</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="postSearchQuery"></a>
-                    <span class="name">
-                        <b>
-                            postSearchQuery
-                        </b>
-                        <a href="#postSearchQuery"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>postSearchQuery(form)</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/app/services/item-search.service.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="19"
+                            class="link-to-prism">src/app/admin.guard.ts:19</a></div>
                 </td>
             </tr>
 
@@ -337,12 +284,28 @@
                             <thead>
                                 <tr>
                                     <td>Name</td>
+                                    <td>Type</td>
                                     <td>Optional</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>form</td>
+                                    <td>next</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/ActivatedRouteSnapshot" target="_blank" >ActivatedRouteSnapshot</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>state</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/RouterStateSnapshot" target="_blank" >RouterStateSnapshot</a></code>
+                                    </td>
 
                                     <td>
                                         No
@@ -356,7 +319,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Observable | Promise | boolean | UrlTree</code>
 
                     </div>
                     <div class="io-description">
@@ -370,26 +333,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="postViewDetails"></a>
+                    <a name="canLoad"></a>
                     <span class="name">
                         <b>
-                            postViewDetails
+                            canLoad
                         </b>
-                        <a href="#postViewDetails"><span class="icon ion-ios-link"></span></a>
+                        <a href="#canLoad"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>postViewDetails(form)</code>
+<code>canLoad(route: <a href="https://angular.io/api/router/Route" target="_blank">Route</a>, segments: UrlSegment[])</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="22"
-                            class="link-to-prism">src/app/services/item-search.service.ts:22</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/app/admin.guard.ts:24</a></div>
                 </td>
             </tr>
 
@@ -403,12 +366,28 @@
                             <thead>
                                 <tr>
                                     <td>Name</td>
+                                    <td>Type</td>
                                     <td>Optional</td>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>form</td>
+                                    <td>route</td>
+                                    <td>
+                                                <code><a href="https://angular.io/api/router/Route" target="_blank" >Route</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>segments</td>
+                                    <td>
+                                            <code>UrlSegment[]</code>
+                                    </td>
 
                                     <td>
                                         No
@@ -422,7 +401,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Observable | Promise | boolean</code>
 
                     </div>
                     <div class="io-description">
@@ -433,46 +412,42 @@
         </tbody>
     </table>
 </section>
+        </div>
 
-    </div>
 
-
-    <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &quot;@angular/core&quot;;
-import { HttpClient } from &quot;@angular/common/http&quot;;
+        <div class="tab-pane fade  tab-source-code" id="c-source">
+            <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
+import { CanActivate, CanActivateChild, CanLoad, Route, UrlSegment, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from &#x27;@angular/router&#x27;;
+import { Observable } from &#x27;rxjs&#x27;;
+import { VerifyLoginService } from &#x27;../app/services/verify-login.service&#x27;
 
 @Injectable({
-  providedIn: &quot;root&quot;
+  providedIn: &#x27;root&#x27;
 })
-export class ItemSearchService {
-  constructor(private http: HttpClient) {}
+export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
 
-  getItems() {
-    return this.http.get(&quot;/api/items/list&quot;);
+  constructor(private verifyLoginService: VerifyLoginService, private router: Router) {}
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable&lt;boolean | UrlTree&gt; | Promise&lt;boolean | UrlTree&gt; | boolean | UrlTree {
+      this.verifyLoginService.checkCookie();
+    return true;
   }
-
-  getShipNodes() {
-    return this.http.get(&quot;/api/shipnodes&quot;);
+  canActivateChild(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable&lt;boolean | UrlTree&gt; | Promise&lt;boolean | UrlTree&gt; | boolean | UrlTree {
+    return true;
   }
-
-  postSearchQuery(form) {
-    return this.http.post(&quot;/api/items/search&quot;, form);
-  }
-
-  postViewDetails(form) {
-    return this.http.post(&quot;/api/items/details&quot;, form);
-  }
-
-  getItemInfo(itemid) {
-    return this.http.post(&quot;/api/items/getinfo&quot;, { itemid: itemid });
+  canLoad(
+    route: Route,
+    segments: UrlSegment[]): Observable&lt;boolean&gt; | Promise&lt;boolean&gt; | boolean {
+    return true;
   }
 }
 </code></pre>
-    </div>
-
+        </div>
 </div>
-
-
 
 
 
@@ -498,8 +473,8 @@ export class ItemSearchService {
 
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
-            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'ItemSearchService.html';
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'guard';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminGuard.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>

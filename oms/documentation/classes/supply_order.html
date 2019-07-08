@@ -42,7 +42,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>Order</li>
+  <li>supply_order</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -60,7 +60,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/models/order.ts</code>
+            <code>src/app/models/supply_order.ts</code>
         </p>
 
 
@@ -80,22 +80,37 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#address">address</a>
+                                <a href="#Category">Category</a>
                             </li>
                             <li>
-                                <a href="#item">item</a>
+                                <a href="#city">city</a>
                             </li>
                             <li>
-                                <a href="#itemDescription">itemDescription</a>
+                                <a href="#manufacturername">manufacturername</a>
+                            </li>
+                            <li>
+                                <a href="#price">price</a>
                             </li>
                             <li>
                                 <a href="#quantity">quantity</a>
                             </li>
                             <li>
-                                <a href="#totalcost">totalcost</a>
+                                <a href="#shippingaddress">shippingaddress</a>
                             </li>
                             <li>
-                                <a href="#unitcost">unitcost</a>
+                                <a href="#shortdescription">shortdescription</a>
+                            </li>
+                            <li>
+                                <a href="#state">state</a>
+                            </li>
+                            <li>
+                                <a href="#SubCategory">SubCategory</a>
+                            </li>
+                            <li>
+                                <a href="#unitofmeasure">unitofmeasure</a>
+                            </li>
+                            <li>
+                                <a href="#zip">zip</a>
                             </li>
                         </ul>
                     </td>
@@ -120,38 +135,11 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="address"></a>
+                        <a name="Category"></a>
                         <span class="name">
                             <b>
-                            address</b>
-                            <a href="#address"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="../classes/Order_Address.html" target="_self" >Order_Address</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/models/order.ts:8</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="item"></a>
-                        <span class="name">
-                            <b>
-                            item</b>
-                            <a href="#item"><span class="icon ion-ios-link"></span></a>
+                            Category</b>
+                            <a href="#Category"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -163,7 +151,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="3" class="link-to-prism">src/app/models/order.ts:3</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/app/models/supply_order.ts:7</a></div>
                             </td>
                         </tr>
 
@@ -174,11 +162,11 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="itemDescription"></a>
+                        <a name="city"></a>
                         <span class="name">
                             <b>
-                            itemDescription</b>
-                            <a href="#itemDescription"><span class="icon ion-ios-link"></span></a>
+                            city</b>
+                            <a href="#city"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -190,7 +178,61 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/app/models/order.ts:4</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/models/supply_order.ts:11</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="manufacturername"></a>
+                        <span class="name">
+                            <b>
+                            manufacturername</b>
+                            <a href="#manufacturername"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/app/models/supply_order.ts:6</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="price"></a>
+                        <span class="name">
+                            <b>
+                            price</b>
+                            <a href="#price"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="4" class="link-to-prism">src/app/models/supply_order.ts:4</a></div>
                             </td>
                         </tr>
 
@@ -217,7 +259,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/models/order.ts:5</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="5" class="link-to-prism">src/app/models/supply_order.ts:5</a></div>
                             </td>
                         </tr>
 
@@ -228,11 +270,146 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-                        <a name="totalcost"></a>
+                        <a name="shippingaddress"></a>
                         <span class="name">
                             <b>
-                            totalcost</b>
-                            <a href="#totalcost"><span class="icon ion-ios-link"></span></a>
+                            shippingaddress</b>
+                            <a href="#shippingaddress"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/models/supply_order.ts:9</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="shortdescription"></a>
+                        <span class="name">
+                            <b>
+                            shortdescription</b>
+                            <a href="#shortdescription"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="2" class="link-to-prism">src/app/models/supply_order.ts:2</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="state"></a>
+                        <span class="name">
+                            <b>
+                            state</b>
+                            <a href="#state"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/models/supply_order.ts:10</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="SubCategory"></a>
+                        <span class="name">
+                            <b>
+                            SubCategory</b>
+                            <a href="#SubCategory"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/models/supply_order.ts:8</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="unitofmeasure"></a>
+                        <span class="name">
+                            <b>
+                            unitofmeasure</b>
+                            <a href="#unitofmeasure"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="3" class="link-to-prism">src/app/models/supply_order.ts:3</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="zip"></a>
+                        <span class="name">
+                            <b>
+                            zip</b>
+                            <a href="#zip"><span class="icon ion-ios-link"></span></a>
                         </span>
                     </td>
                 </tr>
@@ -244,34 +421,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="7" class="link-to-prism">src/app/models/order.ts:7</a></div>
-                            </td>
-                        </tr>
-
-
-            </tbody>
-        </table>
-        <table class="table table-sm table-bordered">
-            <tbody>
-                <tr>
-                    <td class="col-md-4">
-                        <a name="unitcost"></a>
-                        <span class="name">
-                            <b>
-                            unitcost</b>
-                            <a href="#unitcost"><span class="icon ion-ios-link"></span></a>
-                        </span>
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
-
-                        </td>
-                    </tr>
-                        <tr>
-                            <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="6" class="link-to-prism">src/app/models/order.ts:6</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/models/supply_order.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -290,14 +440,18 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Order_Address } from &quot;./order_address&quot;;
-export class Order {
-  item: string;
-  itemDescription: string;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">export class supply_order {
+  shortdescription: string;
+  unitofmeasure: string;
+  price: number;
   quantity: number;
-  unitcost: number;
-  totalcost: number;
-  address: Order_Address;
+  manufacturername: string;
+  Category: string;
+  SubCategory: string;
+  shippingaddress: string;
+  state: string;
+  city: string;
+  zip: number;
 }
 </code></pre>
     </div>
@@ -326,7 +480,7 @@ export class Order {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
-            var COMPODOC_CURRENT_PAGE_URL = 'Order.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'supply_order.html';
        </script>
 
        <script src="../js/libs/custom-elements.min.js"></script>
