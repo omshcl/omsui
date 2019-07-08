@@ -61,15 +61,15 @@
         <td mat-cell *matCellDef="let element">
           <button
             *ngIf="element.demand == 'OPEN_ORDER'"
-            class="btn btn-danger btn-sm"
+            class="btn btn-secondary btn-sm"
             [routerLink]="['/order/update', element.id]"
           >
             Update
           </button>
           <button
             *ngIf="element.demand == 'SCHEDULE_ORDER'"
-            class="btn btn-danger btn-sm"
-            (click)="fulfill()"
+            class="btn btn-primary btn-sm"
+            (click)="fulfill(element.id)"
           >
             Fulfill
           </button>
