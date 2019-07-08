@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { OrderSearchService } from "../../../services/order-search.service";
 import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
-import { element } from 'protractor';
-import { getLocaleDateFormat } from '@angular/common';
+import { element } from "protractor";
+import { getLocaleDateFormat } from "@angular/common";
 @Component({
   selector: "app-order-search",
   templateUrl: "./order-search.component.html",
@@ -35,25 +35,22 @@ export class OrderSearchComponent implements OnInit {
     this._orderSearchService.getOrders().subscribe(response => {
       this.getOrdersResp = response;
       for (let order of this.getOrdersResp) {
-        if (order.demand_type!='COMPLETE_ORDER')
-        {
-        this.elementData.push({
-          id: order.id,
-          date: order.date.slice(0, 10),
-          demand: order.demand_type,
-          firstname: order.firstname,
-          lastname: order.lastname,
-          zip: order.zip,
-          total: order.total
-        });
-      }
-     
+        if (order.demand_type != "COMPLETE_ORDER") {
+          this.elementData.push({
+            id: order.id,
+            date: order.date.slice(0, 10),
+            demand: order.demand_type,
+            firstname: order.firstname,
+            lastname: order.lastname,
+            zip: order.zip,
+            total: order.total
+          });
+        }
       }
       this.dataSource = new MatTableDataSource(this.elementData);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
-    
   }
 
   applyFilter(filterValue: string) {
@@ -64,16 +61,17 @@ export class OrderSearchComponent implements OnInit {
 
   fulfill(orderid) {
     console.log("fulfill clicked");
-    let today= new Date();
-    let date = today.getDate();
-    let month = today.getMonth();
+    let today = new Date();
+    let date = ("0" + today.getDate()).slice(-2);
+    let month = ("0" + today.getMonth()).slice(-2);
     let year = today.getFullYear();
-    let current_date = month+'/'+date+'/'+year;
-    console.log(current_date)
-    let obj = {id: orderid, date: current_date}
+    let current_date = month + "/" + date + "/" + year;
+    console.log(current_date);
+    let obj = { id: orderid, delivery_date: current_date };
+    console.log(obj);
     this._orderSearchService.full(obj).subscribe(response => {
-    this.getOrdersResp=response;
-    })
+      this.getOrdersResp = response;
+    });
   }
 }
 
