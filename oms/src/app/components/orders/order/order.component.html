@@ -20,7 +20,7 @@
         <a ngbDropdownToggle class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">Order</a>
         <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="/order/create">Create</a>
+          <a *ngIf="role" class="dropdown-item" href="/order/create">Create</a>
 
           <!-- <a class="dropdown-item" href="/order/update/">Update</a> -->
           <a class="dropdown-item" href="/order/search">Search</a>
