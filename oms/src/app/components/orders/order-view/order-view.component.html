@@ -85,7 +85,7 @@
       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </table>
     <br />
-    <div>
+    <div *ngIf="role">
       <button type="button" class="btn btn-danger btn-md" (click)=redirect(orderID) md-raised-button>
         UPDATE
       </button>
