@@ -8,6 +8,9 @@ Use the following command to generate documentation for the project in local ser
 
 `compodoc -p tsconfig.app.json -s -o`
 
+![Screenshot](screenshot.png)
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
