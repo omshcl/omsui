@@ -61,9 +61,10 @@ export class OrderSearchComponent implements OnInit {
     console.log("fulfill clicked");
     let today = new Date();
     let date = ("0" + today.getDate()).slice(-2);
-    let month = ("0" + today.getMonth()).slice(-2);
+    let curmonth = today.getMonth() + 1;
+    let month = ("0" + curmonth).slice(-2);
     let year = today.getFullYear();
-    let current_date = month + "/" + date + "/" + year;
+    let current_date = year + "-" + month + "-" + date;
     console.log(current_date);
     let obj = { id: orderid, delivery_date: current_date };
     console.log(obj);
