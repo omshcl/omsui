@@ -5,16 +5,15 @@ import { SupplyCreateService } from "../../../services/supply-create.service";
 import { supply_order } from "../../../models/supply_order";
 import { SupplyserviceService } from "../../../services/supplyservice.service";
 import { Router } from "@angular/router";
-import { ItemSearchService } from 'src/app/services/item-search.service';
+import { ItemSearchService } from "src/app/services/item-search.service";
 @Component({
   selector: "app-create-supply",
   templateUrl: "./create-supply.component.html",
-  styleUrls: ["./create-supply.component.css"],
-
+  styleUrls: ["./create-supply.component.css"]
 })
 export class CreateSupplyComponent implements OnInit {
   supplyform: FormGroup;
-  returnableList = ["YES", "NO"];
+  isreturnable = ["YES", "NO"];
   productList = ["new", "Used"];
   typeList = ["Onhand", "Pipeline"];
   getShipNodesResponse;
@@ -35,25 +34,35 @@ export class CreateSupplyComponent implements OnInit {
     this._itemSearchService.getShipNodes().subscribe(response => {
       this.getShipNodesResponse = response;
       for (let curNode of this.getShipNodesResponse) {
-        this.shipNodeList = [...this.shipNodeList, curNode];
+        this.shipNodeList.push(curNode.locationname);
       }
-      this.shipNodeList.sort((a, b) =>
-        a.locationname.localeCompare(b.locationname)
-      );
-      console.log(this.shipNodeList);
+      this.setsupplyformValue("locationname", this.shipNodeList[0]);
     });
   }
-   
+
   supplycreateOrder() {
     console.warn("Your order has been created", this.supplyform.value);
     this._SupplycreateService.postOrder(this.supplyform.value);
     this.supplyform.reset();
     this._supplyService.setsupplyformValue(
-      "returnable",
-      this.returnableList[0]
+      "isreturnable",
+      this.isreturnable[0]
     );
+    this._supplyService.setsupplyformValue("type", this.typeList[0]);
+    this._supplyService.setsupplyformValue("productclass", this.productList[0]);
+    this._supplyService.setsupplyformValue(
+      "locationname",
+      this.shipNodeList[0]
+    );
+    this._supplyService.setsupplyformValue(
+      "locationname",
+      this.shipNodeList[0]
+    );
+    let curDate = new Date().toISOString();
+    this.setsupplyformValue("shipbydate", curDate);
+    this.setsupplyformValue("eta", curDate);
   }
-  
+
   processedOrder() {
     alert("Order has been placed");
   }
@@ -63,10 +72,15 @@ export class CreateSupplyComponent implements OnInit {
       onlySelf: true
     });
   }
-  
+
   get returnable() {
-    return this.supplyform.get("returnable");
+    return this.supplyform.get("isreturnable");
   }
+
+  get itemdescription() {
+    return this.supplyform.get("itemdescription");
+  }
+
   get shortdescription() {
     return this.supplyform.get("shortdescription");
   }
@@ -113,7 +127,6 @@ export class CreateSupplyComponent implements OnInit {
   get zip() {
     return this.supplyform.get("zip");
   }
-  
 }
 export interface ShipNode {
   locationname: string;

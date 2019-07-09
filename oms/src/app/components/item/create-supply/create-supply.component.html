@@ -6,7 +6,15 @@
     <div class="row">
       <div class="col-lg-2 mb-3">
         <label>Short Description</label>
-        <input class="form-control" type="text" required formControlName="shortdescription" defer />
+        <input class="form-control" type="text" required formControlName="itemdescription" />
+
+        <p *ngIf="itemdescription.invalid" class="is-size-6 has-text-danger">
+          Item Description is required.
+        </p>
+      </div>
+      <div class="col-lg-2 mb-3">
+        <label>Short Description</label>
+        <input class="form-control" type="text" required formControlName="shortdescription" />
 
         <p *ngIf="shortdescription.invalid" class="is-size-6 has-text-danger">
           Short Description is required.
@@ -14,7 +22,7 @@
       </div>
       <div class="col-lg-2 mb-3">
         <label>Unit of Description</label>
-        <input class="form-control" type="text" formControlName="unitofmeasure" defer />
+        <input class="form-control" type="text" formControlName="unitofmeasure" />
 
         <p *ngIf="unitofmeasure.invalid" class="is-size-6 has-text-danger">
           Unit of Description is required.
@@ -22,7 +30,7 @@
       </div>
       <div class="col-lg-2 mb-3">
         <label>Price</label>
-        <input class="form-control" type="text" defer formControlName="price" />
+        <input class="form-control" type="text" formControlName="price" />
         <p *ngIf="price.invalid" class="is-size-6 has-text-danger">
           price is required.
         </p>
@@ -30,25 +38,17 @@
 
       <div class="col-lg-2 mb-3">
         <label>Returnable</label>
-        <select class="custom-select" formControlName="returnable">
-          <option *ngFor="let returnable of returnableList">{{
+        <select class="custom-select" formControlName="isreturnable">
+          <option *ngFor="let returnable of isreturnable">{{
             returnable
           }}</option>
         </select>
       </div>
       <div class="col-lg-2 mb-3">
         <label>Type</label>
-        <select class="custom-select" formControlName="type" defer>
+        <select class="custom-select" formControlName="type">
           <option *ngFor="let type of typeList">{{ type }}</option>
         </select>
-      </div>
-
-      <div class="col-lg-2 mb-3">
-        <label>Quantity</label>
-        <input class="form-control" type="text" defer formControlName="quantity" />
-        <p *ngIf="quantity.invalid" class="is-size-6 has-text-danger">
-          Quantity is required.
-        </p>
       </div>
     </div>
     <div class="row">
@@ -63,7 +63,7 @@
 
       <div class="col-lg-2 mb-3">
         <label>Manufacture Name</label>
-        <input class="form-control" type="text" defer formControlName="manufacturername" />
+        <input class="form-control" type="text" formControlName="manufacturername" />
         <p *ngIf="manufacturername.invalid" class="is-size-6 has-text-danger">
           manufacturername is required.
         </p>
@@ -71,22 +71,22 @@
 
       <div class="col-lg-2 mb-3">
         <label>Date</label>
-        <input class="form-control" matInput [matDatepicker]="picker2" placeholder="Select Date" formControlName="date"
-          (click)="picker2.open()" />
+        <input class="form-control" matInput [matDatepicker]="picker2" placeholder="Select Date"
+          formControlName="shipbydate" (click)="picker2.open()" />
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
 
         <mat-datepicker #picker2></mat-datepicker>
       </div>
       <div class="col-lg-2 mb-3">
         <label>Category</label>
-        <input class="form-control" type="text" defer formControlName="category" />
+        <input class="form-control" type="text" formControlName="category" />
         <p *ngIf="category.invalid" class="is-size-6 has-text-danger">
           Category is required
         </p>
       </div>
       <div class="col-lg-2 mb-3">
         <label>SubCategory</label>
-        <input class="form-control" type="text" defer formControlName="subcategory" />
+        <input class="form-control" type="text" formControlName="subcategory" />
         <p *ngIf="subcategory.invalid" class="is-size-6 has-text-danger">
           SubCategory is required
         </p>
@@ -99,6 +99,15 @@
             productclass
           }}</option>
         </select>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-2 mb-3">
+        <label>Quantity</label>
+        <input class="form-control" type="text" formControlName="quantity" />
+        <p *ngIf="quantity.invalid" class="is-size-6 has-text-danger">
+          Quantity is required.
+        </p>
       </div>
     </div>
 
@@ -133,8 +142,6 @@
       </div>
     </div>
   </form>
-  <hr />
-
   <hr />
 
   <button class="btn btn-primary m-3" [disabled]="!supplyform.valid" (click)="supplycreateOrder()">
