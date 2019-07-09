@@ -10,15 +10,7 @@ export class OrderSearchService {
   getOrders() {
     return this.http.get("/api/orders/list");
   }
-  full(obj){
-    return this.http.post("/api/orders/fulfill",obj);
-  }
-
-  //service for chart.js testing
-  getLineData() {
-    return this.http.get("assets/distribution.json");
-    // return this.http.get(
-    //   "https://my.api.mockaroo.com/distribution.json?key=ac4c9b70"
-    // );
+  full(obj) {
+    return this.http.post("/api/orders/fulfill", obj);
   }
 }

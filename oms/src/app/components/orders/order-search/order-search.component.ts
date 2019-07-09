@@ -35,17 +35,15 @@ export class OrderSearchComponent implements OnInit {
     this._orderSearchService.getOrders().subscribe(response => {
       this.getOrdersResp = response;
       for (let order of this.getOrdersResp) {
-        if (order.demand_type != "COMPLETE_ORDER") {
-          this.elementData.push({
-            id: order.id,
-            date: order.date.slice(0, 10),
-            demand: order.demand_type,
-            firstname: order.firstname,
-            lastname: order.lastname,
-            zip: order.zip,
-            total: order.total
-          });
-        }
+        this.elementData.push({
+          id: order.id,
+          date: order.date.slice(0, 10),
+          demand: order.demand_type,
+          firstname: order.firstname,
+          lastname: order.lastname,
+          zip: order.zip,
+          total: order.total
+        });
       }
       this.dataSource = new MatTableDataSource(this.elementData);
       this.dataSource.paginator = this.paginator;
