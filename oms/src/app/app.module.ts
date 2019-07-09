@@ -129,10 +129,10 @@ import { CategorySoldGraphComponent } from './components/dashboard/category-sold
       { path: "item/create-supply", component: CreateSupplyComponent, canActivate:[AdminGuard] },
       { path: "item/view", component: ItemViewComponent,canActivate:[AdminGuard] },
       { path: "geo", component: GeoComponent,canActivate:[AdminGuard]},
-      { path: "dashboard", component: DashboardViewComponent }
+      { path: "dashboard", component: DashboardViewComponent ,canActivate:[AdminGuard]}
     ])
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule,AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
