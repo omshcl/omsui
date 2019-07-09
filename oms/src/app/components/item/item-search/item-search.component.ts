@@ -48,7 +48,6 @@ export class ItemSearchComponent implements OnInit {
       );
       console.log(this.shipNodeList);
     });
-    // this.itemList.push({ itemid: 7, shortdescription: "Pixel 3" });
   }
   onSelectAll(form) {
     if (form == "item") this.selectedItems = this.itemList;
@@ -129,21 +128,14 @@ export class ItemSearchComponent implements OnInit {
     });
   }
 
-  getAsset(shortdesc) {
-    switch (shortdesc) {
-      case "Phone": {
-        return "assets/icons/pixel.png";
-      }
-      case "Laptop": {
-        return "assets/icons/laptop.png";
-      }
-      case "Monitor": {
-        return "assets/icons/tv.png";
-      }
-      default: {
-        return "assets/icons/default.png";
-      }
-    }
+  getAsset(shortdesc: string) {
+    if (shortdesc.toLowerCase().includes("phone"))
+      return "assets/icons/phone.png";
+    if (shortdesc.toLowerCase().includes("laptop"))
+      return "assets/icons/laptop.png";
+    if (shortdesc.toLowerCase().includes("monitor"))
+      return "assets/icons/monitor.png";
+    return "assets/icons/default.png";
   }
 
   viewItemSupply(form) {
