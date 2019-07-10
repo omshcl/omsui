@@ -5,8 +5,13 @@
   <form [formGroup]="supplyform">
     <div class="row">
       <div class="col-lg-2 mb-3">
-        <label>Short Description</label>
-        <input class="form-control" type="text" required formControlName="itemdescription" />
+        <label>Item Description</label>
+        <input
+          class="form-control"
+          type="text"
+          required
+          formControlName="itemdescription"
+        />
 
         <p *ngIf="itemdescription.invalid" class="is-size-6 has-text-danger">
           Item Description is required.
@@ -14,7 +19,12 @@
       </div>
       <div class="col-lg-2 mb-3">
         <label>Short Description</label>
-        <input class="form-control" type="text" required formControlName="shortdescription" />
+        <input
+          class="form-control"
+          type="text"
+          required
+          formControlName="shortdescription"
+        />
 
         <p *ngIf="shortdescription.invalid" class="is-size-6 has-text-danger">
           Short Description is required.
@@ -22,7 +32,11 @@
       </div>
       <div class="col-lg-2 mb-3">
         <label>Unit of Description</label>
-        <input class="form-control" type="text" formControlName="unitofmeasure" />
+        <input
+          class="form-control"
+          type="text"
+          formControlName="unitofmeasure"
+        />
 
         <p *ngIf="unitofmeasure.invalid" class="is-size-6 has-text-danger">
           Unit of Description is required.
@@ -63,7 +77,11 @@
 
       <div class="col-lg-2 mb-3">
         <label>Manufacture Name</label>
-        <input class="form-control" type="text" formControlName="manufacturername" />
+        <input
+          class="form-control"
+          type="text"
+          formControlName="manufacturername"
+        />
         <p *ngIf="manufacturername.invalid" class="is-size-6 has-text-danger">
           manufacturername is required.
         </p>
@@ -71,9 +89,18 @@
 
       <div class="col-lg-2 mb-3">
         <label>Date</label>
-        <input class="form-control" matInput [matDatepicker]="picker2" placeholder="Select Date"
-          formControlName="shipbydate" (click)="picker2.open()" />
-        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <input
+          class="form-control"
+          matInput
+          [matDatepicker]="picker2"
+          placeholder="Select Date"
+          formControlName="shipbydate"
+          (click)="picker2.open()"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
 
         <mat-datepicker #picker2></mat-datepicker>
       </div>
@@ -114,7 +141,12 @@
     <div class="row">
       <div class="col-lg-6 mb-3">
         <label>Address</label>
-        <input class="form-control" type="text" defer formControlName="shippingaddress" />
+        <input
+          class="form-control"
+          type="text"
+          defer
+          formControlName="shippingaddress"
+        />
         <p *ngIf="shippingaddress.invalid" class="is-size-6 has-text-danger">
           Address is required.
         </p>
@@ -144,7 +176,11 @@
   </form>
   <hr />
 
-  <button class="btn btn-primary m-3" [disabled]="!supplyform.valid" (click)="supplycreateOrder()">
+  <button
+    class="btn btn-primary m-3"
+    [disabled]="!supplyform.valid"
+    (click)="supplycreateOrder()"
+  >
     Create Order
   </button>
 </div>

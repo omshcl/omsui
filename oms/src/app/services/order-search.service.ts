@@ -10,6 +10,14 @@ export class OrderSearchService {
   getOrders() {
     return this.http.get("/api/orders/list");
   }
+
+  getCompletedOrders(lim: number) {
+    let searchLimit = {
+      limit: lim
+    };
+    return this.http.post("/api/orders/complete", searchLimit);
+  }
+
   full(obj) {
     return this.http.post("/api/orders/fulfill", obj);
   }

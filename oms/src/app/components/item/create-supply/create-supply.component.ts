@@ -13,7 +13,7 @@ import { ItemSearchService } from "src/app/services/item-search.service";
 })
 export class CreateSupplyComponent implements OnInit {
   supplyform: FormGroup;
-  isreturnable = ["yes", "NOno"];
+  isreturnable = ["yes", "no"];
   productList = ["new", "used"];
   typeList = ["onhand", "pipeline"];
   getShipNodesResponse;
