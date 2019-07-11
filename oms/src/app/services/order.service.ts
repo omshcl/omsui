@@ -7,6 +7,7 @@ import { FormBuilder, Validators, FormGroup, FormArray } from "@angular/forms";
 export class OrderService {
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
+  ordertypeList = ["Pickup", "Ship", "Reservation"];
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
   quantityForm: FormGroup;
@@ -23,7 +24,10 @@ export class OrderService {
       item: ["", Validators.required],
       quantity: ["", Validators.required],
       price: ["", Validators.required],
-      discount: ""
+      discount: "",
+      ordertype:["",Validators.required],
+      locationname:["",Validators.required],
+      
     }));
   }
   initializeOrderForm(orderFormBuilder: FormBuilder, orderId) {
@@ -33,6 +37,7 @@ export class OrderService {
       quantity: [],
       price: [],
       channel: ["", Validators.required],
+      ordertype:["",Validators.required],
       date: ["", Validators.required],
       firstname: ["", Validators.required],
       lastname: ["", Validators.required],
@@ -51,6 +56,7 @@ export class OrderService {
     this.setItemFormValue("discount", this.discountList[0]);
     this.setOrderFormValue("channel", this.channelList[0]);
     this.setOrderFormValue("payment", this.paymentList[0]);
+    this.setItemFormValue("ordertype", this.ordertypeList[0]);
     this.setOrderFormValue("total", 0);
     let curDate = new Date().toISOString();
     this.setOrderFormValue("date", curDate);
@@ -88,6 +94,7 @@ export class OrderService {
     this.setOrderFormValue("date", orderDetail.date);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
+    this.setOrderFormValue("ordertype",orderDetail.ordertype);
   }
 
   getCurrentItemInfo(itemList, priceList) {

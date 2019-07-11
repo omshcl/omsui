@@ -29,6 +29,10 @@
         ></mat-datepicker-toggle> -->
         <mat-datepicker #picker1></mat-datepicker>
       </div>
+
+      
+
+
       <div class="col-lg-2 mb-3">
         <label>Channel</label>
         <select class="custom-select" formControlName="channel">
@@ -84,6 +88,7 @@
           <option *ngFor="let itemOption of itemList">{{ itemOption }}</option>
         </select>
       </div>
+      
       <div class="col-lg-1 mb-3">
         <label>Qty</label>
         <input class="form-control" type="text" formControlName="quantity" />
@@ -95,6 +100,24 @@
         <label>Select Discount</label>
         <select class="custom-select" formControlName="discount">
           <option *ngFor="let discountOption of discountList">{{ discountOption }}</option>
+        </select>
+      </div>
+      
+
+      <div class="col-lg-2 mb-3">
+        <label>ShipNode</label>
+        <select class="custom-select" formControlName="locationname">
+          <option *ngFor="let locationname of shipNodeList">{{
+            locationname
+          }}</option>
+        </select>
+      </div>
+      <div class="col-lg-2 mb-3">
+        <label>Ordertype</label>
+        <select class="custom-select" formControlName="ordertype">
+          <option *ngFor="let ordertypeoption of ordertypeList">{{
+            ordertypeoption
+          }}</option>
         </select>
       </div>
       <div class="col-lg-2 mb-2">
