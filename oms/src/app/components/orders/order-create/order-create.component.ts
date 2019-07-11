@@ -12,7 +12,6 @@ import { ItemSearchService } from "src/app/services/item-search.service";
   styleUrls: ["./order-create.component.css"]
 })
 export class OrderCreateComponent implements OnInit {
-  supplyform: FormGroup;
   itemList = [];
   priceList = [];
   channelList = ["Online", "Phone", "Fax"];
@@ -27,6 +26,7 @@ export class OrderCreateComponent implements OnInit {
   data = {};
   itemId = {};
   dataList;
+  isOrderShip: Boolean = false;
   items: itemOrder[] = [];
   displayedColumns: string[] = [
     "item",
@@ -59,7 +59,7 @@ export class OrderCreateComponent implements OnInit {
       for (let curNode of this.getShipNodesResponse) {
         this.shipNodeList.push(curNode.locationname);
       }
-      this.setsupplyformValue("locationname", this.shipNodeList[0]);
+      this._orderService.setItemFormValue("locationname", this.shipNodeList[0]);
     });
     this.getItemsFromService();
   }
@@ -84,6 +84,10 @@ export class OrderCreateComponent implements OnInit {
       this.itemList,
       this.priceList
     );
+
+    if (itemInfo.curOrdertype === "Ship") {
+      itemInfo.curLocationname = "";
+    }
 
     // Update price of item and subtotal based on discount
     itemInfo.curPrice = this._orderService.applyDiscount(itemInfo.curPrice);
@@ -132,14 +136,16 @@ export class OrderCreateComponent implements OnInit {
 
     this.processedOrder();
   }
+  onOptionsSelected(value) {
+    if (value === "Ship") {
+      this.isOrderShip = true;
+    } else {
+      this.isOrderShip = false;
+    }
+  }
 
   processedOrder() {
     alert("Order has been placed");
-  }
-  setsupplyformValue(field, value) {
-    this.supplyform.controls[field].setValue(value, {
-      onlySelf: true
-    });
   }
 
   get firstname() {
@@ -166,16 +172,9 @@ export class OrderCreateComponent implements OnInit {
   get zip() {
     return this.orderForm.get("zip");
   }
-  get item_id() {
-    return this.itemForm.get("item_id");
-  }
-  get um() {
-    return this.itemForm.get("um");
-  }
   get locationame() {
     return this.itemForm.get("locationname");
   }
-
 }
 export interface ShipNode {
   locationname: string;
