@@ -5,17 +5,19 @@ import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { OrderCreateService } from "../../../services/order-create.service";
 import { OrderService } from "../../../services/order.service";
 import { itemOrder } from "../../../models/itemOrder";
-
+import { ItemSearchService } from "src/app/services/item-search.service";
 @Component({
   selector: "app-order-create",
   templateUrl: "./order-create.component.html",
   styleUrls: ["./order-create.component.css"]
 })
 export class OrderCreateComponent implements OnInit {
+  supplyform: FormGroup;
   itemList = [];
   priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
+  ordertypeList = ["Pickup", "Ship", "Reservation"];
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
   orderForm: FormGroup;
@@ -35,12 +37,15 @@ export class OrderCreateComponent implements OnInit {
   ];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
+  getShipNodesResponse;
+  public shipNodeList: Array<ShipNode> = [];
   httpClient: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private itemFormBuilder: FormBuilder,
     private _orderCreateService: OrderCreateService,
+    private _itemSearchService: ItemSearchService,
     private _orderService: OrderService
   ) {
     this.itemForm = this._orderService.initializeItemForm(formBuilder);
@@ -49,6 +54,13 @@ export class OrderCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._itemSearchService.getShipNodes().subscribe(response => {
+      this.getShipNodesResponse = response;
+      for (let curNode of this.getShipNodesResponse) {
+        this.shipNodeList.push(curNode.locationname);
+      }
+      this.setsupplyformValue("locationname", this.shipNodeList[0]);
+    });
     this.getItemsFromService();
   }
 
@@ -124,6 +136,11 @@ export class OrderCreateComponent implements OnInit {
   processedOrder() {
     alert("Order has been placed");
   }
+  setsupplyformValue(field, value) {
+    this.supplyform.controls[field].setValue(value, {
+      onlySelf: true
+    });
+  }
 
   get firstname() {
     return this.orderForm.get("firstname");
@@ -149,4 +166,17 @@ export class OrderCreateComponent implements OnInit {
   get zip() {
     return this.orderForm.get("zip");
   }
+  get item_id() {
+    return this.itemForm.get("item_id");
+  }
+  get um() {
+    return this.itemForm.get("um");
+  }
+  get locationame() {
+    return this.itemForm.get("locationname");
+  }
+
+}
+export interface ShipNode {
+  locationname: string;
 }
