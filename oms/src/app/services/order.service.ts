@@ -25,9 +25,8 @@ export class OrderService {
       quantity: ["", Validators.required],
       price: ["", Validators.required],
       discount: "",
-      ordertype:["",Validators.required],
-      locationname:["",Validators.required],
-      
+      ordertype: ["", Validators.required],
+      locationname: ["", Validators.required]
     }));
   }
   initializeOrderForm(orderFormBuilder: FormBuilder, orderId) {
@@ -37,7 +36,7 @@ export class OrderService {
       quantity: [],
       price: [],
       channel: ["", Validators.required],
-      ordertype:["",Validators.required],
+      ordertype: ["", Validators.required],
       date: ["", Validators.required],
       firstname: ["", Validators.required],
       lastname: ["", Validators.required],
@@ -82,6 +81,9 @@ export class OrderService {
   }
 
   fillOrderFormValues(orderDetail) {
+    let dateString = orderDetail.date.replace(/-/g, "/");
+    let orderDate = new Date(dateString);
+    this.setOrderFormValue("date", orderDate);
     this.setOrderFormValue("firstname", orderDetail.firstname);
     this.setOrderFormValue("lastname", orderDetail.lastname);
     this.setOrderFormValue("lastname", orderDetail.lastname);
@@ -91,10 +93,9 @@ export class OrderService {
     this.setOrderFormValue("city", orderDetail.city);
     this.setOrderFormValue("address", orderDetail.address);
     this.setOrderFormValue("zip", orderDetail.zip);
-    this.setOrderFormValue("date", orderDetail.date);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
-    this.setOrderFormValue("ordertype",orderDetail.ordertype);
+    this.setOrderFormValue("ordertype", orderDetail.ordertype);
   }
 
   getCurrentItemInfo(itemList, priceList) {
