@@ -25,9 +25,8 @@ export class OrderService {
       quantity: ["", Validators.required],
       price: ["", Validators.required],
       discount: "",
-      ordertype:["",Validators.required],
-      locationname:["",Validators.required],
-      
+      ordertype: ["", Validators.required],
+      locationname: ["", Validators.required]
     }));
   }
   initializeOrderForm(orderFormBuilder: FormBuilder, orderId) {
@@ -37,7 +36,6 @@ export class OrderService {
       quantity: [],
       price: [],
       channel: ["", Validators.required],
-      ordertype:["",Validators.required],
       date: ["", Validators.required],
       firstname: ["", Validators.required],
       lastname: ["", Validators.required],
@@ -77,7 +75,9 @@ export class OrderService {
   createItemForm(itemFormBuilder: FormBuilder, item) {
     return itemFormBuilder.group({
       itemid: item["itemid"],
-      subtotal: item["quantity"] * item["price"]
+      subtotal: item["quantity"] * item["price"],
+      locationname: item["locationname"],
+      ordertype: item["ordertype"]
     });
   }
 
@@ -94,7 +94,6 @@ export class OrderService {
     this.setOrderFormValue("date", orderDetail.date);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
-    this.setOrderFormValue("ordertype",orderDetail.ordertype);
   }
 
   getCurrentItemInfo(itemList, priceList) {
@@ -103,12 +102,16 @@ export class OrderService {
     let itemIndex = itemList.indexOf(curItem);
     const curPrice = priceList[itemIndex];
     const curSubTotal = curPrice * curQuant;
+    const curLocationname = this.getLocationValue();
+    const curOrdertype = this.getOrderTypeValue();
 
     return {
       curItem: curItem,
       curQuant: curQuant,
       curPrice: curPrice,
-      curSubTotal: curSubTotal
+      curSubTotal: curSubTotal,
+      curLocationname: curLocationname,
+      curOrdertype: curOrdertype
     };
   }
 
@@ -146,11 +149,15 @@ export class OrderService {
   addItemInfoToJSON(itemInfo, itemId) {
     const itemArray = this.orderForm.controls.items as FormArray;
     // Create Item Form to push current Item info to FormArray
+
+    // Check if Order Type is Ship
     const item = {
       itemid: itemId[itemInfo.curItem],
       quantity: itemInfo.curQuant,
       price: itemInfo.curPrice,
-      subtotal: itemInfo.curSubTotal
+      subtotal: itemInfo.curSubTotal,
+      locationname: itemInfo.curLocationname,
+      ordertype: itemInfo.curOrdertype
     };
     const quantity = {
       itemid: itemId[itemInfo.curItem],
@@ -222,6 +229,14 @@ export class OrderService {
 
   getQuantityValue() {
     return this.itemForm.get("quantity").value;
+  }
+
+  getLocationValue() {
+    return this.itemForm.get("locationname").value;
+  }
+
+  getOrderTypeValue() {
+    return this.itemForm.get("ordertype").value;
   }
 
   getDiscountValue() {
