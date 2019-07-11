@@ -36,10 +36,7 @@ export class OrderService {
       quantity: [],
       price: [],
       channel: ["", Validators.required],
-<<<<<<< HEAD
       ordertype: ["", Validators.required],
-=======
->>>>>>> 82c96deaf829a0a22b7ca7ae6d0554abdeaca7ed
       date: ["", Validators.required],
       firstname: ["", Validators.required],
       lastname: ["", Validators.required],
