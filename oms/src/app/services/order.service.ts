@@ -36,7 +36,6 @@ export class OrderService {
       quantity: [],
       price: [],
       channel: ["", Validators.required],
-      ordertype: ["", Validators.required],
       date: ["", Validators.required],
       firstname: ["", Validators.required],
       lastname: ["", Validators.required],
@@ -97,7 +96,6 @@ export class OrderService {
     this.setOrderFormValue("zip", orderDetail.zip);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
-    this.setOrderFormValue("ordertype", orderDetail.ordertype);
   }
 
   getCurrentItemInfo(itemList, priceList) {
