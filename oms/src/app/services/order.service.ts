@@ -82,6 +82,9 @@ export class OrderService {
   }
 
   fillOrderFormValues(orderDetail) {
+    let dateString = orderDetail.date.replace(/-/g, "/");
+    let orderDate = new Date(dateString);
+    this.setOrderFormValue("date", orderDate);
     this.setOrderFormValue("firstname", orderDetail.firstname);
     this.setOrderFormValue("lastname", orderDetail.lastname);
     this.setOrderFormValue("lastname", orderDetail.lastname);
@@ -91,7 +94,6 @@ export class OrderService {
     this.setOrderFormValue("city", orderDetail.city);
     this.setOrderFormValue("address", orderDetail.address);
     this.setOrderFormValue("zip", orderDetail.zip);
-    this.setOrderFormValue("date", orderDetail.date);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
   }
