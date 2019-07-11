@@ -15,7 +15,7 @@ export class CreateSupplyComponent implements OnInit {
   supplyform: FormGroup;
   isreturnable = ["yes", "no"];
   productList = ["new", "used"];
-  typeList = ["onhand", "pipeline"];
+  typeList = ["onhand", "pipeline", "pickup", "ship"];
   getShipNodesResponse;
   public shipNodeList: Array<ShipNode> = [];
   httpClient: any;
