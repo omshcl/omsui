@@ -29,7 +29,8 @@ export class OrderPriceGraphComponent implements OnChanges {
   lineChartOptions: any = {
     elements: {
       line: {
-        tension: 0
+        tension: 0.2,
+        fill: false
       }
     },
     scales: {

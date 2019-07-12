@@ -21,7 +21,12 @@ export class OrderSearchService {
   full(obj) {
     return this.http.post("/api/orders/fulfill", obj);
   }
+
   getShipNodes() {
     return this.http.get("/api/shipnodes");
+  }
+
+  getOrderTracking() {
+    return this.http.get("assets/ordertracking.json");
   }
 }

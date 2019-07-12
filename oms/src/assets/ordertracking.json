@@ -1,0 +1,11 @@
+[{"id":1,"demand_type":"COMPLETED_ORDER","days":5},
+{"id":2,"demand_type":"PARTIAL_ORDER","days":2},
+{"id":3,"demand_type":"OPEN_ORDER","days":4},
+{"id":4,"demand_type":"COMPLETED_ORDER","days":3},
+{"id":5,"demand_type":"COMPLETED_ORDER","days":7},
+{"id":6,"demand_type":"PARTIAL_ORDER","days":5},
+{"id":7,"demand_type":"OPEN_ORDER","days":1},
+{"id":8,"demand_type":"OPEN_ORDER","days":5},
+{"id":9,"demand_type":"PARTIAL_ORDER","days":6},
+{"id":10,"demand_type":"COMPLETED_ORDER","days":4},
+{"id":11,"demand_type":"OPEN_ORDER","days":0}]

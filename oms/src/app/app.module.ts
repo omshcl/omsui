@@ -55,6 +55,7 @@ import { AdminGuard } from "./admin.guard";
 import { DashboardViewComponent } from "./components/dashboard/dashboard-view/dashboard-view.component";
 import { OrderPriceGraphComponent } from "./components/dashboard/order-price-graph/order-price-graph.component";
 import { CategorySoldGraphComponent } from "./components/dashboard/category-sold-graph/category-sold-graph.component";
+import { OrderTrackingComponent } from './components/dashboard/order-tracking/order-tracking.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { CategorySoldGraphComponent } from "./components/dashboard/category-sold
     GeoComponent,
     DashboardViewComponent,
     OrderPriceGraphComponent,
-    CategorySoldGraphComponent
+    CategorySoldGraphComponent,
+    OrderTrackingComponent
   ],
   imports: [
     BrowserModule,
