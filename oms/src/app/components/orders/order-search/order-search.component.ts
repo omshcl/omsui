@@ -72,6 +72,11 @@ export class OrderSearchComponent implements OnInit {
       this.getOrdersResp = response;
     });
   }
+
+  completeReservation(orderid){
+    console.log("Reservation Complete");
+
+  }
 }
 
 export interface Element {
