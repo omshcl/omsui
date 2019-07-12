@@ -30,4 +30,7 @@ export class OrderCreateService {
   getItems() {
     return this.http.get<itemPost[]>("/api/items/list");
   }
+  getShipNodes() {
+    return this.http.get("/api/shipnodes");
+  }
 }

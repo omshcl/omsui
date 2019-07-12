@@ -5,9 +5,9 @@ import { FormBuilder, Validators, FormGroup } from "@angular/forms";
   providedIn: "root"
 })
 export class SupplyserviceService {
-  isreturnable = ["Yes", "No"];
-  productclass = ["new", "Used"];
-  typeList = ["Onhand", "Pipeline"];
+  isreturnable = ["yes", "no"];
+  productclass = ["new", "used"];
+  typeList = ["onhand", "pipeline", "pickup", "ship"];
   supplyform: FormGroup;
 
   constructor(private formbuilder: FormBuilder) {}

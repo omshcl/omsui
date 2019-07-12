@@ -25,6 +25,7 @@ export class OrderViewComponent implements OnInit {
   data = {};
   itemId = {};
   dataList;
+  demandType;
   items: itemOrder[] = [];
   displayedColumns: string[] = ["item", "quantity", "price", "subtotal"];
   subject = new BehaviorSubject(this.items);
@@ -86,7 +87,7 @@ export class OrderViewComponent implements OnInit {
 
       this._orderService.setOrderFormValue("id", this.orderID);
       this._orderService.fillOrderFormValues(orderDetail);
-
+      this.demandType = orderDetail.demand_type;
       this.items = this._orderService.fillItemsTable(orderDetail, this.items);
 
       this.subject.next(this.items);

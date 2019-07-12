@@ -7,6 +7,7 @@ import { FormBuilder, Validators, FormGroup, FormArray } from "@angular/forms";
 export class OrderService {
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
+  ordertypeList = ["Pickup", "Ship", "Reservation"];
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
   quantityForm: FormGroup;
@@ -23,7 +24,9 @@ export class OrderService {
       item: ["", Validators.required],
       quantity: ["", Validators.required],
       price: ["", Validators.required],
-      discount: ""
+      discount: "",
+      ordertype: ["", Validators.required],
+      locationname: ["", Validators.required]
     }));
   }
   initializeOrderForm(orderFormBuilder: FormBuilder, orderId) {
@@ -51,6 +54,7 @@ export class OrderService {
     this.setItemFormValue("discount", this.discountList[0]);
     this.setOrderFormValue("channel", this.channelList[0]);
     this.setOrderFormValue("payment", this.paymentList[0]);
+    this.setItemFormValue("ordertype", this.ordertypeList[0]);
     this.setOrderFormValue("total", 0);
     let curDate = new Date().toISOString();
     this.setOrderFormValue("date", curDate);
@@ -71,11 +75,16 @@ export class OrderService {
   createItemForm(itemFormBuilder: FormBuilder, item) {
     return itemFormBuilder.group({
       itemid: item["itemid"],
-      subtotal: item["quantity"] * item["price"]
+      subtotal: item["quantity"] * item["price"],
+      locationname: item["locationname"],
+      ordertype: item["ordertype"]
     });
   }
 
   fillOrderFormValues(orderDetail) {
+    let dateString = orderDetail.date.replace(/-/g, "/");
+    let orderDate = new Date(dateString);
+    this.setOrderFormValue("date", orderDate);
     this.setOrderFormValue("firstname", orderDetail.firstname);
     this.setOrderFormValue("lastname", orderDetail.lastname);
     this.setOrderFormValue("lastname", orderDetail.lastname);
@@ -85,7 +94,6 @@ export class OrderService {
     this.setOrderFormValue("city", orderDetail.city);
     this.setOrderFormValue("address", orderDetail.address);
     this.setOrderFormValue("zip", orderDetail.zip);
-    this.setOrderFormValue("date", orderDetail.date);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
   }
@@ -96,12 +104,16 @@ export class OrderService {
     let itemIndex = itemList.indexOf(curItem);
     const curPrice = priceList[itemIndex];
     const curSubTotal = curPrice * curQuant;
+    const curLocationname = this.getLocationValue();
+    const curOrdertype = this.getOrderTypeValue();
 
     return {
       curItem: curItem,
       curQuant: curQuant,
       curPrice: curPrice,
-      curSubTotal: curSubTotal
+      curSubTotal: curSubTotal,
+      curLocationname: curLocationname,
+      curOrdertype: curOrdertype
     };
   }
 
@@ -139,11 +151,15 @@ export class OrderService {
   addItemInfoToJSON(itemInfo, itemId) {
     const itemArray = this.orderForm.controls.items as FormArray;
     // Create Item Form to push current Item info to FormArray
+
+    // Check if Order Type is Ship
     const item = {
       itemid: itemId[itemInfo.curItem],
       quantity: itemInfo.curQuant,
       price: itemInfo.curPrice,
-      subtotal: itemInfo.curSubTotal
+      subtotal: itemInfo.curSubTotal,
+      locationname: itemInfo.curLocationname,
+      ordertype: itemInfo.curOrdertype
     };
     const quantity = {
       itemid: itemId[itemInfo.curItem],
@@ -215,6 +231,14 @@ export class OrderService {
 
   getQuantityValue() {
     return this.itemForm.get("quantity").value;
+  }
+
+  getLocationValue() {
+    return this.itemForm.get("locationname").value;
+  }
+
+  getOrderTypeValue() {
+    return this.itemForm.get("ordertype").value;
   }
 
   getDiscountValue() {
