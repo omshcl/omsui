@@ -12,13 +12,14 @@
         Show All
       </button>
     </h2>
-    <!-- <canvas
+    <canvas
       *ngIf="lineChartData"
       baseChart
       [datasets]="lineChartData"
       [labels]="lineChartLabels"
       [options]="lineChartOptions"
+      [plugins]="lineChartPlugins"
       [chartType]="chartType"
-    ></canvas> -->
+    ></canvas>
   </div>
 </div>

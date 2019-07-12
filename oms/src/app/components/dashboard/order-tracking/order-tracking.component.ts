@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { OrderSearchService } from "src/app/services/order-search.service";
+import { BaseChartDirective } from 'ng2-charts';
+import * as pluginAnnotations from 'chartjs-plugin-annotation';
 
 @Component({
   selector: "app-order-tracking",
@@ -9,15 +11,29 @@ import { OrderSearchService } from "src/app/services/order-search.service";
 export class OrderTrackingComponent implements OnInit {
   getOrdersResponse;
   @Input() responseData: any;
-  completedOrders: Array<DataPoint> = [];
-  partialOrders: Array<DataPoint> = [];
-  openOrders: Array<DataPoint> = [];
-  lineChartData: Array<DataSet> = [];
+  completedOrders: DataSet = {
+    data: [], 
+    label: "Completed Orders",
+    //steppedLine: true
+  };
+  partialOrders: DataSet = {
+    data: [], 
+    label: "Partial Orders",
+    //steppedLine: true
+  };
+  openOrders: DataSet = {
+    data: [], 
+    label: "Open Orders",
+    //steppedLine: true
+  };
+  lineChartData: Array<DataSet> = null;
   lineChartLabels: Array<number> = [];
+  public lineChartPlugins = [pluginAnnotations];
+  days = 3;
   lineChartOptions: any = {
     elements: {
       line: {
-        tension: 0.2,
+        tension: 0,
         fill: false
       }
     },
@@ -44,9 +60,28 @@ export class OrderTrackingComponent implements OnInit {
         // hide datalabels for all datasets
         display: false
       }
-    }
+      },
+    annotation: {
+      annotations: [
+        {
+          type: 'line',
+          mode: 'horizontal',
+          scaleID: 'y-axis-0',
+          value: this.days,
+          borderColor: 'black',
+          borderWidth: 3,
+          // label: {
+          //   enabled: true,
+          //   fontColor: 'white',
+          //   content: 'Days'
+          // }
+        },
+      ],
+    },
   };
   chartType = "line";
+  @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;
+
   constructor(private _OrderSearchService: OrderSearchService) {}
 
   ngOnInit() {
@@ -54,13 +89,41 @@ export class OrderTrackingComponent implements OnInit {
       this.getOrdersResponse = resp;
       console.log(this.getOrdersResponse);
       for (let order of this.getOrdersResponse) {
+        let curDataPoint = {} as DataPoint;
+        curDataPoint.x = order.id;
+        curDataPoint.y = order.days;
+        this.lineChartLabels.push(order.id);
         if (order.demand_type == "COMPLETED_ORDER") {
+          this.completedOrders.data.push(curDataPoint);
         }
-        if (order.demand_type == "PARTIAL_ORDER") {
-        } else {
+        else if (order.demand_type == "PARTIAL_ORDER") {
+          this.partialOrders.data.push(curDataPoint);
+        } 
+        else {
+          this.openOrders.data.push(curDataPoint);
         }
       }
+      console.log("Complete order", this.completedOrders);
+      console.log("Partial order", this.partialOrders);
+      console.log("Open order", this.openOrders);
+      this.lineChartData = [];
+      this.lineChartData.push(this.completedOrders);
+      this.lineChartData.push(this.partialOrders);
+      this.lineChartData.push(this.openOrders);
     });
+  }
+
+  hideAll() {
+    for (let i = 0; i < this.chart.datasets.length; i++) {
+      this.chart.hideDataset(i, true);
+    }
+    this.chart.update();
+  }
+  showAll() {
+    for (let i = 0; i < this.chart.datasets.length; i++) {
+      this.chart.hideDataset(i, false);
+    }
+    this.chart.update();
   }
 }
 
@@ -72,4 +135,5 @@ export interface DataPoint {
 export interface DataSet {
   data: Array<DataPoint>;
   label: string;
+  steppedLine: boolean;
 }

@@ -26,6 +26,7 @@
     "bootstrap": "^4.3.1",
     "bulma": "^0.7.5",
     "chart.js": "^2.8.0",
+    "chartjs-plugin-annotation": "^0.5.7",
     "chartjs-plugin-datalabels": "^0.6.0",
     "ng2-charts": "^2.3.0",
     "rxjs": "~6.4.0",
