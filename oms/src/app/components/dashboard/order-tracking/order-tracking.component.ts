@@ -53,6 +53,13 @@ export class OrderTrackingComponent implements OnInit {
     this._OrderSearchService.getOrderTracking().subscribe(resp => {
       this.getOrdersResponse = resp;
       console.log(this.getOrdersResponse);
+      for (let order of this.getOrdersResponse) {
+        if (order.demand_type == "COMPLETED_ORDER") {
+        }
+        if (order.demand_type == "PARTIAL_ORDER") {
+        } else {
+        }
+      }
     });
   }
 }
