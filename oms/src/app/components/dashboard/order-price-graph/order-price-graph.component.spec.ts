@@ -1,16 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { HttpClientTestingModule } from "@angular/common/http/testing";
+import { OrderPriceGraphComponent } from "./order-price-graph.component";
+import { ChartsModule } from "ng2-charts";
 
-import { OrderPriceGraphComponent } from './order-price-graph.component';
-
-describe('OrderPriceGraphComponent', () => {
+describe("OrderPriceGraphComponent", () => {
   let component: OrderPriceGraphComponent;
   let fixture: ComponentFixture<OrderPriceGraphComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrderPriceGraphComponent ]
-    })
-    .compileComponents();
+      declarations: [OrderPriceGraphComponent],
+      imports: [ChartsModule, HttpClientTestingModule]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +20,7 @@ describe('OrderPriceGraphComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

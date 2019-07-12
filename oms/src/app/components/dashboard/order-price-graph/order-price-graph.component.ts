@@ -1,32 +1,72 @@
-import { Component, OnInit, AfterViewInit } from "@angular/core";
-import { Chart } from "chart.js";
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  SimpleChange,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from "@angular/core";
+import { DoCheck, KeyValueDiffers } from "@angular/core";
+
 import { OrderSearchService } from "src/app/services/order-search.service";
 import { ItemSearchService } from "src/app/services/item-search.service";
+import { BaseChartDirective } from "ng2-charts";
 
 @Component({
   selector: "app-order-price-graph",
   templateUrl: "./order-price-graph.component.html",
   styleUrls: ["./order-price-graph.component.css"]
 })
-export class OrderPriceGraphComponent implements OnInit, AfterViewInit {
-  ngAfterViewInit(): void {}
+export class OrderPriceGraphComponent implements OnChanges {
   getItemsResponse;
-  getOrdersResponse;
-  chart = [] as Chart;
+  @Input() responseData: any;
   itemList: Array<Item> = [];
-  dataLabels: Array<number> = [];
   dataPointMap: Map<number, DataPoint[]> = new Map<number, DataPoint[]>();
-  dataSetArray: Array<DataSet> = [];
-  colors = [
-    "#011627",
-    "#e71d36",
-    "#ff9f1c",
-    "#50514f",
-    "#f25f5c",
-    "#75cd3f",
-    "#247ba0",
-    "#70c1b3"
-  ];
+
+  lineChartData: Array<DataSet> = null;
+  lineChartLabels: Array<number> = [];
+  lineChartOptions: any = {
+    elements: {
+      line: {
+        tension: 0
+      }
+    },
+    scales: {
+      xAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Order ID"
+          }
+        }
+      ],
+      yAxes: [
+        {
+          scaleLabel: {
+            display: true,
+            labelString: "Price"
+          },
+          ticks: {
+            // Include a dollar sign in the ticks
+            callback: function(value, index, values) {
+              return "$" + value;
+            }
+          }
+        }
+      ]
+    },
+    plugins: {
+      datalabels: {
+        // hide datalabels for all datasets
+        display: false
+      }
+    }
+  };
+  chartType = "line";
+
+  @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;
+  differ: any;
 
   constructor(
     private _OrderSearchService: OrderSearchService,
@@ -34,113 +74,74 @@ export class OrderPriceGraphComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {}
-
-  ngAfterContentInit() {
-    this._itemSearchService.getItems().subscribe(iresp => {
-      this.getItemsResponse = iresp;
-
-      for (let curItem of this.getItemsResponse) {
+  ngOnChanges(changes: SimpleChanges) {
+    // Extract changes to the input property by its name
+    let change = changes["responseData"];
+    let Response = change.currentValue;
+    console.log(Response.itemsData);
+    if (Response.itemsData) {
+      let ItemsResponse = Response.itemsData;
+      for (let curItem of ItemsResponse) {
         var newItem = {} as Item;
         newItem.itemid = curItem.itemid;
         newItem.shortdescription = curItem.shortdescription;
         this.itemList = [...this.itemList, newItem];
       }
 
-      this._OrderSearchService.getOrders().subscribe(oresp => {
-        this.getOrdersResponse = oresp;
-        // console.log(this.getOrdersResponse);
-        for (let order of this.getOrdersResponse) {
-          let curOrderID = parseInt(order.id);
-          this.dataLabels.push(curOrderID);
-          for (let item of order.items) {
-            let curItemID = item.itemid;
-            let curPrice = item.price;
-            let curDataPoint = {} as DataPoint;
-            curDataPoint.x = curOrderID;
-            curDataPoint.y = curPrice;
-            if (this.dataPointMap.has(curItemID)) {
-              this.dataPointMap.get(curItemID).push(curDataPoint);
-            } else {
-              let dataPointArray: Array<DataPoint> = [];
-              dataPointArray.push(curDataPoint);
-              this.dataPointMap.set(curItemID, dataPointArray);
-            }
+      let OrdersResponse = Response.ordersData;
+      if (OrdersResponse.length > 100) {
+        OrdersResponse = OrdersResponse.slice(
+          OrdersResponse.length - 100,
+          OrdersResponse.length
+        );
+      }
+      for (let order of OrdersResponse) {
+        let curOrderID = order.id;
+        this.lineChartLabels.push(curOrderID);
+        for (let item of order.items) {
+          let curItemID = item.itemid;
+          let curPrice = item.price;
+          let curDataPoint = {} as DataPoint;
+          curDataPoint.x = curOrderID;
+          curDataPoint.y = curPrice;
+          if (this.dataPointMap.has(curItemID)) {
+            this.dataPointMap.get(curItemID).push(curDataPoint);
+          } else {
+            let dataPointArray: Array<DataPoint> = [];
+            dataPointArray.push(curDataPoint);
+            this.dataPointMap.set(curItemID, dataPointArray);
           }
         }
-        let keySet = this.dataPointMap.keys();
-        for (let key of keySet) {
-          let curDataSet = {} as DataSet;
-          curDataSet.spanGaps = false;
-          curDataSet.showLine = true;
-          curDataSet.data = this.dataPointMap.get(key).sort(function(a, b) {
-            return a.x - b.x;
-          });
-          let curColor = this.colors.pop();
-          curDataSet.borderColor = curColor;
-          curDataSet.backgroundColor = curColor;
-          curDataSet.fill = false;
-          curDataSet.label = this.itemList.find(
-            x => x.itemid == key
-          ).shortdescription;
-          this.dataSetArray.push(curDataSet);
-        }
-        this.dataLabels.sort(function(a, b) {
-          return a - b;
+      }
+      this.lineChartData = [];
+      let keySet = this.dataPointMap.keys();
+      for (let key of keySet) {
+        let curDataSet = {} as DataSet;
+        curDataSet.data = this.dataPointMap.get(key).sort(function(a, b) {
+          return a.x - b.x;
         });
-        console.log(this.dataLabels);
-
-        //build line chart
-        this.chart = new Chart("linechart", {
-          type: "line",
-          data: {
-            labels: this.dataLabels,
-            datasets: this.dataSetArray
-          },
-          options: {
-            title: {
-              display: true,
-              text: "Price per Order"
-            },
-            legend: {
-              display: true
-            },
-            scales: {
-              xAxes: [
-                {
-                  display: true,
-                  scaleLabel: {
-                    display: true,
-                    labelString: "Order ID"
-                  }
-                }
-              ],
-              yAxes: [
-                {
-                  display: true,
-                  scaleLabel: {
-                    display: true,
-                    labelString: "Price"
-                  },
-                  ticks: {
-                    // Include a dollar sign in the ticks
-                    callback: function(value, index, values) {
-                      return "$" + value;
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        });
+        curDataSet.label = this.itemList.find(
+          x => x.itemid == key
+        ).shortdescription;
+        this.lineChartData.push(curDataSet);
+      }
+      this.lineChartLabels.sort(function(a, b) {
+        return a - b;
       });
-    });
+      // console.log(this.lineChartLabels);
+    }
+  }
+
+  hideAll() {
+    for (let i = 0; i < this.chart.datasets.length; i++) {
+      this.chart.hideDataset(i, true);
+    }
+    this.chart.update();
   }
   showAll() {
-    // console.log("Show all");
-    this.chart.data.datasets.forEach(ds => {
-      ds._meta[0].hidden = false;
-      // console.log(ds._meta);
-    });
+    for (let i = 0; i < this.chart.datasets.length; i++) {
+      this.chart.hideDataset(i, false);
+    }
     this.chart.update();
   }
 }
@@ -156,11 +157,6 @@ export interface DataPoint {
 }
 
 export interface DataSet {
-  spanGaps: boolean;
-  showLine: boolean;
   data: Array<DataPoint>;
-  borderColor: string;
-  backgroundColor: string;
-  fill: boolean;
   label: string;
 }

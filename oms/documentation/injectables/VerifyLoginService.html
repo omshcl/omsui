@@ -90,6 +90,9 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#checkCookie">checkCookie</a>
+                            </li>
+                            <li>
                                 <a href="#redirect">redirect</a>
                             </li>
                             <li>
@@ -118,7 +121,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/verify-login.service.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/services/verify-login.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -161,6 +164,45 @@
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkCookie"></a>
+                    <span class="name">
+                        <b>
+                            checkCookie
+                        </b>
+                        <a href="#checkCookie"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>checkCookie()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="46"
+                            class="link-to-prism">src/app/services/verify-login.service.ts:46</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -249,8 +291,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="17"
-                            class="link-to-prism">src/app/services/verify-login.service.ts:17</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="16"
+                            class="link-to-prism">src/app/services/verify-login.service.ts:16</a></div>
                 </td>
             </tr>
 
@@ -324,7 +366,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/verify-login.service.ts:14</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/services/verify-login.service.ts:13</a></div>
                             </td>
                         </tr>
 
@@ -340,7 +382,6 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &quot;@angular/core&quot;;
 import { HttpClient, HttpHeaders } from &quot;@angular/common/http&quot;;
 import { Observable } from &quot;rxjs&quot;;
-import * as checkAdmin from &quot;../models/checkAdmin&quot;;
 
 const httpOptions &#x3D; {
   headers: new HttpHeaders({ &quot;Content-Type&quot;: &quot;application/json&quot; })
@@ -370,18 +411,21 @@ export class VerifyLoginService {
         }
       );
   }
+
   redirect(data) {
-    if (data.isValid &amp;&amp; data.isAdmin) {
-      console.log(&quot;here&quot;);
+    if (data.isValid) {
+      if (data.isAdmin) {
+        localStorage.setItem(&quot;role&quot;, &quot;admin&quot;);
+      }
       location.href &#x3D; &quot;./order&quot;;
-      checkAdmin.setAdmin(true);
-    } else if (data.isValid &amp;&amp; !data.isAdmin) {
-      location.href &#x3D; &quot;./order-agent&quot;;
-      checkAdmin.setAdmin(false);
     } else {
       alert(&quot;Invalid Login. Check credentials.&quot;);
     }
     return true;
+  }
+
+  checkCookie() {
+    return this.http.get(&quot;/api/validate&quot;).subscribe();
   }
 }
 </code></pre>

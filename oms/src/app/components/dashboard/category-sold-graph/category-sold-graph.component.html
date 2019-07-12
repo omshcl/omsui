@@ -1,3 +1,18 @@
-<p>
-  category-sold-graph works!
-</p>
+<div class="container" style="margin-bottom: 80px">
+  <div
+    class="col-lg-10 h-100"
+    style="position: relative; height:40vh; width:80vw; margin-left: auto; margin-right: auto; background: white; "
+  >
+    <h2 style="text-align: left">
+      Sales by Product Category
+    </h2>
+    <canvas
+      *ngIf="pieChartData"
+      baseChart
+      [data]="pieChartData"
+      [labels]="pieChartLabels"
+      [options]="pieChartOptions"
+      [chartType]="chartType"
+    ></canvas>
+  </div>
+</div>

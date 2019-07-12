@@ -61,7 +61,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/components/order-search/order-search.component.ts</code>
+            <code>src/app/components/orders/order-search/order-search.component.ts</code>
         </p>
 
 
@@ -319,10 +319,10 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ViewChild } from &quot;@angular/core&quot;;
-import { OrderSearchService } from &quot;../../services/order-search.service&quot;;
-import * as checkAdmin from &quot;../../models/checkAdmin&quot;;
+import { OrderSearchService } from &quot;../../../services/order-search.service&quot;;
 import { MatTableDataSource, MatPaginator, MatSort } from &quot;@angular/material&quot;;
-
+import { element } from &quot;protractor&quot;;
+import { getLocaleDateFormat } from &quot;@angular/common&quot;;
 @Component({
   selector: &quot;app-order-search&quot;,
   templateUrl: &quot;./order-search.component.html&quot;,
@@ -349,23 +349,23 @@ export class OrderSearchComponent implements OnInit {
   constructor(private _orderSearchService: OrderSearchService) {}
 
   ngOnInit() {
-    if (checkAdmin.isAdmin !&#x3D;&#x3D; true) {
+    if (localStorage.getItem(&quot;role&quot;) !&#x3D;&#x3D; &quot;admin&quot;) {
       this.displayedColumns.splice(7, 1);
-      console.log(this.displayedColumns);
-      checkAdmin.setAdmin(false);
     }
     this._orderSearchService.getOrders().subscribe(response &#x3D;&gt; {
       this.getOrdersResp &#x3D; response;
       for (let order of this.getOrdersResp) {
-        this.elementData.push({
-          id: order.id,
-          date: order.date.slice(0, 10),
-          demand: order.demand_type,
-          firstname: order.firstname,
-          lastname: order.lastname,
-          zip: order.zip,
-          total: order.total
-        });
+        if (order.demand_type !&#x3D; &quot;COMPLETE_ORDER&quot;) {
+          this.elementData.push({
+            id: order.id,
+            date: order.date.slice(0, 10),
+            demand: order.demand_type,
+            firstname: order.firstname,
+            lastname: order.lastname,
+            zip: order.zip,
+            total: order.total
+          });
+        }
       }
       this.dataSource &#x3D; new MatTableDataSource(this.elementData);
       this.dataSource.paginator &#x3D; this.paginator;
@@ -377,6 +377,21 @@ export class OrderSearchComponent implements OnInit {
     filterValue &#x3D; filterValue.trim(); // Remove whitespace
     filterValue &#x3D; filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter &#x3D; filterValue;
+  }
+
+  fulfill(orderid) {
+    console.log(&quot;fulfill clicked&quot;);
+    let today &#x3D; new Date();
+    let date &#x3D; (&quot;0&quot; + today.getDate()).slice(-2);
+    let month &#x3D; (&quot;0&quot; + today.getMonth()).slice(-2);
+    let year &#x3D; today.getFullYear();
+    let current_date &#x3D; month + &quot;/&quot; + date + &quot;/&quot; + year;
+    console.log(current_date);
+    let obj &#x3D; { id: orderid, delivery_date: current_date };
+    console.log(obj);
+    this._orderSearchService.full(obj).subscribe(response &#x3D;&gt; {
+      this.getOrdersResp &#x3D; response;
+    });
   }
 }
 

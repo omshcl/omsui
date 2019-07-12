@@ -34,14 +34,14 @@
           >Order</a
         >
         <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="/order/create">Create</a>
+          <a *ngIf="role" class="dropdown-item" href="/order/create">Create</a>
 
           <!-- <a class="dropdown-item" href="/order/update/">Update</a> -->
           <a class="dropdown-item" href="/order/search">Search</a>
         </div>
       </li>
 
-      <li ngbDropdown class="nav-item dropdown">
+      <li *ngIf="role" ngbDropdown class="nav-item dropdown">
         <a
           ngbDropdownToggle
           class="nav-link dropdown-toggle"
@@ -58,20 +58,8 @@
           <a class="dropdown-item" href="/item/search">Search Items</a>
         </div>
       </li>
-
-      <li ngbDropdown class="nav-item dropdown">
-        <a
-          ngbDropdownToggle
-          class="nav-link dropdown-toggle"
-          id="dropdown01"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          >Dashboard</a
-        >
-        <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="/dashboard">View</a>
-        </div>
+      <li *ngIf="role" class="nav-item">
+        <a class="nav-link" href="/dashboard">Dashboard</a>
       </li>
     </ul>
     <a [routerLink]="['/']"> Logout </a>

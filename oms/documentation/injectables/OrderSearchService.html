@@ -76,6 +76,12 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#full">full</a>
+                            </li>
+                            <li>
+                                <a href="#getLineData">getLineData</a>
+                            </li>
+                            <li>
                                 <a href="#getOrders">getOrders</a>
                             </li>
                         </ul>
@@ -148,6 +154,111 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="full"></a>
+                    <span class="name">
+                        <b>
+                            full
+                        </b>
+                        <a href="#full"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>full(obj)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="13"
+                            class="link-to-prism">src/app/services/order-search.service.ts:13</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>obj</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLineData"></a>
+                    <span class="name">
+                        <b>
+                            getLineData
+                        </b>
+                        <a href="#getLineData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getLineData()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="18"
+                            class="link-to-prism">src/app/services/order-search.service.ts:18</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getOrders"></a>
                     <span class="name">
                         <b>
@@ -200,6 +311,17 @@ export class OrderSearchService {
 
   getOrders() {
     return this.http.get(&quot;/api/orders/list&quot;);
+  }
+  full(obj){
+    return this.http.post(&quot;/api/orders/fulfill&quot;,obj);
+  }
+
+  //service for chart.js testing
+  getLineData() {
+    return this.http.get(&quot;assets/distribution.json&quot;);
+    // return this.http.get(
+    //   &quot;https://my.api.mockaroo.com/distribution.json?key&#x3D;ac4c9b70&quot;
+    // );
   }
 }
 </code></pre>

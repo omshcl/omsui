@@ -30,7 +30,7 @@ export class OrderViewComponent implements OnInit {
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
   httpClient: any;
-
+  role: any;
   constructor(
     private formBuilder: FormBuilder,
     private itemFormBuilder: FormBuilder,
@@ -50,6 +50,11 @@ export class OrderViewComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (localStorage.getItem("role") !== "admin") {
+      this.role = false;
+    } else {
+      this.role = true;
+    }
     this.getItemsFromService();
 
     this.getOrderInfoFromService();

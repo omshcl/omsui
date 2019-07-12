@@ -10,6 +10,9 @@ export class OrderSearchService {
   getOrders() {
     return this.http.get("/api/orders/list");
   }
+  full(obj){
+    return this.http.post("/api/orders/fulfill",obj);
+  }
 
   //service for chart.js testing
   getLineData() {

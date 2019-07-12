@@ -118,7 +118,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/services/order-create.service.ts:13</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/order-create.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -183,8 +183,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="29"
-                            class="link-to-prism">src/app/services/order-create.service.ts:29</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="30"
+                            class="link-to-prism">src/app/services/order-create.service.ts:30</a></div>
                 </td>
             </tr>
 
@@ -222,8 +222,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/app/services/order-create.service.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="17"
+                            class="link-to-prism">src/app/services/order-create.service.ts:17</a></div>
                 </td>
             </tr>
 
@@ -297,7 +297,7 @@
                     </tr>
                         <tr>
                             <td class="col-md-4">
-                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/services/order-create.service.ts:13</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/services/order-create.service.ts:14</a></div>
                             </td>
                         </tr>
 
@@ -313,6 +313,7 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &quot;@angular/core&quot;;
 import { HttpClient, HttpHeaders } from &quot;@angular/common/http&quot;;
 import { Observable } from &quot;rxjs&quot;;
+import { itemPost } from &quot;../models/postItems&quot;;
 
 const httpOptions &#x3D; {
   headers: new HttpHeaders({ &quot;Content-Type&quot;: &quot;application/json&quot; })
@@ -339,7 +340,7 @@ export class OrderCreateService {
   }
 
   getItems() {
-    return this.http.get(&quot;/api/items/list&quot;);
+    return this.http.get&lt;itemPost[]&gt;(&quot;/api/items/list&quot;);
   }
 }
 </code></pre>
