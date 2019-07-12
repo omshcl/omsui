@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from "@angular/core";
 import { OrderSearchService } from "src/app/services/order-search.service";
-import { BaseChartDirective } from 'ng2-charts';
-import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import { BaseChartDirective } from "ng2-charts";
+import * as pluginAnnotations from "chartjs-plugin-annotation";
 
 @Component({
   selector: "app-order-tracking",
@@ -12,25 +12,28 @@ export class OrderTrackingComponent implements OnInit {
   getOrdersResponse;
   @Input() responseData: any;
   completedOrders: DataSet = {
-    data: [], 
+    data: [],
     label: "Completed Orders",
-    //steppedLine: true
+    steppedLine: false
   };
   partialOrders: DataSet = {
-    data: [], 
+    data: [],
     label: "Partial Orders",
-    //steppedLine: true
+    steppedLine: false
   };
   openOrders: DataSet = {
-    data: [], 
+    data: [],
     label: "Open Orders",
-    //steppedLine: true
+    steppedLine: false
   };
   lineChartData: Array<DataSet> = null;
   lineChartLabels: Array<number> = [];
   public lineChartPlugins = [pluginAnnotations];
   days = 3;
   lineChartOptions: any = {
+    legend: {
+      position: "bottom"
+    },
     elements: {
       line: {
         tension: 0,
@@ -60,26 +63,45 @@ export class OrderTrackingComponent implements OnInit {
         // hide datalabels for all datasets
         display: false
       }
-      },
+    },
     annotation: {
+      drawTime: "beforeDatasetsDraw",
       annotations: [
         {
-          type: 'line',
-          mode: 'horizontal',
-          scaleID: 'y-axis-0',
+          type: "line",
+          mode: "horizontal",
+          scaleID: "y-axis-0",
           value: this.days,
-          borderColor: 'black',
-          borderWidth: 3,
+          borderColor: "black",
+          borderWidth: 3
           // label: {
           //   enabled: true,
           //   fontColor: 'white',
           //   content: 'Days'
           // }
         },
-      ],
-    },
+        {
+          type: "box",
+          id: "a-box-2",
+          yScaleID: "y-axis-0",
+          yMin: 0,
+          yMax: this.days,
+          backgroundColor: "#33cc3318"
+        },
+        {
+          type: "box",
+          id: "a-box-3",
+          yScaleID: "y-axis-0",
+          yMin: this.days,
+          //yMax: 5,
+          backgroundColor: "#ff002818"
+        }
+      ]
+    }
   };
   chartType = "line";
+  differ: any;
+
   @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;
 
   constructor(private _OrderSearchService: OrderSearchService) {}
@@ -95,11 +117,9 @@ export class OrderTrackingComponent implements OnInit {
         this.lineChartLabels.push(order.id);
         if (order.demand_type == "COMPLETED_ORDER") {
           this.completedOrders.data.push(curDataPoint);
-        }
-        else if (order.demand_type == "PARTIAL_ORDER") {
+        } else if (order.demand_type == "PARTIAL_ORDER") {
           this.partialOrders.data.push(curDataPoint);
-        } 
-        else {
+        } else {
           this.openOrders.data.push(curDataPoint);
         }
       }
