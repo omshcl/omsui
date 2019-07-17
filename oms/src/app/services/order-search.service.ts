@@ -27,6 +27,10 @@ export class OrderSearchService {
   }
 
   getOrderTracking() {
-    return this.http.get("assets/ordertracking.json");
+    let searchLimit = {
+      limit: 50
+    };
+    //return this.http.get("assets/ordertracking.json");
+    return this.http.post("/api/orders/graph", searchLimit);
   }
 }
