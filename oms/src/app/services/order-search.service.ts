@@ -33,4 +33,9 @@ export class OrderSearchService {
     //return this.http.get("assets/ordertracking.json");
     return this.http.post("/api/orders/graph", searchLimit);
   }
+
+  completeReservation(oid: number) {
+    let orderid = { id: oid };
+    return this.http.post("/api/orders/reserve", orderid);
+  }
 }

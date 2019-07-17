@@ -193,10 +193,12 @@ export class OrderTrackingComponent implements OnInit {
     this.barChartOptions.annotation.annotations[1].yMax = this.days;
     this.barChartOptions.annotation.annotations[2].yMin = this.days;
     this.updatePercentage();
-    this.showChart = false;
-    setTimeout(() => {
-      this.showChart = true;
-    }, 1);
+    this.chart.chart.destroy();
+    this.chart.ngOnInit();
+    // this.showChart = false;
+    // setTimeout(() => {
+    //   this.showChart = true;
+    // }, 1);
   }
 }
 

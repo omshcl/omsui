@@ -73,9 +73,18 @@ export class OrderSearchComponent implements OnInit {
     });
   }
 
-  completeReservation(orderid){
-    console.log("Reservation Complete");
-
+  completeReservation(orderid) {
+    this._orderSearchService
+      .completeReservation(orderid)
+      .subscribe(response => {
+        this.getOrdersResp = response;
+        console.log(this.getOrdersResp);
+        if (this.getOrdersResp.sucesss == "true") {
+          //sucess [sic]
+          alert("Reservation " + orderid + " Complete");
+          location.reload();
+        }
+      });
   }
 }
 
