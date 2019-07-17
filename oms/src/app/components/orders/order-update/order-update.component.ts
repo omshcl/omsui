@@ -103,7 +103,11 @@ export class OrderUpdateComponent implements OnInit {
       this.dataList = data;
       const orderDetail = this.dataList;
       console.log(orderDetail);
-
+      if(orderDetail.ordertype === "Ship") {
+        this.isOrderShip = true;
+      } else {
+        this.isOrderShip = false;
+      }
       this._orderService.setOrderFormValue("id", this.orderID);
       this._orderService.fillOrderFormValues(orderDetail);
 
