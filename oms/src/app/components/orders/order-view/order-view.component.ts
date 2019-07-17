@@ -6,7 +6,7 @@ import { OrderUpdateService } from "../../../services/order-update.service";
 import { ActivatedRoute } from "@angular/router";
 import { itemOrder } from "src/app/models/itemOrder";
 import { OrderService } from "src/app/services/order.service";
-
+import { ItemSearchService } from "src/app/services/item-search.service";
 @Component({
   selector: "app-view",
   templateUrl: "./order-view.component.html",
@@ -18,6 +18,7 @@ export class OrderViewComponent implements OnInit {
   priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
+  ordertypeList = ["Pickup", "Ship", "Reservation"];
   itemForm;
   orderForm;
   itemLength;
@@ -25,11 +26,14 @@ export class OrderViewComponent implements OnInit {
   data = {};
   itemId = {};
   dataList;
+  isOrderShip: Boolean = false;
   demandType;
   items: itemOrder[] = [];
   displayedColumns: string[] = ["item", "quantity", "price", "subtotal"];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
+  getShipNodesResponse;
+  public shipNodeList: Array<ShipNode> = [];
   httpClient: any;
   role: any;
   constructor(
@@ -37,6 +41,7 @@ export class OrderViewComponent implements OnInit {
     private itemFormBuilder: FormBuilder,
     private _orderService: OrderService,
     private _orderUpdateService: OrderUpdateService,
+    private _itemSearchService: ItemSearchService,
     private route: ActivatedRoute
   ) {
     this.itemForm = this._orderService.initializeItemForm(formBuilder);
@@ -56,9 +61,17 @@ export class OrderViewComponent implements OnInit {
     } else {
       this.role = true;
     }
+    this._itemSearchService.getShipNodes().subscribe(response => {
+      this.getShipNodesResponse = response;
+      for (let curNode of this.getShipNodesResponse) {
+        this.shipNodeList.push(curNode.locationname);
+      }
+      this._orderService.setOrderFormValue("shipnode", this.shipNodeList[0]);
+    });
     this.getItemsFromService();
 
     this.getOrderInfoFromService();
+    
   }
 
   updateOrderId() {
@@ -84,7 +97,11 @@ export class OrderViewComponent implements OnInit {
       this.dataList = data;
       const orderDetail = this.dataList;
       console.log(orderDetail);
-
+      if(orderDetail.ordertype === "Ship") {
+        this.isOrderShip = true;
+      } else {
+        this.isOrderShip = false;
+      }
       this._orderService.setOrderFormValue("id", this.orderID);
       this._orderService.fillOrderFormValues(orderDetail);
       this.demandType = orderDetail.demand_type;
@@ -97,7 +114,7 @@ export class OrderViewComponent implements OnInit {
   redirect(id) {
     location.href = "./order/update/" + id;
   }
-
+  
   get firstname() {
     return this.orderForm.get("firstname");
   }
@@ -122,4 +139,13 @@ export class OrderViewComponent implements OnInit {
   get zip() {
     return this.orderForm.get("zip");
   }
+  get shipnode() {
+    return this.orderForm.get("shipnode");
+  }
+  get ordertype() {
+    return this.orderForm.get("ordertype");
+  }
+}
+export interface ShipNode {
+  locationname: string;
 }
