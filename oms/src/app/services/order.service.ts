@@ -16,7 +16,7 @@ export class OrderService {
 
   qtyArray = [];
   priceArray = [];
-
+  public shipNodeList: Array<ShipNode> = [];
   constructor(private formBuilder: FormBuilder) {}
 
   initializeItemForm(itemFormBuilder: FormBuilder) {
@@ -24,9 +24,7 @@ export class OrderService {
       item: ["", Validators.required],
       quantity: ["", Validators.required],
       price: ["", Validators.required],
-      discount: "",
-      ordertype: ["", Validators.required],
-      locationname: ["", Validators.required]
+      discount: ""
     }));
   }
   initializeOrderForm(orderFormBuilder: FormBuilder, orderId) {
@@ -44,7 +42,9 @@ export class OrderService {
       state: ["", Validators.required],
       zip: ["", Validators.required],
       payment: ["", Validators.required],
-      total: ""
+      total: "",
+      shipnode: "",
+      ordertype: ""
     }));
   }
 
@@ -54,7 +54,7 @@ export class OrderService {
     this.setItemFormValue("discount", this.discountList[0]);
     this.setOrderFormValue("channel", this.channelList[0]);
     this.setOrderFormValue("payment", this.paymentList[0]);
-    this.setItemFormValue("ordertype", this.ordertypeList[0]);
+    this.setOrderFormValue("ordertype", this.ordertypeList[0]);
     this.setOrderFormValue("total", 0);
     let curDate = new Date().toISOString();
     this.setOrderFormValue("date", curDate);
@@ -75,9 +75,7 @@ export class OrderService {
   createItemForm(itemFormBuilder: FormBuilder, item) {
     return itemFormBuilder.group({
       itemid: item["itemid"],
-      subtotal: item["quantity"] * item["price"],
-      locationname: item["locationname"],
-      ordertype: item["ordertype"]
+      subtotal: item["quantity"] * item["price"]
     });
   }
 
@@ -96,6 +94,8 @@ export class OrderService {
     this.setOrderFormValue("zip", orderDetail.zip);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
+    this.setOrderFormValue("shipnode", orderDetail.shipnode);
+    this.setOrderFormValue("ordertype", orderDetail.ordertype);
   }
 
   getCurrentItemInfo(itemList, priceList) {
@@ -104,16 +104,12 @@ export class OrderService {
     let itemIndex = itemList.indexOf(curItem);
     const curPrice = priceList[itemIndex];
     const curSubTotal = curPrice * curQuant;
-    const curLocationname = this.getLocationValue();
-    const curOrdertype = this.getOrderTypeValue();
 
     return {
       curItem: curItem,
       curQuant: curQuant,
       curPrice: curPrice,
-      curSubTotal: curSubTotal,
-      curLocationname: curLocationname,
-      curOrdertype: curOrdertype
+      curSubTotal: curSubTotal
     };
   }
 
@@ -157,9 +153,7 @@ export class OrderService {
       itemid: itemId[itemInfo.curItem],
       quantity: itemInfo.curQuant,
       price: itemInfo.curPrice,
-      subtotal: itemInfo.curSubTotal,
-      locationname: itemInfo.curLocationname,
-      ordertype: itemInfo.curOrdertype
+      subtotal: itemInfo.curSubTotal
     };
     const quantity = {
       itemid: itemId[itemInfo.curItem],
@@ -233,14 +227,6 @@ export class OrderService {
     return this.itemForm.get("quantity").value;
   }
 
-  getLocationValue() {
-    return this.itemForm.get("locationname").value;
-  }
-
-  getOrderTypeValue() {
-    return this.itemForm.get("ordertype").value;
-  }
-
   getDiscountValue() {
     return this.itemForm.get("discount").value;
   }
@@ -252,4 +238,8 @@ export class OrderService {
   getUrl() {
     return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
   }
+}
+
+export interface ShipNode {
+  locationname: string;
 }

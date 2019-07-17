@@ -118,9 +118,7 @@ export class OrderUpdateComponent implements OnInit {
       this.itemList,
       this.priceList
     );
-    if (itemInfo.curOrdertype === "Ship") {
-      itemInfo.curLocationname = "";
-    }
+
     // Update price of item and subtotal based on discount
     itemInfo.curPrice = this._orderService.applyDiscount(itemInfo.curPrice);
     itemInfo.curSubTotal = itemInfo.curPrice * itemInfo.curQuant;
