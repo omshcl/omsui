@@ -73,7 +73,7 @@ export class OrderUpdateComponent implements OnInit {
       for (let curNode of this.getShipNodesResponse) {
         this.shipNodeList.push(curNode.locationname);
       }
-      this._orderService.setItemFormValue("locationname", this.shipNodeList[0]);
+      this._orderService.setOrderFormValue("shipnode", this.shipNodeList[0]);
     });
     this.getItemsFromService();
 
@@ -108,6 +108,7 @@ export class OrderUpdateComponent implements OnInit {
       this._orderService.fillOrderFormValues(orderDetail);
 
       this.items = this._orderService.fillItemsTable(orderDetail, this.items);
+      
 
       this.subject.next(this.items);
     });
@@ -118,9 +119,7 @@ export class OrderUpdateComponent implements OnInit {
       this.itemList,
       this.priceList
     );
-    if (itemInfo.curOrdertype === "Ship") {
-      itemInfo.curLocationname = "";
-    }
+
     // Update price of item and subtotal based on discount
     itemInfo.curPrice = this._orderService.applyDiscount(itemInfo.curPrice);
     itemInfo.curSubTotal = itemInfo.curPrice * itemInfo.curQuant;
@@ -163,12 +162,13 @@ export class OrderUpdateComponent implements OnInit {
     //clear item table
     this.items = [];
     this.subject.next(this.items);
-
+    this._orderService.setOrderFormValue("shipnode", this.shipNodeList[0]);
     this._orderService.initializeFormValues();
     this.processedOrder();
   }
   onOptionsSelected(value) {
     if (value === "Ship") {
+      this._orderService.setOrderFormValue("shipnode", "");
       this.isOrderShip = true;
     } else {
       this.isOrderShip = false;
@@ -202,8 +202,11 @@ export class OrderUpdateComponent implements OnInit {
   get zip() {
     return this.orderForm.get("zip");
   }
-  get locationame() {
-    return this.itemForm.get("locationname");
+  get shipnode() {
+    return this.orderForm.get("shipnode");
+  }
+  get ordertype() {
+    return this.orderForm.get("ordertype");
   }
 }
 export interface ShipNode {

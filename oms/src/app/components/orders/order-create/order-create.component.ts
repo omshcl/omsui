@@ -20,8 +20,6 @@ export class OrderCreateComponent implements OnInit {
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
   orderForm: FormGroup;
-  quantityForm: FormGroup;
-  priceForm: FormGroup;
   itemLength: Int16Array;
   data = {};
   itemId = {};
@@ -59,7 +57,7 @@ export class OrderCreateComponent implements OnInit {
       for (let curNode of this.getShipNodesResponse) {
         this.shipNodeList.push(curNode.locationname);
       }
-      this._orderService.setItemFormValue("locationname", this.shipNodeList[0]);
+      this._orderService.setOrderFormValue("shipnode", this.shipNodeList[0]);
     });
     this.getItemsFromService();
   }
@@ -84,11 +82,6 @@ export class OrderCreateComponent implements OnInit {
       this.itemList,
       this.priceList
     );
-
-    if (itemInfo.curOrdertype === "Ship") {
-      itemInfo.curLocationname = "";
-    }
-
     // Update price of item and subtotal based on discount
     itemInfo.curPrice = this._orderService.applyDiscount(itemInfo.curPrice);
     itemInfo.curSubTotal = itemInfo.curPrice * itemInfo.curQuant;
@@ -132,12 +125,14 @@ export class OrderCreateComponent implements OnInit {
     this.items = [];
     this.subject.next(this.items);
 
+    this._orderService.setOrderFormValue("shipnode", this.shipNodeList[0]);
     this._orderService.initializeFormValues();
 
     this.processedOrder();
   }
   onOptionsSelected(value) {
     if (value === "Ship") {
+      this._orderService.setOrderFormValue("shipnode", "");
       this.isOrderShip = true;
     } else {
       this.isOrderShip = false;
@@ -172,8 +167,11 @@ export class OrderCreateComponent implements OnInit {
   get zip() {
     return this.orderForm.get("zip");
   }
-  get locationame() {
-    return this.itemForm.get("locationname");
+  get shipnode() {
+    return this.orderForm.get("shipnode");
+  }
+  get ordertype() {
+    return this.orderForm.get("ordertype");
   }
 }
 export interface ShipNode {
