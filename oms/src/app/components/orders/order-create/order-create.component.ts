@@ -20,8 +20,6 @@ export class OrderCreateComponent implements OnInit {
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
   orderForm: FormGroup;
-  quantityForm: FormGroup;
-  priceForm: FormGroup;
   itemLength: Int16Array;
   data = {};
   itemId = {};
@@ -170,10 +168,10 @@ export class OrderCreateComponent implements OnInit {
     return this.orderForm.get("zip");
   }
   get shipnode() {
-    return this.itemForm.get("shipnode");
+    return this.orderForm.get("shipnode");
   }
   get ordertype() {
-    return this.itemForm.get("ordertype");
+    return this.orderForm.get("ordertype");
   }
 }
 export interface ShipNode {

@@ -73,6 +73,23 @@
           Zip is required
         </p>
       </div>
+      <div *ngIf="!isOrderShip" class="col-lg-2 mb-3">
+        <label>ShipNode</label>
+        <select class="custom-select" formControlName="shipnode">
+          <option *ngFor="let shipnode of shipNodeList">{{
+            shipnode
+          }}</option>
+        </select>
+      </div>
+      <div class="col-lg-2 mb-3">
+        <label>Ordertype</label>
+        <select #mySelect (change)='onOptionsSelected(mySelect.value)' class="custom-select"
+          formControlName="ordertype">
+          <option *ngFor="let ordertypeoption of ordertypeList" [value]="ordertypeoption">{{
+            ordertypeoption
+          }}</option>
+        </select>
+      </div>
     </div>
   </form>
   <hr />
@@ -96,25 +113,6 @@
         <label>Select Discount</label>
         <select class="custom-select" formControlName="discount">
           <option *ngFor="let discountOption of discountList">{{ discountOption }}</option>
-        </select>
-      </div>
-
-
-      <div *ngIf="!isOrderShip" class="col-lg-2 mb-3">
-        <label>ShipNode</label>
-        <select class="custom-select" formControlName="locationname">
-          <option *ngFor="let locationname of shipNodeList">{{
-            locationname
-          }}</option>
-        </select>
-      </div>
-      <div class="col-lg-2 mb-3">
-        <label>Ordertype</label>
-        <select #mySelect (change)='onOptionsSelected(mySelect.value)' class="custom-select"
-          formControlName="ordertype">
-          <option *ngFor="let ordertypeoption of ordertypeList" [value]="ordertypeoption">{{
-            ordertypeoption
-          }}</option>
         </select>
       </div>
       <div class="col-lg-2 mb-2">

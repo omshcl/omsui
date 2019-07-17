@@ -10,8 +10,6 @@ export class OrderService {
   ordertypeList = ["Pickup", "Ship", "Reservation"];
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
-  quantityForm: FormGroup;
-  priceForm: FormGroup;
   orderForm: FormGroup;
 
   qtyArray = [];
@@ -138,6 +136,8 @@ export class OrderService {
 
       itemArray.push(group);
     }
+    this.setOrderFormValue("quantity", this.qtyArray);
+    this.setOrderFormValue("price", this.priceArray);
     // Refresh the table
     this.updateTotal(items);
 
