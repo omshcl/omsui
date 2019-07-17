@@ -11,38 +11,32 @@ import * as pluginAnnotations from "chartjs-plugin-annotation";
 export class OrderTrackingComponent implements OnInit {
   getOrdersResponse;
   @Input() responseData: any;
+  days = 5;
+  showChart = false;
   completedOrders: DataSet = {
     data: [],
-    label: "Completed Orders",
-    steppedLine: false
+    label: "Completed Orders (25%)"
   };
   partialOrders: DataSet = {
     data: [],
-    label: "Partial Orders",
-    steppedLine: false
+    label: "Partially Fulfilled (30%)"
   };
   openOrders: DataSet = {
     data: [],
-    label: "Open Orders",
-    steppedLine: false
+    label: "Open Orders (80%)"
   };
-  lineChartData: Array<DataSet> = null;
-  lineChartLabels: Array<number> = [];
-  public lineChartPlugins = [pluginAnnotations];
-  days = 3;
-  lineChartOptions: any = {
+  barChartData: Array<DataSet> = null;
+  barChartLabels: Array<number> = [];
+  public barChartPlugins = [pluginAnnotations];
+
+  barChartOptions: any = {
     legend: {
-      position: "bottom"
-    },
-    elements: {
-      line: {
-        tension: 0,
-        fill: false
-      }
+      position: "top"
     },
     scales: {
       xAxes: [
         {
+          stacked: true,
           scaleLabel: {
             display: true,
             labelString: "Order ID"
@@ -51,6 +45,10 @@ export class OrderTrackingComponent implements OnInit {
       ],
       yAxes: [
         {
+          minBarLength: 5,
+          ticks: {
+            beginAtZero: true
+          },
           scaleLabel: {
             display: true,
             labelString: "Days"
@@ -99,7 +97,7 @@ export class OrderTrackingComponent implements OnInit {
       ]
     }
   };
-  chartType = "line";
+  chartType = "bar";
   differ: any;
 
   @ViewChild(BaseChartDirective, { static: false }) chart: BaseChartDirective;
@@ -114,36 +112,91 @@ export class OrderTrackingComponent implements OnInit {
         let curDataPoint = {} as DataPoint;
         curDataPoint.x = order.id;
         curDataPoint.y = order.days;
-        this.lineChartLabels.push(order.id);
-        if (order.demand_type == "COMPLETED_ORDER") {
+        let nullDataPoint = { x: order.id, y: null };
+        this.barChartLabels.push(order.id);
+        if (order.demand_type == "COMPLETE_ORDER") {
           this.completedOrders.data.push(curDataPoint);
+          this.partialOrders.data.push(nullDataPoint);
+          this.openOrders.data.push(nullDataPoint);
         } else if (order.demand_type == "PARTIAL_ORDER") {
+          this.completedOrders.data.push(nullDataPoint);
           this.partialOrders.data.push(curDataPoint);
+          this.openOrders.data.push(nullDataPoint);
         } else {
+          this.completedOrders.data.push(nullDataPoint);
+          this.partialOrders.data.push(nullDataPoint);
           this.openOrders.data.push(curDataPoint);
         }
       }
-      console.log("Complete order", this.completedOrders);
-      console.log("Partial order", this.partialOrders);
-      console.log("Open order", this.openOrders);
-      this.lineChartData = [];
-      this.lineChartData.push(this.completedOrders);
-      this.lineChartData.push(this.partialOrders);
-      this.lineChartData.push(this.openOrders);
+      // console.log("Complete order", this.completedOrders);
+      // console.log("Partial order", this.partialOrders);
+      // console.log("Open order", this.openOrders);
+      this.barChartLabels.sort(function(a, b) {
+        return a - b;
+      });
+      this.completedOrders.data.sort(function(a, b) {
+        return a.x - b.x;
+      });
+      this.partialOrders.data.sort(function(a, b) {
+        return a.x - b.x;
+      });
+      this.openOrders.data.sort(function(a, b) {
+        return a.x - b.x;
+      });
+      this.updatePercentage();
+      this.barChartData = [];
+      this.barChartData.push(this.completedOrders);
+      this.barChartData.push(this.partialOrders);
+      this.barChartData.push(this.openOrders);
+      this.showChart = true;
     });
   }
 
-  hideAll() {
-    for (let i = 0; i < this.chart.datasets.length; i++) {
-      this.chart.hideDataset(i, true);
+  updatePercentage() {
+    let completeCount = 0;
+    let partialCount = 0;
+    let openCount = 0;
+    let totalComplete = 0;
+    let totalPartial = 0;
+    let totalOpen = 0;
+    for (let i = 0; i < this.completedOrders.data.length; i++) {
+      if (this.completedOrders.data[i].y != null) {
+        totalComplete++;
+        if (this.completedOrders.data[i].y <= this.days) {
+          completeCount++;
+        }
+      }
+      if (this.partialOrders.data[i].y != null) {
+        totalPartial++;
+        if (this.partialOrders.data[i].y <= this.days) {
+          partialCount++;
+        }
+      }
+      if (this.openOrders.data[i].y != null) {
+        totalOpen++;
+        if (this.openOrders.data[i].y <= this.days) {
+          openCount++;
+        }
+      }
     }
-    this.chart.update();
+    let completePercent = ((completeCount / totalComplete) * 100).toFixed(0);
+    let partialPercent = ((partialCount / totalPartial) * 100).toFixed(0);
+    let openPercent = ((openCount / totalOpen) * 100).toFixed(0);
+    this.completedOrders.label = "Completed Orders (" + completePercent + "%)";
+    this.partialOrders.label = "Partially Fulfilled (" + partialPercent + "%)";
+    this.openOrders.label = "Open Orders (" + openPercent + "%)";
   }
-  showAll() {
-    for (let i = 0; i < this.chart.datasets.length; i++) {
-      this.chart.hideDataset(i, false);
-    }
-    this.chart.update();
+  onChange() {
+    // console.log("Days changed to " + this.days);
+    // console.log(this.barChartOptions.annotation.annotations[0].value);
+    this.barChartOptions.annotation.annotations[0].value = this.days;
+    this.barChartOptions.annotation.annotations[1].yMax = this.days;
+    this.barChartOptions.annotation.annotations[2].yMin = this.days;
+    this.updatePercentage();
+    this.showChart = false;
+    setTimeout(() => {
+      this.showChart = true;
+    }, 1);
   }
 }
 
@@ -155,5 +208,4 @@ export interface DataPoint {
 export interface DataSet {
   data: Array<DataPoint>;
   label: string;
-  steppedLine: boolean;
 }
