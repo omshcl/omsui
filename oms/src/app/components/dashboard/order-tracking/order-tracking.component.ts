@@ -51,7 +51,7 @@ export class OrderTrackingComponent implements OnInit {
           },
           scaleLabel: {
             display: true,
-            labelString: "Days"
+            labelString: "Days Until Fulfilled / Days Still Open"
           }
         }
       ]

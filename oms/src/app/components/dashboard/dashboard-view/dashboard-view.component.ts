@@ -24,7 +24,8 @@ export class DashboardViewComponent implements OnInit {
     this._itemSearchService.getItems().subscribe(iresp => {
       this.getItemsResponse = iresp;
 
-      this._OrderSearchService.getCompletedOrders(100).subscribe(oresp => {
+      this._OrderSearchService.getCompletedOrders(-1).subscribe(oresp => {
+        //-1 returns all completed orders
         this.getOrdersResponse = oresp;
         // console.log(this.getOrdersResponse);
         this.responseData = {
