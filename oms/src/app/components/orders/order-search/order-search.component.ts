@@ -58,18 +58,26 @@ export class OrderSearchComponent implements OnInit {
   }
 
   fulfill(orderid) {
-    console.log("fulfill clicked");
-    let today = new Date();
-    let date = ("0" + today.getDate()).slice(-2);
-    let curmonth = today.getMonth() + 1;
-    let month = ("0" + curmonth).slice(-2);
-    let year = today.getFullYear();
-    let current_date = year + "-" + month + "-" + date;
-    console.log(current_date);
-    let obj = { id: orderid, delivery_date: current_date };
-    console.log(obj);
+    // console.log("fulfill clicked");
+    // let today = new Date();
+    // let date = ("0" + today.getDate()).slice(-2);
+    // let curmonth = today.getMonth() + 1;
+    // let month = ("0" + curmonth).slice(-2);
+    // let year = today.getFullYear();
+    // let current_date = year + "-" + month + "-" + date;
+    // console.log(current_date);
+    // let obj = { id: orderid, delivery_date: current_date };
+    // console.log(obj);
+    let obj = { id: orderid };
     this._orderSearchService.full(obj).subscribe(response => {
       this.getOrdersResp = response;
+      console.log(this.getOrdersResp);
+      if (this.getOrdersResp.sucesss == "true") {
+        alert("Order " + orderid + " is ready to allocate.");
+        location.reload();
+      } else {
+        alert("Order " + orderid + " failed to allocate.");
+      }
     });
   }
 
