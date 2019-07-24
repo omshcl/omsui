@@ -3,15 +3,40 @@
     class="col-lg-10 h-100"
     style="position: relative; height:40vh; width:80vw; margin-left: auto; margin-right: auto; background: white; "
   >
-    <h2 style="text-align: left">
-      Item Price History per Order
-      <button class="btn btn-secondary btn-sm m-2" (click)="hideAll()">
-        Hide All
-      </button>
-      <button class="btn btn-secondary btn-sm m-2" (click)="showAll()">
-        Show All
-      </button>
-    </h2>
+    <div class="row">
+      <div class="col-lg-12">
+        <span style="float:left; font-size:32px">
+          Item Price History Since {{ dateForm.value.toLocaleDateString() }}
+          <!-- <button class="btn btn-secondary btn-xs m-1" (click)="hideAll()">
+            Hide All
+          </button>
+          <button class="btn btn-secondary btn-xs m-1" (click)="showAll()">
+            Show All
+          </button> -->
+        </span>
+        <span style="float:right;">
+          <mat-form-field>
+            <input
+              matInput
+              [matDatepicker]="picker1"
+              placeholder="Select Date"
+              [formControl]="dateForm"
+              (ngModelChange)="dateChange()"
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker1"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          <br />
+          <mat-slide-toggle (change)="toggleChange()" checked="showData">
+            {{ toggleString }}
+          </mat-slide-toggle>
+        </span>
+      </div>
+      <div class="col-lg-2"></div>
+    </div>
     <canvas
       *ngIf="lineChartData"
       baseChart

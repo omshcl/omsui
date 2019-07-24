@@ -10,15 +10,32 @@ export class OrderSearchService {
   getOrders() {
     return this.http.get("/api/orders/list");
   }
-  full(obj){
-    return this.http.post("/api/orders/fulfill",obj);
+
+  getCompletedOrders(lim: number) {
+    let searchLimit = {
+      limit: lim
+    };
+    return this.http.post("/api/orders/complete", searchLimit);
   }
 
-  //service for chart.js testing
-  getLineData() {
-    return this.http.get("assets/distribution.json");
-    // return this.http.get(
-    //   "https://my.api.mockaroo.com/distribution.json?key=ac4c9b70"
-    // );
+  full(obj) {
+    return this.http.post("/api/orders/fulfill", obj);
+  }
+
+  getShipNodes() {
+    return this.http.get("/api/shipnodes");
+  }
+
+  getOrderTracking() {
+    let searchLimit = {
+      limit: 50
+    };
+    //return this.http.get("assets/ordertracking.json");
+    return this.http.post("/api/orders/graph", searchLimit);
+  }
+
+  completeReservation(oid: number) {
+    let orderid = { id: oid };
+    return this.http.post("/api/orders/reserve", orderid);
   }
 }

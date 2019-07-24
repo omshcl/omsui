@@ -55,6 +55,23 @@
         <input class="form-control" type="text" formControlName="zip" disabled />
 
       </div>
+      <div *ngIf="!isOrderShip" class="col-lg-2 mb-3">
+        <label>ShipNode</label>
+        <select class="custom-select" formControlName="shipnode" disabled>
+          <option *ngFor="let shipnode of shipNodeList">{{
+            shipnode
+          }}</option>
+        </select>
+      </div>
+      <div class="col-lg-2 mb-3">
+        <label>Ordertype</label>
+        <select #mySelect (change)='onOptionsSelected(mySelect.value)' class="custom-select"
+          formControlName="ordertype" disabled>
+          <option *ngFor="let ordertypeoption of ordertypeList" [value]="ordertypeoption">{{
+            ordertypeoption
+          }}</option>
+        </select>
+      </div>
     </div>
   </form>
   <hr />
@@ -85,7 +102,7 @@
       <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
     </table>
     <br />
-    <div *ngIf="role">
+    <div *ngIf="role && demandType === 'OPEN_ORDER'">
       <button type="button" class="btn btn-danger btn-md" (click)=redirect(orderID) md-raised-button>
         UPDATE
       </button>

@@ -14,6 +14,7 @@ export class AdminGuard implements CanActivate, CanActivateChild, CanLoad {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       this.verifyLoginService.checkCookie();
+      console.log("called verify login");
     return true;
   }
   canActivateChild(

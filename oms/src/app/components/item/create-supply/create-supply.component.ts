@@ -4,7 +4,8 @@ import { FormBuilder, FormArray, Validators, FormGroup } from "@angular/forms";
 import { SupplyCreateService } from "../../../services/supply-create.service";
 import { supply_order } from "../../../models/supply_order";
 import { SupplyserviceService } from "../../../services/supplyservice.service";
-
+import { Router } from "@angular/router";
+import { ItemSearchService } from "src/app/services/item-search.service";
 @Component({
   selector: "app-create-supply",
   templateUrl: "./create-supply.component.html",
@@ -12,32 +13,54 @@ import { SupplyserviceService } from "../../../services/supplyservice.service";
 })
 export class CreateSupplyComponent implements OnInit {
   supplyform: FormGroup;
-  returnableList = ["YES", "NO"];
-  productList = ["new", "Used"];
-  typeList = ["Onhand", "Pipeline"];
-  shipnodeList = [];
-
+  isreturnable = ["yes", "no"];
+  productList = ["new", "used"];
+  typeList = ["onhand", "pipeline", "pickup", "ship"];
+  getShipNodesResponse;
+  public shipNodeList: Array<ShipNode> = [];
   httpClient: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private _SupplycreateService: SupplyCreateService,
-    private _supplyService: SupplyserviceService
+    private _supplyService: SupplyserviceService,
+    private _itemSearchService: ItemSearchService
   ) {
     this.supplyform = this._supplyService.initializesupplyform(formBuilder);
     this._supplyService.initializeFormValues();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._itemSearchService.getShipNodes().subscribe(response => {
+      this.getShipNodesResponse = response;
+      for (let curNode of this.getShipNodesResponse) {
+        this.shipNodeList.push(curNode.locationname);
+      }
+      this.setsupplyformValue("locationname", this.shipNodeList[0]);
+    });
+  }
 
   supplycreateOrder() {
     console.warn("Your order has been created", this.supplyform.value);
     this._SupplycreateService.postOrder(this.supplyform.value);
     this.supplyform.reset();
     this._supplyService.setsupplyformValue(
-      "returnable",
-      this.returnableList[0]
+      "isreturnable",
+      this.isreturnable[0]
     );
+    this._supplyService.setsupplyformValue("type", this.typeList[0]);
+    this._supplyService.setsupplyformValue("productclass", this.productList[0]);
+    this._supplyService.setsupplyformValue(
+      "locationname",
+      this.shipNodeList[0]
+    );
+    this._supplyService.setsupplyformValue(
+      "locationname",
+      this.shipNodeList[0]
+    );
+    let curDate = new Date().toISOString();
+    this.setsupplyformValue("shipbydate", curDate);
+    this.setsupplyformValue("eta", curDate);
   }
 
   processedOrder() {
@@ -51,8 +74,13 @@ export class CreateSupplyComponent implements OnInit {
   }
 
   get returnable() {
-    return this.supplyform.get("returnable");
+    return this.supplyform.get("isreturnable");
   }
+
+  get itemdescription() {
+    return this.supplyform.get("itemdescription");
+  }
+
   get shortdescription() {
     return this.supplyform.get("shortdescription");
   }
@@ -99,4 +127,7 @@ export class CreateSupplyComponent implements OnInit {
   get zip() {
     return this.supplyform.get("zip");
   }
+}
+export interface ShipNode {
+  locationname: string;
 }

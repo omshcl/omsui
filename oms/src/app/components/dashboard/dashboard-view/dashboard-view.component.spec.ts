@@ -7,7 +7,7 @@ import { Component } from "@angular/core";
 import { HttpClientTestingModule } from "@angular/common/http/testing";
 import { RouterModule } from "@angular/router";
 import { ChartsModule } from "ng2-charts";
-
+import { APP_BASE_HREF } from '@angular/common';
 describe("DashboardViewComponent", () => {
   let component: DashboardViewComponent;
   let fixture: ComponentFixture<DashboardViewComponent>;
@@ -20,7 +20,10 @@ describe("DashboardViewComponent", () => {
         OrderPriceGraphComponent,
         CategorySoldGraphComponent
       ],
-      imports: [HttpClientTestingModule, RouterModule.forRoot([]), ChartsModule]
+      imports: [HttpClientTestingModule, RouterModule.forRoot([]), ChartsModule],
+      providers: [
+        { provide: APP_BASE_HREF, useValue : '/' }
+    ]
     }).compileComponents();
   }));
 

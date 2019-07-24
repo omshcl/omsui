@@ -1,0 +1,45 @@
+<div class="container" style="margin-bottom: 80px">
+  <div
+    class="col-lg-10 h-100"
+    style="position: relative; height:40vh; width:80vw; margin-left: auto; margin-right: auto; background: white; "
+  >
+    <div class="row">
+      <div class="col-lg-8">
+        <h2 style="text-align: left">
+          Orders Fulfilled within {{ days }} Days
+          <!-- <button class="btn btn-secondary btn-sm m-2" (click)="hideAll()">
+        Hide All
+      </button>
+      <button class="btn btn-secondary btn-sm m-2" (click)="showAll()">
+        Show All
+      </button> -->
+        </h2>
+      </div>
+      <div class="col-lg-4">
+        Days:
+        <mat-slider
+          style="width: 150px;"
+          min="1"
+          max="10"
+          step="1"
+          value="5"
+          thumbLabel
+          [(ngModel)]="days"
+          (change)="onChange()"
+        ></mat-slider>
+      </div>
+    </div>
+
+    <canvas
+      *ngIf="showChart"
+      baseChart
+      [datasets]="barChartData"
+      [labels]="barChartLabels"
+      [options]="barChartOptions"
+      [plugins]="barChartPlugins"
+      [chartType]="chartType"
+      [legend]="true"
+    ></canvas>
+    <div id="chart-legends"></div>
+  </div>
+</div>

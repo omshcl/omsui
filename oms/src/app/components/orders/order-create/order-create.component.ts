@@ -5,7 +5,7 @@ import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 import { OrderCreateService } from "../../../services/order-create.service";
 import { OrderService } from "../../../services/order.service";
 import { itemOrder } from "../../../models/itemOrder";
-
+import { ItemSearchService } from "src/app/services/item-search.service";
 @Component({
   selector: "app-order-create",
   templateUrl: "./order-create.component.html",
@@ -16,15 +16,15 @@ export class OrderCreateComponent implements OnInit {
   priceList = [];
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
+  ordertypeList = ["Pickup", "Ship", "Reservation"];
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
   orderForm: FormGroup;
-  quantityForm: FormGroup;
-  priceForm: FormGroup;
   itemLength: Int16Array;
   data = {};
   itemId = {};
   dataList;
+  isOrderShip: Boolean = false;
   items: itemOrder[] = [];
   displayedColumns: string[] = [
     "item",
@@ -35,12 +35,15 @@ export class OrderCreateComponent implements OnInit {
   ];
   subject = new BehaviorSubject(this.items);
   dataSource = new CaseListDatasource(this.subject.asObservable());
+  getShipNodesResponse;
+  public shipNodeList: Array<ShipNode> = [];
   httpClient: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private itemFormBuilder: FormBuilder,
     private _orderCreateService: OrderCreateService,
+    private _itemSearchService: ItemSearchService,
     private _orderService: OrderService
   ) {
     this.itemForm = this._orderService.initializeItemForm(formBuilder);
@@ -49,6 +52,13 @@ export class OrderCreateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this._itemSearchService.getShipNodes().subscribe(response => {
+      this.getShipNodesResponse = response;
+      for (let curNode of this.getShipNodesResponse) {
+        this.shipNodeList.push(curNode.locationname);
+      }
+      this._orderService.setOrderFormValue("shipnode", this.shipNodeList[0]);
+    });
     this.getItemsFromService();
   }
 
@@ -72,7 +82,6 @@ export class OrderCreateComponent implements OnInit {
       this.itemList,
       this.priceList
     );
-
     // Update price of item and subtotal based on discount
     itemInfo.curPrice = this._orderService.applyDiscount(itemInfo.curPrice);
     itemInfo.curSubTotal = itemInfo.curPrice * itemInfo.curQuant;
@@ -116,9 +125,18 @@ export class OrderCreateComponent implements OnInit {
     this.items = [];
     this.subject.next(this.items);
 
+    this._orderService.setOrderFormValue("shipnode", this.shipNodeList[0]);
     this._orderService.initializeFormValues();
 
     this.processedOrder();
+  }
+  onOptionsSelected(value) {
+    if (value === "Ship") {
+      this._orderService.setOrderFormValue("shipnode", "");
+      this.isOrderShip = true;
+    } else {
+      this.isOrderShip = false;
+    }
   }
 
   processedOrder() {
@@ -149,4 +167,13 @@ export class OrderCreateComponent implements OnInit {
   get zip() {
     return this.orderForm.get("zip");
   }
+  get shipnode() {
+    return this.orderForm.get("shipnode");
+  }
+  get ordertype() {
+    return this.orderForm.get("ordertype");
+  }
+}
+export interface ShipNode {
+  locationname: string;
 }

@@ -16,6 +16,8 @@
       mat-table
       #table
       matSort
+      matSortActive="id"
+      matSortDirection="desc"
       [dataSource]="dataSource"
       class="mat-elevation-z8"
     >
@@ -73,6 +75,13 @@
           >
             Fulfill
           </button>
+          <button
+            *ngIf="element.demand == 'RESERVED_ORDER'"
+            class="btn btn-primary btn-sm"
+            (click) = "completeReservation(element.id)"
+          >
+            Complete
+        </button>
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>

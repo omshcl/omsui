@@ -7,15 +7,14 @@ import { FormBuilder, Validators, FormGroup, FormArray } from "@angular/forms";
 export class OrderService {
   channelList = ["Online", "Phone", "Fax"];
   paymentList = ["Credit", "Cash", "PO"];
+  ordertypeList = ["Pickup", "Ship", "Reservation"];
   discountList = [0, 5, 10, 15, 20];
   itemForm: FormGroup;
-  quantityForm: FormGroup;
-  priceForm: FormGroup;
   orderForm: FormGroup;
 
   qtyArray = [];
   priceArray = [];
-
+  public shipNodeList: Array<ShipNode> = [];
   constructor(private formBuilder: FormBuilder) {}
 
   initializeItemForm(itemFormBuilder: FormBuilder) {
@@ -41,7 +40,9 @@ export class OrderService {
       state: ["", Validators.required],
       zip: ["", Validators.required],
       payment: ["", Validators.required],
-      total: ""
+      total: "",
+      shipnode: "",
+      ordertype: ""
     }));
   }
 
@@ -51,6 +52,7 @@ export class OrderService {
     this.setItemFormValue("discount", this.discountList[0]);
     this.setOrderFormValue("channel", this.channelList[0]);
     this.setOrderFormValue("payment", this.paymentList[0]);
+    this.setOrderFormValue("ordertype", this.ordertypeList[0]);
     this.setOrderFormValue("total", 0);
     let curDate = new Date().toISOString();
     this.setOrderFormValue("date", curDate);
@@ -76,6 +78,9 @@ export class OrderService {
   }
 
   fillOrderFormValues(orderDetail) {
+    let dateString = orderDetail.date.replace(/-/g, "/");
+    let orderDate = new Date(dateString);
+    this.setOrderFormValue("date", orderDate);
     this.setOrderFormValue("firstname", orderDetail.firstname);
     this.setOrderFormValue("lastname", orderDetail.lastname);
     this.setOrderFormValue("lastname", orderDetail.lastname);
@@ -85,9 +90,10 @@ export class OrderService {
     this.setOrderFormValue("city", orderDetail.city);
     this.setOrderFormValue("address", orderDetail.address);
     this.setOrderFormValue("zip", orderDetail.zip);
-    this.setOrderFormValue("date", orderDetail.date);
     this.setOrderFormValue("channel", orderDetail.channel);
     this.setOrderFormValue("payment", orderDetail.payment);
+    this.setOrderFormValue("shipnode", orderDetail.shipnode);
+    this.setOrderFormValue("ordertype", orderDetail.ordertype);
   }
 
   getCurrentItemInfo(itemList, priceList) {
@@ -130,6 +136,8 @@ export class OrderService {
 
       itemArray.push(group);
     }
+    this.setOrderFormValue("quantity", this.qtyArray);
+    this.setOrderFormValue("price", this.priceArray);
     // Refresh the table
     this.updateTotal(items);
 
@@ -139,6 +147,8 @@ export class OrderService {
   addItemInfoToJSON(itemInfo, itemId) {
     const itemArray = this.orderForm.controls.items as FormArray;
     // Create Item Form to push current Item info to FormArray
+
+    // Check if Order Type is Ship
     const item = {
       itemid: itemId[itemInfo.curItem],
       quantity: itemInfo.curQuant,
@@ -228,4 +238,8 @@ export class OrderService {
   getUrl() {
     return "url('https://1lz3sq2g71xv1ij3mj13d04u-wpengine.netdna-ssl.com/wp-content/uploads/2016/04/Ordoro-Order-Management-Tool.jpg')";
   }
+}
+
+export interface ShipNode {
+  locationname: string;
 }
