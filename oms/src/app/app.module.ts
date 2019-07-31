@@ -57,6 +57,7 @@ import { OrderPriceGraphComponent } from "./components/dashboard/order-price-gra
 import { CategorySoldGraphComponent } from "./components/dashboard/category-sold-graph/category-sold-graph.component";
 import { OrderTrackingComponent } from "./components/dashboard/order-tracking/order-tracking.component";
 import "hammerjs";
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import "hammerjs";
     DashboardViewComponent,
     OrderPriceGraphComponent,
     CategorySoldGraphComponent,
-    OrderTrackingComponent
+    OrderTrackingComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -160,6 +162,11 @@ import "hammerjs";
       {
         path: "item/view",
         component: ItemViewComponent,
+        canActivate: [AdminGuard]
+      },
+      {
+        path: "admin",
+        component: AdminComponent,
         canActivate: [AdminGuard]
       },
       { path: "geo", component: GeoComponent, canActivate: [AdminGuard] },

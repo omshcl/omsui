@@ -38,4 +38,16 @@ export class OrderSearchService {
     let orderid = { id: oid };
     return this.http.post("/api/orders/reserve", orderid);
   }
+
+  scheduleOrders(){
+    return this.http.get("/api/orders/schedule");
+  }
+  completeOrders(){
+    return this.http.get("/api/orders/complete/remove");
+  }
+  finishPickup(oid: number) {
+    let orderid = { id: oid };
+    return this.http.post("/api/orders/customer_received", orderid);
+  }
+  
 }

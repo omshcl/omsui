@@ -11,7 +11,7 @@ export class GeoComponent implements OnInit {
 
   lng;
   lat;
-
+  
   ngOnInit() {
     if(navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -20,17 +20,5 @@ export class GeoComponent implements OnInit {
         this.lat = position.coords.latitude;
       });
     }
-
-    function displayLocationInfo(position) {
-      const lng = position.coords.longitude;
-      const lat = position.coords.latitude;
-      console.log(`longitude: ${ lng } | latitude: ${ lat }`);
-      return 0;
-    }
-    
-    
   }
-
- 
-
 }

@@ -94,6 +94,20 @@ export class OrderSearchComponent implements OnInit {
         }
       });
   }
+
+  finishPickup(orderid) {
+    this._orderSearchService
+      .finishPickup(orderid)
+      .subscribe(response => {
+        this.getOrdersResp = response;
+        console.log(this.getOrdersResp);
+        if (this.getOrdersResp.sucesss == "true") {
+          //sucess [sic]
+          alert("Reservation " + orderid + " Complete");
+          location.reload();
+        }
+      });
+  }
 }
 
 export interface Element {

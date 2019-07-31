@@ -82,6 +82,13 @@
           >
             Complete
         </button>
+        <button
+           *ngIf="element.demand == 'CUSTOMER_READY'"
+            class="btn btn-primary btn-sm"
+            (click) = "finishPickup(element.id)"
+      >
+        Finish Pickup     
+    </button>
         </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
